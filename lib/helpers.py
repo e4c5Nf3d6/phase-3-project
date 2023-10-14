@@ -20,10 +20,13 @@ def find_artist_by_name():
     artist = Artist.find_by_name(name)
     cprint(artist, "green") if artist else cprint(f'Artist {name} not found', "red")
 
-def find_artist_by_id():
+def find_artist_by_id(result="print"):
     id_ = input("Enter the artist's id: ")
     artist = Artist.find_by_id(id_)
-    cprint(artist, "green") if artist else cprint(f'Artist {id_} not found', "red")
+    if result == "print":
+        cprint(artist, "green") if artist else cprint(f'Artist {id_} not found', "red")
+    elif result == "return":
+        return artist
 
 def create_artist():
     name = input("Enter the artist's name: ")
@@ -82,10 +85,13 @@ def find_painting_by_name():
     painting = Painting.find_by_name(name)
     cprint(painting, "green") if painting else cprint(f'Painting {name} not found', "red")
 
-def find_painting_by_id():
+def find_painting_by_id(result="print"):
     id_ = input("Enter the painting's id: ")
     painting = Painting.find_by_id(id_)
-    cprint(painting, "green") if painting else cprint(f'Painting {id_} not found', "red")
+    if result == "print":
+        cprint(painting, "green") if painting else cprint(f'Painting {id_} not found', "red")
+    elif result == "return":
+        return painting
 
 def create_painting():
     name = input("Enter the painting's name: ")
@@ -140,10 +146,13 @@ def list_movements():
     for movement in movements:
         cprint(movement, "green")
 
-def find_movement_by_name():
+def find_movement_by_name(result="print"):
     name = input("Enter the movement's name: ")
     movement = Movement.find_by_name(name)
-    cprint(movement, "green") if movement else cprint(f'Movement {name} not found', "red")
+    if result == "print":
+        cprint(movement, "green") if movement else cprint(f'Movement {name} not found', "red")
+    elif result == "return":
+        return movement
 
 def find_movement_by_id():
     id_ = input("Enter the movement's id: ")

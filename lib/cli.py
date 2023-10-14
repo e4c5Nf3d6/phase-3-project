@@ -74,8 +74,11 @@ def artists():
         elif choice == "6":
             delete_artist()
         elif choice == "7":
-            name = input("Enter artist's name: ")
-            explore_artist(name)
+            artist = find_artist_by_id("return")
+            if artist:
+                explore_artist(artist) 
+            else:
+                cprint("Artist not found", "red")   
         else:
             print("Invalid choice")
 
@@ -119,8 +122,11 @@ def paintings():
         elif choice == "7":
             list_paintings_by_medium()
         elif choice == "8":
-            name = input("Enter painting's name: ")
-            explore_painting(name)
+            painting = find_painting_by_id("return")
+            if painting:
+                explore_painting(painting) 
+            else:
+                cprint("Painting not found", "red")     
         else:
             print("Invalid choice")
 
@@ -162,15 +168,18 @@ def movements():
         elif choice == "8":
             list_paintings_by_movement()
         elif choice == "9":
-            name = input("Enter movement's name: ")
-            explore_movement(name)            
+            movement = find_movement_by_name("return")
+            if movement:
+                explore_movement(movement) 
+            else:
+                cprint("Movement not found", "red")           
         else:
             print("Invalid choice")
 
-def explore_movement(name):
+def explore_movement(movement):
     m = "explore movement"
     while m == "explore movement":
-        movement_options_menu(name)
+        movement_options_menu(movement)
         choice = input("> ")
         if choice == "0":
             m = "movements"

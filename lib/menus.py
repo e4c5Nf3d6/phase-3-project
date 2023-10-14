@@ -43,7 +43,7 @@ def paintings_menu():
     print("8. Explore a painting")
 
 def painting_options_menu(painting):
-    cprint(f"Exploring: {painting}")
+    cprint(f"Exploring: {painting}", "cyan")
     print("Please select an option:")
     print("0. Go back to paintings menu")
     print("1. Display this painting's artist")
@@ -64,7 +64,7 @@ def movements_menu():
     print("9. Explore a movement")
 
 def movement_options_menu(movement):
-    cprint(f"Exploring: {movement}")
+    cprint(f"Exploring: {movement}", "cyan")
     print("Please select an option:")
     print("0. Go back to movements menu")
     print("1. Display artists in this movement")
