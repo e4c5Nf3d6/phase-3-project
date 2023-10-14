@@ -44,7 +44,7 @@ def update_artist():
             name = input("Enter the artist's new name: ")
             artist.name = name
             movement_id = input("Enter the artist's new movement_id: ")
-            artist.movement_id = int(movement_id)
+            artist.movement_id = movement_id
 
             artist.update()
             cprint(f"Update successful: {artist}", "green")
@@ -115,7 +115,7 @@ def update_painting():
             medium = input("Enter the painting's new medium: ")
             painting.medium = medium
             artist_id = input("Enter the painting's new artist_id: ")
-            painting.artist_id = int(artist_id)
+            painting.artist_id = artist_id
 
             painting.update()
             cprint(f"Update successful: {painting}", "green")

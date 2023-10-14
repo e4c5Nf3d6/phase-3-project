@@ -34,9 +34,12 @@ class Artist():
 
     @movement_id.setter
     def movement_id(self, movement_id):
-        if isinstance(int(movement_id), int) and Movement.find_by_id(int(movement_id)):
-            self._movement_id = int(movement_id)
-        else:
+        try:
+            if isinstance(int(movement_id), int) and Movement.find_by_id(int(movement_id)):
+                self._movement_id = int(movement_id)
+            else:
+                raise ValueError
+        except ValueError:
             raise ValueError("movement_id must reference a movement in the database")
         
     @classmethod
