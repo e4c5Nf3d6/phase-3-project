@@ -19,7 +19,10 @@ class Movement():
     @name.setter    
     def name(self, name):
         if isinstance(name, str) and len(name) > 0:
-            self._name = name
+            if name in [movement.name for movement in Movement.all.values() if movement.id != self.id]:
+                raise ValueError("This movement already exists")
+            else:
+                self._name = name
         else:
             raise ValueError('name must be a non-empty string')
     
@@ -43,12 +46,9 @@ class Movement():
 
     @classmethod
     def create(cls, name):
-        if Movement.find_by_name(name):
-            raise ValueError(f"This movement already exists: {Movement.find_by_name(name)}")
-        else:
-            movement = cls(name)
-            movement.save()
-            return movement
+        movement = cls(name)
+        movement.save()
+        return movement
 
     def save(self):
         sql = """
@@ -60,7 +60,7 @@ class Movement():
         CONN.commit()
 
         self.id = CURSOR.lastrowid
-        type(self).all[self.id] = self
+        Movement.all[self.id] = self
 
     def update(self):
         sql = """
