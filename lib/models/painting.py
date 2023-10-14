@@ -94,8 +94,8 @@ class Painting():
 
     def save(self):
         sql = """
-                INSERT INTO paintings (name, year, medium, artist_id)
-                VALUES (?, ?, ?, ?)
+            INSERT INTO paintings (name, year, medium, artist_id)
+            VALUES (?, ?, ?, ?)
         """
 
         CURSOR.execute(sql, (self.name, self.year, self.medium, self.artist_id))

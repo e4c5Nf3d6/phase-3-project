@@ -64,8 +64,8 @@ class Artist():
 
     def save(self):
         sql = """
-                INSERT INTO artists (name, movement_id)
-                VALUES (?, ?)
+            INSERT INTO artists (name, movement_id)
+            VALUES (?, ?)
         """
 
         CURSOR.execute(sql, (self.name, self.movement_id))

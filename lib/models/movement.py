@@ -47,8 +47,8 @@ class Movement():
 
     def save(self):
         sql = """
-                INSERT INTO movements (name)
-                VALUES (?)
+            INSERT INTO movements (name)
+            VALUES (?)
         """
 
         CURSOR.execute(sql, (self.name))
