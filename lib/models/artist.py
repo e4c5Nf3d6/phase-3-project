@@ -12,8 +12,11 @@ class Artist():
         self.movement_id = movement_id
 
     def __repr__(self):
-        return f"<Artist {self.id}: {self.name}, {self.movement}>"
-    
+        return (
+            f"<Artist {self.id}: {self.name}, " + 
+            f"Movement ID: {self.movement_id}>"
+        )
+        
     @property
     def name(self):
         return self._name
