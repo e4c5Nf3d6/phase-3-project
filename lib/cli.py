@@ -28,7 +28,9 @@ from helpers import (
     list_paintings_by_medium,
     display_artist_movement,
     list_artists_in_same_movement,
-    list_artist_mediums
+    list_artist_mediums,
+    display_artist,
+    list_paintings_by_same_artist
 )
 
 from menus import (
@@ -133,17 +135,17 @@ def paintings():
         else:
             print("Invalid choice")
 
-def explore_painting(name):
+def explore_painting(painting):
     m = "explore painting"
     while m == "explore painting":
-        painting_options_menu(name)
+        painting_options_menu(painting)
         choice = input("> ")
         if choice == "0":
             m = "paintings"
         elif choice == "1":
-            pass
+            display_artist(painting)
         elif choice == "2":
-            pass
+            list_paintings_by_same_artist(painting)
         else:
             print("Invalid choice")
 

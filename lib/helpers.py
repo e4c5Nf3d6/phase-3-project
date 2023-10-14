@@ -242,6 +242,20 @@ def list_artists_by_movement(movement):
     else:
         cprint(f'No {movement.name} artists found', "red")
 
+def display_artist(painting):
+    artist = Artist.find_by_id(painting.id)
+    cprint(artist, "green")
+
+def list_paintings_by_same_artist(painting):
+    artist = Artist.find_by_id(painting.id)
+    paintings = [p for p in Painting.get_all() if p.artist_id == painting.artist_id]
+    other_paintings = [p for p in paintings if p.id != painting.id]
+    if other_paintings:
+        for painting in other_paintings:
+            cprint(painting, "green")
+    else:
+        cprint(f"No other paintings by {artist.name} found", "red")
+
 def list_paintings_by_movement(movement):
     artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
     if artists:
