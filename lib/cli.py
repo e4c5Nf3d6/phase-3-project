@@ -3,8 +3,14 @@
 from helpers import (
     exit_program,
     list_artists,
+    find_artist_by_name,
+    find_artist_by_id,
     list_paintings,
-    list_movements
+    find_painting_by_name,
+    find_painting_by_id,
+    list_movements,
+    find_movement_by_name,
+    find_movement_by_id
 )
 
 def main():
@@ -33,7 +39,9 @@ def artists():
         elif choice == "1":
             list_artists()
         elif choice == "2":
-            pass
+            find_artist_by_name()
+        elif choice == '3':
+            find_artist_by_id()
         else:
             print("Invalid choice")
 
@@ -47,7 +55,9 @@ def paintings():
         elif choice == "1":
             list_paintings()
         elif choice == "2":
-            pass
+            find_painting_by_name()
+        elif choice == "3":
+            find_painting_by_id()
         else:
             print("Invalid choice")
 
@@ -61,7 +71,9 @@ def movements():
         elif choice == "1":
             list_movements()
         elif choice == "2":
-            pass
+            find_movement_by_name()
+        elif choice == "3":
+            find_movement_by_id()
         else:
             print("Invalid choice")
 
