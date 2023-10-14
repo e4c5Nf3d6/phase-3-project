@@ -1,7 +1,7 @@
 # lib/models/painting.py
 import re
 from models.__init__ import CURSOR, CONN
-from artist import Artist
+from models.artist import Artist
 
 class Painting():
 

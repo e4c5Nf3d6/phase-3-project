@@ -26,7 +26,7 @@ class Movement():
         sql = """
             CREATE TABLE IF NOT EXISTS movements (
             id INTEGER PRIMARY KEY,
-            name TEXT,
+            name TEXT)
         """
         CURSOR.execute(sql)
         CONN.commit()
