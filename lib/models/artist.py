@@ -2,13 +2,13 @@
 from models.__init__ import CURSOR, CONN
 
 class Artist():
-    def __init__(self, name, period, id=None):
+    def __init__(self, name, movement, id=None):
         self.id = id
         self.name = name
-        self.period = period
+        self.movement = movement
 
     def __repr__(self):
-        return f"<Artist {self.id}: {self.name}, {self.period}>"
+        return f"<Artist {self.id}: {self.name}, {self.movement}>"
     
     @property
     def name(self):
