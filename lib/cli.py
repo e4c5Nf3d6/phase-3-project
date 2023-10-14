@@ -7,16 +7,19 @@ from helpers import (
     find_artist_by_id,
     create_artist,
     update_artist, 
+    delete_artist,
     list_paintings,
     find_painting_by_name,
     find_painting_by_id,
     create_painting,
     update_painting,
+    delete_painting,
     list_movements,
     find_movement_by_name,
     find_movement_by_id,
     create_movement,
-    update_movement
+    update_movement,
+    delete_movement
 )
 
 def main():
@@ -52,6 +55,8 @@ def artists():
             create_artist()
         elif choice == "5":
             update_artist()
+        elif choice == "6":
+            delete_artist()
         else:
             print("Invalid choice")
 
@@ -72,6 +77,8 @@ def paintings():
             create_painting()
         elif choice == "5":
             update_painting()
+        elif choice == "6":
+            delete_painting()
         else:
             print("Invalid choice")
 
@@ -92,6 +99,8 @@ def movements():
             create_movement()
         elif choice == "5":
             update_movement()
+        elif choice == "6":
+            delete_movement()
         else:
             print("Invalid choice")
 

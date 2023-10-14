@@ -48,6 +48,14 @@ def update_artist():
     else:
         print(f'Artist {id_} not found')
 
+def delete_artist():
+    id_ = input("Enter the artist's id: ")
+    if artist := Artist.find_by_id(id_):
+        artist.delete()
+        print(f'Artist {id_} deleted')
+    else:
+        print(f'Artist {id_} not found')
+
 def list_paintings():
     paintings = Painting.get_all()
     for painting in paintings:
@@ -94,6 +102,14 @@ def update_painting():
     else:
         print(f'Painting {id_} not found')
 
+def delete_painting():
+    id_ = input("Enter the painting's id: ")
+    if painting := Painting.find_by_id(id_):
+        painting.delete()
+        print(f'Painting {id_} deleted')
+    else:
+        print(f'Painting {id_} not found')
+
 def list_movements():
     movements = Movement.get_all()
     for movement in movements:
@@ -128,5 +144,13 @@ def update_movement():
             print(f"Success: {movement}")
         except Exception as exc:
             print("Error creating movement: ", exc)
+    else:
+        print(f'Movement {id_} not found')
+
+def delete_movement():
+    id_ = input("Enter the movement's id: ")
+    if movement := Movement.find_by_id(id_):
+        movement.delete()
+        print(f'Movement {id_} deleted')
     else:
         print(f'Movement {id_} not found')
