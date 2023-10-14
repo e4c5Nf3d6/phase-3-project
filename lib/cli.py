@@ -25,7 +25,8 @@ from helpers import (
     delete_movement,
     list_artists_by_movement,
     list_paintings_by_artist,
-    list_paintings_by_movement
+    list_paintings_by_movement,
+    list_paintings_by_medium
 )
 
 def main():
@@ -87,6 +88,8 @@ def paintings():
             update_painting()
         elif choice == "6":
             delete_painting()
+        elif choice == "7":
+            list_paintings_by_medium()
         else:
             print("Invalid choice")
 
@@ -146,6 +149,7 @@ def paintings_menu():
     print("4: Create painting")
     print("5: Update painting")
     print("6: Delete painting")
+    print("7. List paintings by medium")
 
 def movements_menu():
     cprint("Movements Menu", "cyan")

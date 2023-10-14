@@ -227,3 +227,15 @@ def list_paintings_by_movement():
                 cprint(painting, "green")
     else:
         cprint(f'Movement {movement_id} not found', "red")
+
+def list_paintings_by_medium():
+    medium = input("Enter medium: ")
+    if medium in Painting.mediums:
+        paintings = [painting for painting in Painting.get_all() if painting.medium == medium]
+        if paintings:
+            for painting in paintings:
+                cprint(painting, "green")
+        else:
+            cprint(f"No {medium} paintings found", "green")
+    else:
+        cprint(f"{medium} is not a valid medium. Valid mediums: acrylic, encaustic, fresco, oil, tempera, watercolor")
