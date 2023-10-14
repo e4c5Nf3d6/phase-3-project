@@ -5,12 +5,15 @@ from helpers import (
     list_artists,
     find_artist_by_name,
     find_artist_by_id,
+    create_artist,
     list_paintings,
     find_painting_by_name,
     find_painting_by_id,
+    create_painting,
     list_movements,
     find_movement_by_name,
-    find_movement_by_id
+    find_movement_by_id,
+    create_movement
 )
 
 def main():
@@ -40,8 +43,10 @@ def artists():
             list_artists()
         elif choice == "2":
             find_artist_by_name()
-        elif choice == '3':
+        elif choice == "3":
             find_artist_by_id()
+        elif choice == "4":
+            create_artist()
         else:
             print("Invalid choice")
 
@@ -58,6 +63,8 @@ def paintings():
             find_painting_by_name()
         elif choice == "3":
             find_painting_by_id()
+        elif choice == "4":
+            create_painting()
         else:
             print("Invalid choice")
 
@@ -74,6 +81,8 @@ def movements():
             find_movement_by_name()
         elif choice == "3":
             find_movement_by_id()
+        elif choice == "4":
+            create_movement()
         else:
             print("Invalid choice")
 

@@ -18,8 +18,10 @@ class Movement():
     
     @name.setter    
     def name(self, name):
-        if isinstance(name, str):
+        if isinstance(name, str) and len(name) > 0:
             self._name = name
+        else:
+            raise ValueError('name must be a non-empty string')
     
     @classmethod
     def create_table(cls):
@@ -41,9 +43,12 @@ class Movement():
 
     @classmethod
     def create(cls, name):
-        movement = cls(name)
-        movement.save()
-        return movement
+        if Movement.find_by_name(name):
+            raise ValueError(f"This movement already exists: {Movement.find_by_name(name)}")
+        else:
+            movement = cls(name)
+            movement.save()
+            return movement
 
     def save(self):
         sql = """
