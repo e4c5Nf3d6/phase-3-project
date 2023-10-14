@@ -1,6 +1,5 @@
 # lib/cli.py
 
-import fire
 from termcolor import cprint
 
 from helpers import (
@@ -27,6 +26,16 @@ from helpers import (
     list_paintings_by_artist,
     list_paintings_by_movement,
     list_paintings_by_medium
+)
+
+from menus import (
+    main_menu,
+    artists_menu,
+    paintings_menu,
+    movements_menu,
+    artist_options_menu,
+    painting_options_menu,
+    movement_options_menu
 )
 
 def main():
@@ -65,7 +74,26 @@ def artists():
         elif choice == "6":
             delete_artist()
         elif choice == "7":
-            list_paintings_by_artist()
+            name = input("Enter artist's name: ")
+            explore_artist(name)
+        else:
+            print("Invalid choice")
+
+def explore_artist(name):
+    m = "explore artist"
+    while m == "explore artist":
+        artist_options_menu(name)
+        choice = input("> ")
+        if choice == "0":
+            m = "artists"
+        elif choice == "1":
+            pass
+        elif choice == "2":
+            pass
+        elif choice == "3":
+            pass
+        elif choice == "4":
+            pass
         else:
             print("Invalid choice")
 
@@ -90,6 +118,23 @@ def paintings():
             delete_painting()
         elif choice == "7":
             list_paintings_by_medium()
+        elif choice == "8":
+            name = input("Enter painting's name: ")
+            explore_painting(name)
+        else:
+            print("Invalid choice")
+
+def explore_painting(name):
+    m = "explore painting"
+    while m == "explore painting":
+        painting_options_menu(name)
+        choice = input("> ")
+        if choice == "0":
+            m = "paintings"
+        elif choice == "1":
+            pass
+        elif choice == "2":
+            pass
         else:
             print("Invalid choice")
 
@@ -116,53 +161,25 @@ def movements():
             list_artists_by_movement()
         elif choice == "8":
             list_paintings_by_movement()
+        elif choice == "9":
+            name = input("Enter movement's name: ")
+            explore_movement(name)            
         else:
             print("Invalid choice")
 
-def main_menu():
-    cprint("Main Menu", "cyan")
-    print("Please select an option:")
-    print("0. Exit the program")
-    print("1. Artists")
-    print("2. Paintings")
-    print("3. Movements")
-
-def artists_menu():
-    cprint("Artist Menu", "cyan")
-    print("Please select an option:")
-    print("0. Go back to main menu")
-    print("1. List all artists")
-    print("2. Find artist by name")
-    print("3. Find artist by id")
-    print("4: Create artist")
-    print("5: Update artist")
-    print("6: Delete artist")
-    print("7: List paintings by artist")
-
-def paintings_menu():
-    cprint("Paintings Menu", "cyan")
-    print("Please select an option:")
-    print("0. Go back to main menu")
-    print("1. List all paintings")
-    print("2. Find painting by name")
-    print("3. Find painting by id")
-    print("4: Create painting")
-    print("5: Update painting")
-    print("6: Delete painting")
-    print("7. List paintings by medium")
-
-def movements_menu():
-    cprint("Movements Menu", "cyan")
-    print("Please select an option:")
-    print("0. Go back to main menu")
-    print("1. List all movements")
-    print("2. Find movement by name")
-    print("3. Find movement by id")
-    print("4: Create movement")
-    print("5: Update movement")
-    print("6: Delete movement")
-    print("7. List artists by movement")
-    print("8. List paintings by movement")
+def explore_movement(name):
+    m = "explore movement"
+    while m == "explore movement":
+        movement_options_menu(name)
+        choice = input("> ")
+        if choice == "0":
+            m = "movements"
+        elif choice == "1":
+            pass
+        elif choice == "2":
+            pass
+        else:
+            print("Invalid choice")
 
 if __name__ == "__main__":
     main()
