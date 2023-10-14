@@ -1,6 +1,7 @@
 # lib/cli.py
 
 import fire
+from termcolor import cprint
 
 from helpers import (
     exit_program,
@@ -116,7 +117,7 @@ def movements():
             print("Invalid choice")
 
 def main_menu():
-    print("Main Menu")
+    cprint("Main Menu", "cyan")
     print("Please select an option:")
     print("0. Exit the program")
     print("1. Artists")
@@ -124,7 +125,7 @@ def main_menu():
     print("3. Movements")
 
 def artists_menu():
-    print("Artist Menu")
+    cprint("Artist Menu", "cyan")
     print("Please select an option:")
     print("0. Go back to main menu")
     print("1. List all artists")
@@ -136,7 +137,7 @@ def artists_menu():
     print("7: List artists by movement")
 
 def paintings_menu():
-    print("Paintings Menu")
+    cprint("Paintings Menu", "cyan")
     print("Please select an option:")
     print("0. Go back to main menu")
     print("1. List all paintings")
@@ -149,7 +150,7 @@ def paintings_menu():
     print("8: List paintings by movement")
 
 def movements_menu():
-    print("Movements Menu")
+    cprint("Movements Menu", "cyan")
     print("Please select an option:")
     print("0. Go back to main menu")
     print("1. List all movements")
