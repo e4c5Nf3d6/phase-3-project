@@ -2,10 +2,10 @@
 from models.__init__ import CURSOR, CONN
 
 class Artist():
-    def __init__(self, name, movement, id=None):
+    def __init__(self, name, movement_id, id=None):
         self.id = id
         self.name = name
-        self.movement = movement
+        self.movement = movement_id
 
     def __repr__(self):
         return f"<Artist {self.id}: {self.name}, {self.movement}>"

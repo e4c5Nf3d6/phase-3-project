@@ -3,6 +3,9 @@ import re
 from models.__init__ import CURSOR, CONN
 
 class Painting():
+
+    mediums = ['acrylic', 'encaustic', 'fresco', 'oil', 'tempera', 'watercolor']
+
     def __init__(self, name, year, medium, artist_id, id=None):
         self.id = id
         self.name = name
@@ -45,4 +48,5 @@ class Painting():
     
     @medium.setter
     def medium(self, medium):
-        
+        if medium in Painting.mediums:
+            self._medium = medium
