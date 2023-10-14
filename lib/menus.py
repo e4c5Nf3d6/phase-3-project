@@ -59,9 +59,7 @@ def movements_menu():
     print("4. Create movement")
     print("5. Update movement")
     print("6. Delete movement")
-    print("7. List artists by movement")
-    print("8. List paintings by movement")
-    print("9. Explore a movement")
+    print("7. Explore a movement")
 
 def movement_options_menu(movement):
     cprint(f"Exploring: {movement}", "cyan")

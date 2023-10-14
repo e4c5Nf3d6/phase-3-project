@@ -164,10 +164,6 @@ def movements():
         elif choice == "6":
             delete_movement()
         elif choice == "7":
-            list_artists_by_movement()
-        elif choice == "8":
-            list_paintings_by_movement()
-        elif choice == "9":
             movement = find_movement_by_name("return")
             if movement:
                 explore_movement(movement) 
@@ -184,9 +180,9 @@ def explore_movement(movement):
         if choice == "0":
             m = "movements"
         elif choice == "1":
-            pass
+            list_artists_by_movement(movement)
         elif choice == "2":
-            pass
+            list_paintings_by_movement(movement)
         else:
             print("Invalid choice")
 

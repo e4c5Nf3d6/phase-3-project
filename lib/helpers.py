@@ -208,14 +208,13 @@ def delete_movement():
     else:
         cprint(f'Movement {id_} not found', "red")
 
-def list_artists_by_movement():
-    movement_id = input("Enter the movement's id: ")
-    if Movement.find_by_id(movement_id):
-        artists = [artist for artist in Artist.get_all() if artist.movement_id == int(movement_id)]
+def list_artists_by_movement(movement):
+    artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
+    if artists:
         for artist in artists:
             cprint(artist, "green")
     else:
-        cprint(f'Movement {movement_id} not found', "red")
+        cprint(f'No {movement.name} artists found', "red")
 
 def list_paintings_by_artist():
     artist_id = input("Enter the artist's id: ")
@@ -226,16 +225,18 @@ def list_paintings_by_artist():
     else:
         cprint(f'Artist {artist_id} not found', "red")
 
-def list_paintings_by_movement():
-    movement_id = input("Enter the movement's id: ")
-    if Movement.find_by_id(movement_id):
-        artists = [artist for artist in Artist.get_all() if artist.movement_id == int(movement_id)]
+def list_paintings_by_movement(movement):
+    artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
+    if artists:
         for artist in artists:
             paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
-            for painting in paintings:
-                cprint(painting, "green")
+            if paintings:
+                for painting in paintings:
+                    cprint(painting, "green")
+            else:
+                cprint(f"No {movement.name} paintings found", "red")
     else:
-        cprint(f'Movement {movement_id} not found', "red")
+        cprint(f"No {movement.name} paintings found", "red")
 
 def list_paintings_by_medium():
     medium = input("Enter medium: ")
