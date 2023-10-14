@@ -154,3 +154,32 @@ def delete_movement():
         print(f'Movement {id_} deleted')
     else:
         print(f'Movement {id_} not found')
+
+def list_artists_by_movement():
+    movement_id = input("Enter the movement's id: ")
+    if Movement.find_by_id(movement_id):
+        artists = [artist for artist in Artist.get_all() if artist.movement_id == int(movement_id)]
+        for artist in artists:
+            print(artist)
+    else:
+        print(f'Movement {movement_id} not found')
+
+def list_paintings_by_artist():
+    artist_id = input("Enter the artist's id: ")
+    if Artist.find_by_id(artist_id):
+        paintings = [painting for painting in Painting.get_all() if painting.artist_id == int(artist_id)]
+        for painting in paintings:
+            print(painting)
+    else:
+        print(f'Artist {artist_id} not found')
+
+def list_paintings_by_movement():
+    movement_id = input("Enter the movement's id: ")
+    if Movement.find_by_id(movement_id):
+        artists = [artist for artist in Artist.get_all() if artist.movement_id == int(movement_id)]
+        for artist in artists:
+            paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
+            for painting in paintings:
+                print(painting)
+    else:
+        print(f'Movement {movement_id} not found')
