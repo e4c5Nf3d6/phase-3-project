@@ -25,7 +25,7 @@ movements = ["'85 New Wave", 'Abstract Expressionism', 'American Impressionism',
              'New Objectivity', 'Northern Dynasty', 'Op Art', 'Photorealism', 
              'Pop Art', 'Post-Impressionism', 'Postmodernism', 'Pre-Raphaelite', 
              'Precisionism', 'Prehistoric', 'Progressive Artists Group', 
-             'Qin Dynasty', 'Qing Dynasty', 'Rayonism', 'Renaissance', 
+             'Qin Dynasty', 'Qing Dynasty', 'Rayonism', 
              'Rococo', 'Romanesque', 'Romanticism', 'Russian Futurism', 
              'Russian avant-garde', 'Saqqakhaneh', 'Shang Dynasty', 
              'Song Dynasty', 'Southern Dynasty', 'Stone Age', 'Sui Dynasty', 
@@ -46,6 +46,7 @@ def seed_database():
     neo_expressionism = Movement.create("Neo-Expressionism")
     surrealism = Movement.create("Surrealism")
     realism = Movement.create("Realism")
+    renaissance = Movement.create("Renaissance")
 
     for movement in movements:
         Movement.create(movement)
@@ -56,6 +57,10 @@ def seed_database():
     gentileschi = Artist.create("Artemisia Gentileschi", baroque.id)
     magritte = Artist.create("René Magritte", surrealism.id)
     hopper = Artist.create("Edward Hopper", realism.id)
+    
+    Artist.create("Leonardo da Vinci", renaissance.id)
+    Artist.create("Raphael", renaissance.id)
+    Artist.create("Edouard Manet", realism.id)
 
     Painting.create("Judith Slaying Holofernes", "1620", "oil", gentileschi.id)
     Painting.create("The Elephants", "1948", "oil", dali.id)
