@@ -1,5 +1,7 @@
 # lib/helpers.py
 
+from termcolor import colored
+
 from models.artist import Artist
 from models.movement import Movement
 from models.painting import Painting
@@ -51,7 +53,12 @@ def update_artist():
 def delete_artist():
     id_ = input("Enter the artist's id: ")
     if artist := Artist.find_by_id(id_):
-        confirmation = input("Deleting an artist will delete all associated paintings. Are you sure you want to proceed? Y/N: ")
+        confirmation_text = colored(
+            "Deleting an artist will delete all associated paintings. Are you sure you want to proceed? Y/N: ", 
+            "red", 
+            attrs=["bold"]
+        )
+        confirmation = input(confirmation_text)
         if confirmation == "y" or confirmation == "Y":
             paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
             for painting in paintings:
@@ -61,7 +68,7 @@ def delete_artist():
             artist.delete()
             print(f'Artist {id_} deleted')
         else:
-            print("Deletion aborted")
+            print('Deletion aborted')
     else:
         print(f'Artist {id_} not found')
 
@@ -114,7 +121,12 @@ def update_painting():
 def delete_painting():
     id_ = input("Enter the painting's id: ")
     if painting := Painting.find_by_id(id_):
-        confirmation = input("Are you sure you want to proceed? Y/N: ")
+        confirmation_text = colored(
+            "Are you sure you want to proceed? Y/N: ", 
+            "red", 
+            attrs=["bold"]
+        )
+        confirmation = input(confirmation_text)
         if confirmation == "y" or confirmation == "Y":
             painting.delete()
             print(f'Painting {id_} deleted')
@@ -163,7 +175,12 @@ def update_movement():
 def delete_movement():
     id_ = input("Enter the movement's id: ")
     if movement := Movement.find_by_id(id_):
-        confirmation = input("Deleting a movement will delete all associated artists and paintings. Are you sure you want to proceed? Y/N: ")
+        confirmation_text = colored(
+            "Deleting a movement will delete all associated artists and paintings. Are you sure you want to proceed? Y/N: ", 
+            "red", 
+            attrs=["bold"]
+        )
+        confirmation = input(confirmation_text)
         if confirmation == "y" or confirmation == "Y":
             artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
             for artist in artists:
