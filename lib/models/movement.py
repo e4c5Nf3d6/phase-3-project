@@ -39,6 +39,12 @@ class Movement():
         CURSOR.execute(sql)
         CONN.commit()
 
+    @classmethod
+    def create(cls, name):
+        movement = cls(name)
+        movement.save()
+        return movement
+
     def save(self):
         sql = """
                 INSERT INTO movements (name)

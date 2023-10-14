@@ -86,6 +86,12 @@ class Painting():
         CURSOR.execute(sql)
         CONN.commit()
 
+    @classmethod
+    def create(cls, name, year, medium, artist_id):
+        painting = cls(name, year, medium, artist_id)
+        painting.save()
+        return painting
+
     def save(self):
         sql = """
                 INSERT INTO paintings (name, year, medium, artist_id)

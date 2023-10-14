@@ -56,6 +56,12 @@ class Artist():
         CURSOR.execute(sql)
         CONN.commit()
 
+    @classmethod
+    def create(cls, name, movement_id):
+        artist = cls(name, movement_id)
+        artist.save()
+        return artist
+
     def save(self):
         sql = """
                 INSERT INTO artists (name, movement_id)
