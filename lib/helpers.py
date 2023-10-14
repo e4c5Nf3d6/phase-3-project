@@ -243,11 +243,11 @@ def list_artists_by_movement(movement):
         cprint(f'No {movement.name} artists found', "red")
 
 def display_artist(painting):
-    artist = Artist.find_by_id(painting.id)
+    artist = Artist.find_by_id(painting.artist_id)
     cprint(artist, "green")
 
 def list_paintings_by_same_artist(painting):
-    artist = Artist.find_by_id(painting.id)
+    artist = Artist.find_by_id(painting.artist_id)
     paintings = [p for p in Painting.get_all() if p.artist_id == painting.artist_id]
     other_paintings = [p for p in paintings if p.id != painting.id]
     if other_paintings:
@@ -279,4 +279,4 @@ def list_paintings_by_medium():
         else:
             cprint(f"No {medium} paintings found", "green")
     else:
-        cprint(f"{medium} is not a valid medium. Valid mediums: acrylic, encaustic, fresco, oil, tempera, watercolor")
+        cprint(f"{medium} is not a valid medium. Valid mediums: acrylic, encaustic, fresco, oil, tempera, watercolor", "red")
