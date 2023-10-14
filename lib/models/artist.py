@@ -9,7 +9,7 @@ class Artist():
     def __init__(self, name, movement_id, id=None):
         self.id = id
         self.name = name
-        self.movement = movement_id
+        self.movement_id = movement_id
 
     def __repr__(self):
         return f"<Artist {self.id}: {self.name}, {self.movement}>"
@@ -30,7 +30,7 @@ class Artist():
         return self._movement_id
 
     @movement_id.setter
-    def department_id(self, movement_id):
+    def movement_id(self, movement_id):
         if isinstance(movement_id, int) and Movement.find_by_id(movement_id):
             self._movement_id = movement_id
         else:
