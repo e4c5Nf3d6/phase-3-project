@@ -2,36 +2,7 @@
 
 from termcolor import cprint
 
-from helpers import (
-    exit_program,
-    list_artists,
-    find_artist_by_name,
-    find_artist_by_id,
-    create_artist,
-    update_artist, 
-    delete_artist,
-    list_paintings,
-    find_painting_by_name,
-    find_painting_by_id,
-    create_painting,
-    update_painting,
-    delete_painting,
-    list_movements,
-    find_movement_by_name,
-    find_movement_by_id,
-    create_movement,
-    update_movement,
-    delete_movement,
-    list_artists_by_movement,
-    list_paintings_by_artist,
-    list_paintings_by_movement,
-    list_paintings_by_medium,
-    display_artist_movement,
-    list_artists_in_same_movement,
-    list_artist_mediums,
-    display_artist,
-    list_paintings_by_same_artist
-)
+from helpers import *
 
 from menus import (
     main_menu,
