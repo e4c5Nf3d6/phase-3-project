@@ -32,6 +32,22 @@ def create_artist():
     except Exception as exc:
         print("Error creating artist: ", exc)
 
+def update_artist():
+    id_ = input("Enter the artist's id: ")
+    if artist := Artist.find_by_id(id_):
+        try:
+            name = input("Enter the artist's new name: ")
+            artist.name = name
+            movement_id = input("Enter the artist's new movement_id: ")
+            artist.movement_id = int(movement_id)
+
+            artist.update()
+            print(f"Success: {artist}")
+        except Exception as exc:
+            print("Error creating artist: ", exc)
+    else:
+        print(f'Artist {id_} not found')
+
 def list_paintings():
     paintings = Painting.get_all()
     for painting in paintings:
@@ -58,6 +74,26 @@ def create_painting():
     except Exception as exc:
         print("Error creating painting: ", exc)
 
+def update_painting():
+    id_ = input("Enter the painting's id: ")
+    if painting := Painting.find_by_id(id_):
+        try:
+            name = input("Enter the painting's new name: ")
+            painting.name = name
+            year = input("Enter the painting's new year: ")
+            painting.year = year
+            medium = input("Enter the painting's new medium: ")
+            painting.medium = medium
+            artist_id = input("Enter the painting's new artist_id: ")
+            painting.artist_id = int(artist_id)
+
+            painting.update()
+            print(f"Success: {painting}")
+        except Exception as exc:
+            print("Error creating painting: ", exc)
+    else:
+        print(f'Painting {id_} not found')
+
 def list_movements():
     movements = Movement.get_all()
     for movement in movements:
@@ -80,3 +116,17 @@ def create_movement():
         print(f'Success: {movement}')
     except Exception as exc:
         print("Error creating movement: ", exc)
+
+def update_movement():
+    id_ = input("Enter the movement's id: ")
+    if movement := Movement.find_by_id(id_):
+        try:
+            name = input("Enter the movement's new name: ")
+            movement.name = name
+
+            movement.update()
+            print(f"Success: {movement}")
+        except Exception as exc:
+            print("Error creating movement: ", exc)
+    else:
+        print(f'Movement {id_} not found')
