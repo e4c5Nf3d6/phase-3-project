@@ -2,9 +2,10 @@
 
 from helpers import (
     exit_program,
-    helper_1
+    list_artists,
+    list_paintings,
+    list_movements
 )
-
 
 def main():
     m = "main"
@@ -30,9 +31,9 @@ def artists():
         if choice == "0":
             m = "main"
         elif choice == "1":
-            helper_1()
+            list_artists()
         elif choice == "2":
-            helper_1()
+            pass
         else:
             print("Invalid choice")
 
@@ -44,9 +45,9 @@ def paintings():
         if choice == "0":
             m = "main"
         elif choice == "1":
-            helper_1()
+            list_paintings()
         elif choice == "2":
-            helper_1()
+            pass
         else:
             print("Invalid choice")
 
@@ -58,12 +59,11 @@ def movements():
         if choice == "0":
             m = "main"
         elif choice == "1":
-            helper_1()
+            list_movements()
         elif choice == "2":
-            helper_1()
+            pass
         else:
             print("Invalid choice")
-
 
 def main_menu():
     print("Main Menu")
@@ -105,7 +105,6 @@ def movements_menu():
     print("4: Create movement")
     print("5: Update movement")
     print("6: Delete movement")
-
 
 if __name__ == "__main__":
     main()
