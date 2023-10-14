@@ -39,7 +39,7 @@ def update_artist():
             name = input("Enter the artist's new name: ")
             artist.name = name
             movement_id = input("Enter the artist's new movement_id: ")
-            artist.movement_id = int(movement_id)
+            artist.movement_id = movement_id
 
             artist.update()
             print(f"Success: {artist}")
@@ -93,7 +93,7 @@ def update_painting():
             medium = input("Enter the painting's new medium: ")
             painting.medium = medium
             artist_id = input("Enter the painting's new artist_id: ")
-            painting.artist_id = int(artist_id)
+            painting.artist_id = artist_id
 
             painting.update()
             print(f"Success: {painting}")
@@ -158,7 +158,7 @@ def delete_movement():
 def list_artists_by_movement():
     movement_id = input("Enter the movement's id: ")
     if Movement.find_by_id(movement_id):
-        artists = [artist for artist in Artist.get_all() if artist.movement_id == int(movement_id)]
+        artists = [artist for artist in Artist.get_all() if artist.movement_id == movement_id]
         for artist in artists:
             print(artist)
     else:
@@ -167,7 +167,7 @@ def list_artists_by_movement():
 def list_paintings_by_artist():
     artist_id = input("Enter the artist's id: ")
     if Artist.find_by_id(artist_id):
-        paintings = [painting for painting in Painting.get_all() if painting.artist_id == int(artist_id)]
+        paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist_id]
         for painting in paintings:
             print(painting)
     else:
@@ -176,7 +176,7 @@ def list_paintings_by_artist():
 def list_paintings_by_movement():
     movement_id = input("Enter the movement's id: ")
     if Movement.find_by_id(movement_id):
-        artists = [artist for artist in Artist.get_all() if artist.movement_id == int(movement_id)]
+        artists = [artist for artist in Artist.get_all() if artist.movement_id == movement_id]
         for artist in artists:
             paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
             for painting in paintings:

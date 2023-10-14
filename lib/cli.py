@@ -1,6 +1,6 @@
 # lib/cli.py
 
-import click
+import fire
 
 from helpers import (
     exit_program,
@@ -41,7 +41,7 @@ def main():
         elif choice == "3":
             movements()
         else:
-            click.secho('Invalid choice', fg='red')
+            print("Invalid choice")
 
 def artists():
     m = "artists"
@@ -65,7 +65,7 @@ def artists():
         elif choice == "7":
             list_artists_by_movement()
         else:
-            click.secho('Invalid choice', fg='red')
+            print("Invalid choice")
 
 def paintings():
     m = "paintings"
@@ -91,7 +91,7 @@ def paintings():
         elif choice == "8":
             list_paintings_by_movement()
         else:
-            click.secho('Invalid choice', fg='red')
+            print("Invalid choice")
 
 def movements():
     m = "movements"
@@ -113,7 +113,7 @@ def movements():
         elif choice == "6":
             delete_movement()
         else:
-            click.secho('Invalid choice', fg='red')
+            print("Invalid choice")
 
 def main_menu():
     print("Main Menu")
@@ -160,4 +160,4 @@ def movements_menu():
     print("6: Delete movement")
 
 if __name__ == "__main__":
-    main()
+    fire.Fire(main)

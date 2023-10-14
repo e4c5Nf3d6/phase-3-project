@@ -59,8 +59,8 @@ class Painting():
 
     @artist_id.setter
     def artist_id(self, artist_id):
-        if isinstance(int(artist_id), int) and Artist.find_by_id(int(artist_id)):
-            self._artist_id = int(artist_id)
+        if isinstance(artist_id, int) and Artist.find_by_id(artist_id):
+            self._artist_id = artist_id
         else:
             raise ValueError("artist_id must reference a artist in the database")
         
