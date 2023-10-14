@@ -3,6 +3,9 @@ from models.__init__ import CURSOR, CONN
 from movement import Movement
 
 class Artist():
+
+    all = {}
+
     def __init__(self, name, movement_id, id=None):
         self.id = id
         self.name = name
@@ -52,3 +55,15 @@ class Artist():
         """
         CURSOR.execute(sql)
         CONN.commit()
+
+    def save(self):
+        sql = """
+                INSERT INTO artists (name, movement_id)
+                VALUES (?, ?)
+        """
+
+        CURSOR.execute(sql, (self.name, self.movement_id))
+        CONN.commit()
+
+        self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self

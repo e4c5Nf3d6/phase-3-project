@@ -3,6 +3,8 @@ from models.__init__ import CURSOR, CONN
 
 class Movement():
 
+    all = {}
+
     def __init__(self, name, id=None):
         self.id = id
         self.name = name
@@ -36,3 +38,15 @@ class Movement():
         """
         CURSOR.execute(sql)
         CONN.commit()
+
+    def save(self):
+        sql = """
+                INSERT INTO movements (name)
+                VALUES (?)
+        """
+
+        CURSOR.execute(sql, (self.name))
+        CONN.commit()
+
+        self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self

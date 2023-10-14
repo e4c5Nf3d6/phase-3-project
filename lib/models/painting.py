@@ -5,6 +5,7 @@ from artist import Artist
 
 class Painting():
 
+    all = {}
     mediums = ['acrylic', 'encaustic', 'fresco', 'oil', 'tempera', 'watercolor']
 
     def __init__(self, name, year, medium, artist_id, id=None):
@@ -84,3 +85,15 @@ class Painting():
         """
         CURSOR.execute(sql)
         CONN.commit()
+
+    def save(self):
+        sql = """
+                INSERT INTO paintings (name, year, medium, artist_id)
+                VALUES (?, ?, ?, ?)
+        """
+
+        CURSOR.execute(sql, (self.name, self.year, self.medium, self.artist_id))
+        CONN.commit()
+
+        self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self
