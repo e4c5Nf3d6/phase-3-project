@@ -53,6 +53,11 @@ def delete_artist():
     if artist := Artist.find_by_id(id_):
         confirmation = input("Deleting an artist will delete all associated paintings. Are you sure you want to proceed? Y/N: ")
         if confirmation == "y" or confirmation == "Y":
+            paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
+            for painting in paintings:
+                painting_id = painting.id
+                painting.delete()
+                print(f'Painting {painting_id} deleted')
             artist.delete()
             print(f'Artist {id_} deleted')
         else:
@@ -160,6 +165,16 @@ def delete_movement():
     if movement := Movement.find_by_id(id_):
         confirmation = input("Deleting a movement will delete all associated artists and paintings. Are you sure you want to proceed? Y/N: ")
         if confirmation == "y" or confirmation == "Y":
+            artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
+            for artist in artists:
+                artist_id = artist.id
+                paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
+                for painting in paintings:
+                    painting_id = painting.id
+                    painting.delete()
+                    print(f'Painting {painting_id} deleted')
+                artist.delete()
+                print(f'Artist {artist_id} deleted')
             movement.delete()
             print(f'Movement {id_} deleted')
         else:
