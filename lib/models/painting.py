@@ -1,6 +1,7 @@
 # lib/models/painting.py
 import re
 from models.__init__ import CURSOR, CONN
+from artist import Artist
 
 class Painting():
 
@@ -50,3 +51,14 @@ class Painting():
     def medium(self, medium):
         if medium in Painting.mediums:
             self._medium = medium
+
+    @property
+    def artist_id(self):
+        return self._artist_id
+
+    @artist_id.setter
+    def artist_id(self, artist_id):
+        if isinstance(artist_id, int) and Artist.find_by_id(artist_id):
+            self._artist_id = artist_id
+        else:
+            raise ValueError("artist_id must reference a artist in the database")

@@ -1,5 +1,6 @@
 # lib/models/artist.py
 from models.__init__ import CURSOR, CONN
+from movement import Movement
 
 class Artist():
     def __init__(self, name, movement_id, id=None):
@@ -21,3 +22,13 @@ class Artist():
         else:
             raise ValueError("name must be a non-empty string")
         
+    @property
+    def movement_id(self):
+        return self._movement_id
+
+    @movement_id.setter
+    def department_id(self, movement_id):
+        if isinstance(movement_id, int) and Movement.find_by_id(movement_id):
+            self._movement_id = movement_id
+        else:
+            raise ValueError("movement_id must reference a movement in the database")
