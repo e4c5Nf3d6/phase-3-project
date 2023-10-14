@@ -56,12 +56,6 @@ class Artist():
         CURSOR.execute(sql)
         CONN.commit()
 
-    @classmethod
-    def create(cls, name, movement_id):
-        artist = cls(name, movement_id)
-        artist.save()
-        return artist
-
     def save(self):
         sql = """
             INSERT INTO artists (name, movement_id)
@@ -94,3 +88,53 @@ class Artist():
 
         del type(self).all[self.id]
         self.id = None
+
+    @classmethod
+    def create(cls, name, movement_id):
+        artist = cls(name, movement_id)
+        artist.save()
+        return artist
+    
+    @classmethod
+    def instance_from_db(cls, row):
+        artist = cls.all.get(row[0])
+        if artist:
+            artist.name = row[1]
+            artist.movement_id = row[2]
+        else:
+            artist = cls(row[1], row[2])
+            artist.id = row[0]
+            cls.all[artist.id] = artist
+        return artist
+
+    @classmethod
+    def get_all(cls):
+        sql = """
+            SELECT *
+            FROM artists
+        """
+
+        rows = CURSOR.execute(sql).fetchall()
+        return [cls.instance_from_db(row) for row in rows]
+
+    @classmethod
+    def find_by_id(cls, id):
+        sql = """
+            SELECT *
+            FROM artists
+            WHERE id = ?
+        """
+
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+
+    @classmethod
+    def find_by_name(cls, name):
+        sql = """
+            SELECT *
+            FROM artists
+            WHERE name is ?
+        """
+
+        row = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_db(row) if row else None

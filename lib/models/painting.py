@@ -113,3 +113,61 @@ class Painting():
         CURSOR.execute(sql, (self.name, self.year, self.medium,
                              self.artist_id, self.id))
         CONN.commit()
+
+    def delete(self):
+        sql = """
+            DELETE FROM paintings
+            WHERE id = ?
+        """
+
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
+
+        del type(self).all[self.id]
+        self.id = None
+
+    @classmethod
+    def instance_from_db(cls, row):
+        painting = cls.all.get(row[0])
+        if painting:
+            painting.name = row[1]
+            painting.year = row[2]
+            painting.medium = row[3]
+            painting.artist_id = row[4]
+        else:
+            painting = cls(row[1], row[2], row[3], row[4])
+            painting.id = row[0]
+            cls.all[painting.id] = painting
+        return painting
+
+    @classmethod
+    def get_all(cls):
+        sql = """
+            SELECT *
+            FROM paintings
+        """
+
+        rows = CURSOR.execute(sql).fetchall()
+        return [cls.instance_from_db(row) for row in rows]
+
+    @classmethod
+    def find_by_id(cls, id):
+        sql = """
+            SELECT *
+            FROM paintings
+            WHERE id = ?
+        """
+
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+
+    @classmethod
+    def find_by_name(cls, name):
+        sql = """
+            SELECT *
+            FROM paintings
+            WHERE name is ?
+        """
+
+        row = CURSOR.execute(sql, (name,)).fetchone()
+        return cls.instance_from_db(row) if row else None
