@@ -25,7 +25,7 @@ movements = ["'85 New Wave", 'Abstract Expressionism', 'American Impressionism',
              'New Objectivity', 'Northern Dynasty', 'Op Art', 'Photorealism', 
              'Pop Art', 'Post-Impressionism', 'Postmodernism', 'Pre-Raphaelite', 
              'Precisionism', 'Prehistoric', 'Progressive Artists Group', 
-             'Qin Dynasty', 'Qing Dynasty', 'Rayonism', 'Realism', 'Renaissance', 
+             'Qin Dynasty', 'Qing Dynasty', 'Rayonism', 'Renaissance', 
              'Rococo', 'Romanesque', 'Romanticism', 'Russian Futurism', 
              'Russian avant-garde', 'Saqqakhaneh', 'Shang Dynasty', 
              'Song Dynasty', 'Southern Dynasty', 'Stone Age', 'Sui Dynasty', 
@@ -45,6 +45,7 @@ def seed_database():
     baroque = Movement.create("Baroque")
     neo_expressionism = Movement.create("Neo-Expressionism")
     surrealism = Movement.create("Surrealism")
+    realism = Movement.create("Realism")
 
     for movement in movements:
         Movement.create(movement)
@@ -53,13 +54,18 @@ def seed_database():
     cabanel = Artist.create("Alexandre Cabanel", academicism.id)
     dali = Artist.create("Salvador Dali", surrealism.id)
     gentileschi = Artist.create("Artemisia Gentileschi", baroque.id)
+    magritte = Artist.create("René Magritte", surrealism.id)
+    hopper = Artist.create("Edward Hopper", realism.id)
 
     Painting.create("Judith Slaying Holofernes", "1620", "oil", gentileschi.id)
     Painting.create("The Elephants", "1948", "oil", dali.id)
     Painting.create("The Fallen Angel", "1847", "oil", cabanel.id)
     Painting.create("The Temptation of St. Anthony", "1946", "oil", dali.id)
     Painting.create("Untitled (Skull)", "1981", "acrylic", basquiat.id)
-
+    Painting.create("The Son of Man", "1964", "oil", magritte.id)
+    Painting.create("The Treachery of Images", "1929", "oil", magritte.id)
+    Painting.create("Nighthawks", "1942", "oil", hopper.id)
+    Painting.create("Time Transfixed", "1938", "oil", magritte.id)
 
 seed_database()
 print("Seeded database")
