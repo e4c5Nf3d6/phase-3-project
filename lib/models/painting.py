@@ -62,3 +62,25 @@ class Painting():
             self._artist_id = artist_id
         else:
             raise ValueError("artist_id must reference a artist in the database")
+        
+    @classmethod
+    def create_table(cls):
+        sql = """
+            CREATE TABLE IF NOT EXISTS paintings (
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            year TEXT,
+            medium TEXT,
+            artist_id INTEGER,
+            FOREIGN KEY (artist_id) REFERENCES artists(id))
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    @classmethod
+    def drop_table(cls):
+        sql = """
+            DROP TABLE IF EXISTS paintings;
+        """
+        CURSOR.execute(sql)
+        CONN.commit()

@@ -18,3 +18,21 @@ class Movement():
     def name(self, name):
         if isinstance(name, str):
             self._name = name
+    
+    @classmethod
+    def create_table(cls):
+        sql = """
+            CREATE TABLE IF NOT EXISTS movements (
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    @classmethod
+    def drop_table(cls):
+        sql = """
+            DROP TABLE IF EXISTS movements;
+        """
+        CURSOR.execute(sql)
+        CONN.commit()

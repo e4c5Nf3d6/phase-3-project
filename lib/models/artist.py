@@ -32,3 +32,23 @@ class Artist():
             self._movement_id = movement_id
         else:
             raise ValueError("movement_id must reference a movement in the database")
+        
+    @classmethod
+    def create_table(cls):
+        sql = """
+            CREATE TABLE IF NOT EXISTS artists (
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            movement_id INTEGER,
+            FOREIGN KEY (movement_id) REFERENCES movements(id))
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
+
+    @classmethod
+    def drop_table(cls):
+        sql = """
+            DROP TABLE IF EXISTS artists;
+        """
+        CURSOR.execute(sql)
+        CONN.commit()
