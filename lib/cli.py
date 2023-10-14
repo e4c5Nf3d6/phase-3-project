@@ -1,5 +1,7 @@
 # lib/cli.py
 
+import click
+
 from helpers import (
     exit_program,
     list_artists,
@@ -39,7 +41,7 @@ def main():
         elif choice == "3":
             movements()
         else:
-            print("Invalid choice")
+            click.secho('Invalid choice', fg='red')
 
 def artists():
     m = "artists"
@@ -63,7 +65,7 @@ def artists():
         elif choice == "7":
             list_artists_by_movement()
         else:
-            print("Invalid choice")
+            click.secho('Invalid choice', fg='red')
 
 def paintings():
     m = "paintings"
@@ -89,7 +91,7 @@ def paintings():
         elif choice == "8":
             list_paintings_by_movement()
         else:
-            print("Invalid choice")
+            click.secho('Invalid choice', fg='red')
 
 def movements():
     m = "movements"
@@ -111,7 +113,7 @@ def movements():
         elif choice == "6":
             delete_movement()
         else:
-            print("Invalid choice")
+            click.secho('Invalid choice', fg='red')
 
 def main_menu():
     print("Main Menu")
