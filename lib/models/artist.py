@@ -73,3 +73,24 @@ class Artist():
 
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
+
+    def update(self):
+        sql = """
+            UPDATE artists
+            SET name = ?, movement_id = ?
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.name, self.movement_id, self.id))
+        CONN.commit()
+
+    def delete(self):
+        sql = """
+            DELETE FROM artists
+            WHERE id = ?
+        """
+
+        CURSOR.execute(sql, (self.id,))
+        CONN.commit()
+
+        del type(self).all[self.id]
+        self.id = None

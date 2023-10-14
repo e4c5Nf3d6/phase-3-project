@@ -103,3 +103,13 @@ class Painting():
 
         self.id = CURSOR.lastrowid
         type(self).all[self.id] = self
+
+    def update(self):
+        sql = """
+            UPDATE paintings
+            SET name = ?, year = ?, medium = ?, artist_id = ?
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.name, self.year, self.medium,
+                             self.artist_id, self.id))
+        CONN.commit()
