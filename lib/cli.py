@@ -161,4 +161,4 @@ def movements_menu():
     print("8. List paintings by movement")
 
 if __name__ == "__main__":
-    fire.Fire(main)
+    main()
