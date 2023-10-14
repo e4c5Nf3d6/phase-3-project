@@ -64,7 +64,7 @@ def artists():
         elif choice == "6":
             delete_artist()
         elif choice == "7":
-            list_artists_by_movement()
+            list_paintings_by_artist()
         else:
             print("Invalid choice")
 
@@ -87,10 +87,6 @@ def paintings():
             update_painting()
         elif choice == "6":
             delete_painting()
-        elif choice == "7":
-            list_paintings_by_artist()
-        elif choice == "8":
-            list_paintings_by_movement()
         else:
             print("Invalid choice")
 
@@ -113,6 +109,10 @@ def movements():
             update_movement()
         elif choice == "6":
             delete_movement()
+        elif choice == "7":
+            list_artists_by_movement()
+        elif choice == "8":
+            list_paintings_by_movement()
         else:
             print("Invalid choice")
 
@@ -134,7 +134,7 @@ def artists_menu():
     print("4: Create artist")
     print("5: Update artist")
     print("6: Delete artist")
-    print("7: List artists by movement")
+    print("7: List paintings by artist")
 
 def paintings_menu():
     cprint("Paintings Menu", "cyan")
@@ -146,8 +146,6 @@ def paintings_menu():
     print("4: Create painting")
     print("5: Update painting")
     print("6: Delete painting")
-    print("7: List paintings by artist")
-    print("8: List paintings by movement")
 
 def movements_menu():
     cprint("Movements Menu", "cyan")
@@ -159,6 +157,8 @@ def movements_menu():
     print("4: Create movement")
     print("5: Update movement")
     print("6: Delete movement")
+    print("7. List artists by movement")
+    print("8. List paintings by movement")
 
 if __name__ == "__main__":
     fire.Fire(main)
