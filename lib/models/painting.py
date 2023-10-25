@@ -38,11 +38,11 @@ class Painting():
     
     @year.setter
     def year(self, year):
-        pattern = re.compile("^[0-9]$|^[1-9][0-9]{1,3}$|^20[0-1][0-9]$|^202[0-3]$|^[1-9][0-9]{0,4}?\sBC$")
-        if pattern.match(year):
+        pattern = re.compile("^[0-9]$|^[1-9][0-9]{1,2}$|1[0-9]{3}$|^20[0-1][0-9]$|^202[0-3]$|^[1-9][0-9]{0,4}?\sBCE$")
+        if pattern.fullmatch(year):
             self._year = year
         else:
-            raise ValueError("year must be a year between 99999 BC and 2023")
+            raise ValueError("year must be a year between 99999 BCE and 2023")
         
     @property
     def medium(self):
@@ -174,5 +174,5 @@ class Painting():
             WHERE name is ?
         """
 
-        row = CURSOR.execute(sql, (name,)).fetchone()
-        return cls.instance_from_db(row) if row else None
+        rows = CURSOR.execute(sql, (name,)).fetchall()
+        return [cls.instance_from_db(row) for row in rows] if rows else None

@@ -17,8 +17,12 @@ def list_artists():
 
 def find_artist_by_name():
     name = input("Enter the artist's name: ")
-    artist = Artist.find_by_name(name)
-    cprint(artist, "green") if artist else cprint(f'Artist {name} not found', "red")
+    artists = Artist.find_by_name(name)
+    if artists:
+        for artist in artists:
+            cprint(artist, "green")
+    else:
+        cprint(f'Artist {name} not found', "red")
 
 def find_artist_by_id(result="print"):
     id_ = input("Enter the artist's id: ")
@@ -82,8 +86,12 @@ def list_paintings():
 
 def find_painting_by_name():
     name = input("Enter the painting's name: ")
-    painting = Painting.find_by_name(name)
-    cprint(painting, "green") if painting else cprint(f'Painting {name} not found', "red")
+    paintings = Painting.find_by_name(name)
+    if paintings:
+        for painting in paintings:
+            cprint(painting, "green")
+    else:
+        cprint(f'Painting {name} not found', "red")
 
 def find_painting_by_id(result="print"):
     id_ = input("Enter the painting's id: ")
