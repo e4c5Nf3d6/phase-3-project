@@ -98,6 +98,8 @@ def paintings():
         elif choice == "7":
             list_paintings_by_medium()
         elif choice == "8":
+            list_paintings_by_year()
+        elif choice == "9":
             painting = find_painting_by_id("return")
             if painting:
                 explore_painting(painting) 

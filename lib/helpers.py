@@ -292,6 +292,11 @@ def list_paintings_by_medium():
     else:
         cprint("Invalid choice", "red")
 
+def list_paintings_by_year():
+    paintings = sorted(Painting.get_all(), key=lambda x: x.year)
+    for painting in paintings:
+        cprint(painting, "green")
+
 def choose_medium():
     for i in range(len(Painting.mediums)):
         print(f"{i + 1}. {Painting.mediums[i]}")

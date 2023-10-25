@@ -40,7 +40,8 @@ def paintings_menu():
     print("5. Update painting")
     print("6. Delete painting")
     print("7. List paintings by medium")
-    print("8. Explore a painting")
+    print("8. List paintings chronologically")
+    print("9. Explore a painting")
 
 def painting_options_menu(painting):
     cprint(f"Exploring: {painting}", "cyan")
