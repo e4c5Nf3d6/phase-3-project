@@ -53,7 +53,7 @@ class Painting():
         if medium in Painting.mediums:
             self._medium = medium
         else:
-            raise ValueError("medium must be one of the following: acrylic, encaustic, fresco, oil, tempera, watercolor")
+            raise ValueError("Invalid medium")
 
     @property
     def artist_id(self):

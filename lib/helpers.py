@@ -104,7 +104,8 @@ def find_painting_by_id(result="print"):
 def create_painting():
     name = input("Enter the painting's name: ")
     year = input("Enter the painting's year: ")
-    medium = input("Enter the painting's medium: ")
+    print("Choose the painting's medium: ")
+    medium = choose_medium()
     artist_id = input("Enter the painting's artist_id: ")
     try:
         painting = Painting.create(name, year, medium, artist_id)
@@ -120,7 +121,8 @@ def update_painting():
             painting.name = name
             year = input("Enter the painting's new year: ")
             painting.year = year
-            medium = input("Enter the painting's new medium: ")
+            print("Choose the painting's new medium: ")
+            medium = choose_medium()
             painting.medium = medium
             artist_id = input("Enter the painting's new artist_id: ")
             painting.artist_id = artist_id
@@ -278,7 +280,8 @@ def list_paintings_by_movement(movement):
         cprint(f"No {movement.name} paintings found", "red")
 
 def list_paintings_by_medium():
-    medium = input("Enter medium: ")
+    print("Choose a medium: ")
+    medium = choose_medium()
     if medium in Painting.mediums:
         paintings = [painting for painting in Painting.get_all() if painting.medium == medium]
         if paintings:
@@ -287,4 +290,14 @@ def list_paintings_by_medium():
         else:
             cprint(f"No {medium} paintings found", "green")
     else:
-        cprint(f"{medium} is not a valid medium. Valid mediums: acrylic, encaustic, fresco, oil, tempera, watercolor", "red")
+        cprint("Invalid choice", "red")
+
+def choose_medium():
+    for i in range(len(Painting.mediums)):
+        print(f"{i + 1}. {Painting.mediums[i]}")
+    choice = input("> ")
+    try:
+        medium = Painting.mediums[int(choice) - 1]
+        return medium
+    except:
+        return None
