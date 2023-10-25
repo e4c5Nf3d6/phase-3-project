@@ -6,30 +6,27 @@ from models.artist import Artist
 from models.painting import Painting
 from models.movement import Movement
 
-movements = ["'85 New Wave", 'American Impressionism', 'Ancient Egyptian', 
-             'Arab Modernism', 'Art Deco', 'Art Noveau', 'Arte Povera', 
-             'Arts and Crafts', 'Asuka', 'Azuchi-Momoyama', 
-             'Baroda Group of Artists', 'Bauhaus', 'Bengal School', 
-             'Bombay Progressives', 'Byzantine', 'Calcutta Group', 
-             'Colonial Era', 'Constructivism', 'Cretan School', 'Cubism', 
-             'Dada', 'De Stijl', 'Deconstructivism', 'E-maki', 'Edo', 
+movements = ["'85 New Wave", 'American Impressionism', 'Arab Modernism', 
+             'Art Deco', 'Art Noveau', 'Arte Povera', 'Arts and Crafts', 
+             'Asuka', 'Azuchi-Momoyama', 'Baroda Group of Artists', 'Bauhaus', 
+             'Bengal School', 'Bombay Progressives', 'Byzantine', 
+             'Calcutta Group', 'Colonial Era', 'Constructivism', 
+             'Cretan School', 'Cubism', 'Dada', 'De Stijl', 
+             'Deconstructivism', 'E-maki', 'Edo', 
              'Five Dynasties and Ten Kingdoms', 'Fujiwara', 'Fururism', 
              'Gothic', 'Guohua', 'Gutai', 'Han Dynasty', 'Harlem Renaissance', 
-             'Heidelberg School', 'Hellenistic', 'Heptanese School', 
-             'Hudson River School', 'Hurufiyya', 'Jin Dynasty', 'Kamakura', 
-             'Kano School', 'Kofun', 'Lowbrow', 'Luminism', 'Mannerism', 
-             'Meiji', 'Mesopotamian', 'Ming Dynasty', 'Minimalism', 
-             'Mughal Era', 'Muromachi', 'Naqqashikatt', 'Nara', 'Naturalism', 
-             'Neo-impressionism', 'Neoclassicism', 'New Objectivity', 
-             'Northern Dynasty', 'Op Art', 'Photorealism', 'Pop Art', 
-             'Postmodernism', 'Pre-Raphaelite', 'Precisionism', 
-             'Prehistoric', 'Progressive Artists Group', 'Qin Dynasty', 
-             'Qing Dynasty', 'Rayonism', 'Rococo', 'Romanesque', 
-             'Russian Futurism', 'Russian avant-garde', 'Saqqakhaneh', 
-             'Shang Dynasty', 'Song Dynasty', 'Southern Dynasty', 'Stone Age', 
-             'Sui Dynasty', 'Suprematism', 'Symbolism', 'Tang Dynasty', 
-             'Three Kingdoms', 'Tonalism', 'Xia Dynasty', 'Yuan Dynasty', 
-             'Zhou Dynasty', 'Socialist Realism']
+             'Heidelberg School', 'Heptanese School', 'Hudson River School', 
+             'Hurufiyya', 'Jin Dynasty', 'Kamakura', 'Kano School', 'Kofun', 
+             'Lowbrow', 'Luminism', 'Mannerism', 'Meiji', 'Ming Dynasty', 
+             'Minimalism', 'Mughal Era', 'Muromachi', 'Naqqashikatt', 'Nara', 
+             'Naturalism', 'Neo-impressionism', 'Neoclassicism', 
+             'New Objectivity', 'Northern Dynasty', 'Op Art', 'Photorealism', 
+             'Pop Art', 'Postmodernism', 'Pre-Raphaelite', 'Precisionism', 
+             'Progressive Artists Group','Qing Dynasty', 'Rayonism', 'Rococo', 
+             'Romanesque', 'Russian Futurism', 'Russian avant-garde', 
+             'Saqqakhaneh', 'Song Dynasty', 'Southern Dynasty','Sui Dynasty', 
+             'Suprematism', 'Symbolism', 'Tang Dynasty', 'Three Kingdoms', 
+             'Tonalism', 'Yuan Dynasty', 'Socialist Realism']
 
 def seed_database():
     Artist.drop_table()
@@ -69,6 +66,7 @@ def seed_database():
     rothko = Artist.create("Mark Rothko", abstract_expressionism.id)
     kline = Artist.create("Martin Kline", contemporary_art.id)
     raphael = Artist.create("Raphael", renaissance.id)
+    boticelli = Artist.create("Sandro Botticelli", renaissance.id)
 
     Artist.create("Vincent van Gogh", post_impressionism.id) 
     Artist.create("Leonardo da Vinci", renaissance.id)
@@ -93,6 +91,8 @@ def seed_database():
     Painting.create("Untitled (Brown and Gray)", "1969", "acrylic", rothko.id)
     Painting.create("Dorian Gray", "2011", "encaustic", kline.id)
     Painting.create("The School of Athens", "1511", "fresco", raphael.id)
+    Painting.create("Self-portrait", "1506", "oil", raphael.id)
+    Painting.create("The Birth of Venus", "1486", "tempera", boticelli.id)
 
 seed_database()
 print("Seeded database")
