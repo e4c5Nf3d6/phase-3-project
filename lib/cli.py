@@ -148,7 +148,7 @@ def movements():
         elif choice == "7":
             list_movements_by_year()
         elif choice == "8":
-            movement = find_movement_by_name("return")
+            movement = find_movement_by_id("return")
             if movement:
                 explore_movement(movement) 
             else:

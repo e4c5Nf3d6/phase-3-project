@@ -11,18 +11,18 @@ def list_movements():
     for movement in movements:
         cprint(movement, "green")
 
-def find_movement_by_name(result="print"):
+def find_movement_by_name():
     name = input("Enter the movement's name: ")
     movement = Movement.find_by_name(name)
-    if result == "print":
-        cprint(movement, "green") if movement else cprint(f'Movement {name} not found', "red")
-    elif result == "return":
-        return movement
+    cprint(movement, "green") if movement else cprint(f'Movement {name} not found', "red")
 
-def find_movement_by_id():
+def find_movement_by_id(result="print"):
     id_ = input("Enter the movement's id: ")
     movement = Movement.find_by_id(id_)
-    cprint(movement, "green") if movement else cprint(f'Movement {id_} not found', "red")
+    if result == "print":
+        cprint(movement, "green") if movement else cprint(f'Movement {id_} not found', "red")
+    elif result == "return":
+        return movement if movement else None
 
 def create_movement():
     name = input("Enter the movement's name: ")
