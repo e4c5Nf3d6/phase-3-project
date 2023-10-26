@@ -91,7 +91,7 @@ def list_paintings_by_same_artist(painting):
         for painting in other_paintings:
             cprint(painting, "green")
     else:
-        cprint(f"No other paintings by {artist.name} found", "red")
+        cprint(f"No other paintings by {artist.name} found", "green")
 
 def list_paintings_by_medium():
     print("Choose a medium: ")

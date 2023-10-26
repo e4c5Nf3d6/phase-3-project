@@ -79,7 +79,7 @@ def list_artists_by_movement(movement):
         for artist in artists:
             cprint(artist, "green")
     else:
-        cprint(f'No {movement.name} artists found', "red")
+        cprint(f'No {movement.name} artists found', "green")
 
 def list_paintings_by_movement(movement):
     artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
@@ -90,6 +90,6 @@ def list_paintings_by_movement(movement):
                 for painting in paintings:
                     cprint(painting, "green")
             else:
-                cprint(f"No {movement.name} paintings found", "red")
+                cprint(f"No {movement.name} paintings found", "green")
     else:
-        cprint(f"No {movement.name} paintings found", "red")
+        cprint(f"No {movement.name} paintings found", "green")
