@@ -26,8 +26,9 @@ def find_movement_by_id():
 
 def create_movement():
     name = input("Enter the movement's name: ")
+    year_founded = input("Enter the movement's founding year: ")
     try:
-        movement = Movement.create(name)
+        movement = Movement.create(name, year_founded)
         cprint(f'Creation successful: {movement}', "green")
     except Exception as exc:
         cprint(f"Error creating movement: {exc}", "red")
@@ -38,6 +39,8 @@ def update_movement():
         try:
             name = input("Enter the movement's new name: ")
             movement.name = name
+            year_founded = input("Enter the movement's new founding year: ")
+            movement.year_founded = year_founded
 
             movement.update()
             cprint(f"Update successful: {movement}", "green")
@@ -79,7 +82,7 @@ def list_artists_by_movement(movement):
         for artist in artists:
             cprint(artist, "green")
     else:
-        cprint(f'No {movement.name} artists found', "green")
+        cprint(f'No {movement.name} artists found', "red")
 
 def list_paintings_by_movement(movement):
     artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]

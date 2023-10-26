@@ -31,10 +31,12 @@ class Movement():
     
     @year_founded.setter
     def year_founded(self, year):
-        pattern = re.compile("^[0-9]$|^[1-9][0-9]{1,2}$|1[0-9]{3}$|^20[0-1][0-9]$|^202[0-3]$")
-        if pattern.fullmatch(str(year)):
-            self._year_founded = int(year)
-        else:
+        try:
+            if isinstance(int(year), int) and 0 <= int(year) <= 2023:
+                self._year_founded = int(year)
+            else:
+                raise ValueError
+        except ValueError:
             raise ValueError("year_founded must be an integer between 0 and 2023")
     
     @classmethod
@@ -106,8 +108,9 @@ class Movement():
         movement = cls.all.get(row[0])
         if movement:
             movement.name = row[1]
+            movement.year_founded = row[2]
         else:
-            movement = cls(row[1])
+            movement = cls(row[1], row[2])
             movement.id = row[0]
             cls.all[movement.id] = movement
         return movement

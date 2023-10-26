@@ -38,10 +38,12 @@ class Painting():
     
     @year.setter
     def year(self, year):
-        pattern = re.compile("^[0-9]$|^[1-9][0-9]{1,2}$|1[0-9]{3}$|^20[0-1][0-9]$|^202[0-3]$")
-        if pattern.fullmatch(year):
-            self._year = int(year)
-        else:
+        try:
+            if isinstance(int(year), int) and 0 <= int(year) <= 2023:
+                self._year = int(year)
+            else:
+                raise ValueError
+        except ValueError:
             raise ValueError("year must be an integer between 0 and 2023")
         
     @property
