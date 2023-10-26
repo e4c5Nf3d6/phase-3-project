@@ -1,16 +1,18 @@
 # lib/models/movement.py
 from models.__init__ import CURSOR, CONN
+import re
 
 class Movement():
 
     all = {}
 
-    def __init__(self, name, id=None):
+    def __init__(self, name, year_founded, id=None):
         self.id = id
         self.name = name
+        self.year_founded = year_founded
 
     def __repr__(self):
-        return f"<Movement {self.id}: {self.name}>"
+        return f"<Movement {self.id}: {self.name}, {self.year_founded}>"
     
     @property
     def name(self):
@@ -22,13 +24,26 @@ class Movement():
             self._name = name
         else:
             raise ValueError('name must be a non-empty string')
+        
+    @property
+    def year_founded(self):
+        return self._year_founded
+    
+    @year_founded.setter
+    def year_founded(self, year):
+        pattern = re.compile("^[0-9]$|^[1-9][0-9]{1,2}$|1[0-9]{3}$|^20[0-1][0-9]$|^202[0-3]$")
+        if pattern.fullmatch(str(year)):
+            self._year_founded = int(year)
+        else:
+            raise ValueError("year_founded must be an integer between 0 and 2023")
     
     @classmethod
     def create_table(cls):
         sql = """
             CREATE TABLE IF NOT EXISTS movements (
             id INTEGER PRIMARY KEY,
-            name TEXT)
+            name TEXT,
+            year_founded INTEGER)
         """
         CURSOR.execute(sql)
         CONN.commit()
@@ -42,21 +57,21 @@ class Movement():
         CONN.commit()
 
     @classmethod
-    def create(cls, name):
+    def create(cls, name, year_founded):
         if Movement.find_by_name(name):
             raise ValueError(f"This movement already exists: {Movement.find_by_name(name)}")
         else:
-            movement = cls(name)
+            movement = cls(name, year_founded)
             movement.save()
             return movement
 
     def save(self):
         sql = """
-            INSERT INTO movements (name)
-            VALUES (?)
+            INSERT INTO movements (name, year_founded)
+            VALUES (?, ?)
         """
 
-        CURSOR.execute(sql, (self.name,))
+        CURSOR.execute(sql, (self.name, self.year_founded))
         CONN.commit()
 
         self.id = CURSOR.lastrowid
@@ -68,10 +83,10 @@ class Movement():
         else:
             sql = """
                 UPDATE movements
-                SET name = ?
+                SET name = ?, year_founded = ?
                 WHERE id = ?
             """
-            CURSOR.execute(sql, (self.name, self.id))
+            CURSOR.execute(sql, (self.name, self.year_founded, self.id))
             CONN.commit()
 
     def delete(self):

@@ -6,27 +6,27 @@ from models.artist import Artist
 from models.painting import Painting
 from models.movement import Movement
 
-movements = ["'85 New Wave", 'American Impressionism', 'Arab Modernism', 
-             'Art Deco', 'Art Noveau', 'Arte Povera', 'Arts and Crafts', 
-             'Asuka', 'Azuchi-Momoyama', 'Baroda Group of Artists', 'Bauhaus', 
-             'Bengal School', 'Bombay Progressives', 'Byzantine', 
-             'Calcutta Group', 'Colonial Era', 'Constructivism', 
-             'Cretan School', 'Cubism', 'Dada', 'De Stijl', 
-             'Deconstructivism', 'E-maki', 'Edo', 
-             'Five Dynasties and Ten Kingdoms', 'Fujiwara', 'Fururism', 
-             'Gothic', 'Guohua', 'Gutai', 'Han Dynasty', 'Harlem Renaissance', 
-             'Heidelberg School', 'Heptanese School', 'Hudson River School', 
-             'Hurufiyya', 'Jin Dynasty', 'Kamakura', 'Kano School', 'Kofun', 
-             'Lowbrow', 'Luminism', 'Mannerism', 'Meiji', 'Ming Dynasty', 
-             'Minimalism', 'Mughal Era', 'Muromachi', 'Naqqashikatt', 'Nara', 
-             'Naturalism', 'Neo-impressionism', 'Neoclassicism', 
-             'New Objectivity', 'Northern Dynasty', 'Op Art', 'Photorealism', 
-             'Pop Art', 'Postmodernism', 'Pre-Raphaelite', 'Precisionism', 
-             'Progressive Artists Group','Qing Dynasty', 'Rayonism', 'Rococo', 
-             'Romanesque', 'Russian Futurism', 'Russian avant-garde', 
-             'Saqqakhaneh', 'Song Dynasty', 'Southern Dynasty','Sui Dynasty', 
-             'Suprematism', 'Symbolism', 'Tang Dynasty', 'Three Kingdoms', 
-             'Tonalism', 'Yuan Dynasty', 'Socialist Realism']
+movements = [("'85 New Wave", 1985), ('American Impressionism', 1890), 
+             ('Art Deco', 1919), ('Art Noveau', 1890), ('Arte Povera', 1967), ('Arts and Crafts', 1875), 
+             ('Asuka', 552), ('Azuchi-Momoyama', 1573), ('Baroda Group of Artists', 1957), ('Bauhaus', 1919), 
+             ('Bengal School', 1900), ('Bombay Progressives', 1947), ('Byzantine', 330), 
+             ('Calcutta Group', 1943), ('Constructivism', 1915), 
+             ('Cretan School', 1400), ('Cubism', 1907), ('Dada', 1916), ('De Stijl', 1917), 
+             ('Deconstructivism', 1980), ('E-maki', 735), ('Edo', 1615), 
+             ('Five Dynasties and Ten Kingdoms', 907), ('Fujiwara', 897), ('Futurism', 1909), 
+             ('Gothic', 1150), ('Guohua', 618), ('Gutai', 1954), ('Han Dynasty', 0), ('Harlem Renaissance', 1918), 
+             ('Heidelberg School', 1886), ('Heptanese School', 1650), ('Hudson River School', 1825), 
+             ('Hurufiyya', 1400), ('Jin Dynasty', 265), ('Kamakura', 1185), ('Kano School', 1450), ('Kofun', 250), 
+             ('Lowbrow', 1965), ('Luminism', 1850), ('Mannerism', 1520), ('Meiji', 1868), ('Ming Dynasty', 1368), 
+             ('Minimalism', 1960), ('Mughal Era', 1580), ('Muromachi', 1333), ('Naqqashikatt', 1950), ('Nara', 1990), 
+             ('Naturalism', 1875), ('Neo-impressionism', 1886), ('Neoclassicism', 1760), 
+             ('New Objectivity', 1920), ('Northern Dynasty', 439), ('Op Art', 1960), ('Photorealism', 1965), 
+             ('Pop Art', 1955), ('Postmodernism', 1960), ('Pre-Raphaelite', 1848), ('Precisionism', 1920), 
+             ('Progressive Artists Group', 1947), ('Qing Dynasty', 1644), ('Rayonism', 1910), ('Rococo', 1723), 
+             ('Romanesque', 1000), ('Russian Futurism', 1912), ('Russian avant-garde', 1912), 
+             ('Saqqakhaneh', 1950), ('Song Dynasty', 960), ('Southern Dynasty', 420), ('Sui Dynasty', 581), 
+             ('Suprematism', 1915), ('Symbolism', 1880), ('Tang Dynasty', 618), ('Three Kingdoms', 222), 
+             ('Tonalism', 1880), ('Yuan Dynasty', 1271), ('Socialist Realism', 1932)]
 
 def seed_database():
     Artist.drop_table()
@@ -36,22 +36,22 @@ def seed_database():
     Painting.create_table()
     Movement.create_table()
 
-    academicism = Movement.create("Academicism")
-    baroque = Movement.create("Baroque")
-    neo_expressionism = Movement.create("Neo-Expressionism")
-    surrealism = Movement.create("Surrealism")
-    realism = Movement.create("Realism")
-    renaissance = Movement.create("Renaissance")
-    post_impressionism = Movement.create("Post-Impressionism")
-    expressionism = Movement.create("Expressionism")
-    romanticism = Movement.create("Romanticism")
-    contemporary_art = Movement.create("Contemporary Art")
-    impressionism = Movement.create("Impressionism")
-    fauvism = Movement.create("Fauvism")
-    abstract_expressionism = Movement.create("Abstract Expressionism")
+    academicism = Movement.create("Academicism", 1560)
+    baroque = Movement.create("Baroque", 1585)
+    neo_expressionism = Movement.create("Neo-Expressionism", 1970)
+    surrealism = Movement.create("Surrealism", 1917)
+    realism = Movement.create("Realism", 1840)
+    renaissance = Movement.create("Renaissance", 1450)
+    post_impressionism = Movement.create("Post-Impressionism", 1886)
+    expressionism = Movement.create("Expressionism", 1905)
+    romanticism = Movement.create("Romanticism", 1798)
+    contemporary_art = Movement.create("Contemporary Art", 1945)
+    impressionism = Movement.create("Impressionism", 1874)
+    fauvism = Movement.create("Fauvism", 1905)
+    abstract_expressionism = Movement.create("Abstract Expressionism", 1943)
 
     for movement in movements:
-        Movement.create(movement)
+        Movement.create(movement[0], movement[1])
 
     basquiat = Artist.create("Jean-Michel Basquiat", neo_expressionism.id)
     cabanel = Artist.create("Alexandre Cabanel", academicism.id)

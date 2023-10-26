@@ -75,7 +75,7 @@ class Painting():
             CREATE TABLE IF NOT EXISTS paintings (
             id INTEGER PRIMARY KEY,
             name TEXT,
-            year TEXT,
+            year INTEGER,
             medium TEXT,
             artist_id INTEGER,
             FOREIGN KEY (artist_id) REFERENCES artists(id))
