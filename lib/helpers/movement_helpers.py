@@ -96,3 +96,8 @@ def list_paintings_by_movement(movement):
                 cprint(f"No {movement.name} paintings found", "green")
     else:
         cprint(f"No {movement.name} paintings found", "green")
+
+def list_movements_by_year():
+    movements = sorted(Movement.get_all(), key=lambda x: x.year_founded)
+    for movement in movements:
+        cprint(movement, "green")

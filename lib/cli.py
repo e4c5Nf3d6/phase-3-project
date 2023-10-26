@@ -146,6 +146,8 @@ def movements():
         elif choice == "6":
             delete_movement()
         elif choice == "7":
+            list_movements_by_year()
+        elif choice == "8":
             movement = find_movement_by_name("return")
             if movement:
                 explore_movement(movement) 

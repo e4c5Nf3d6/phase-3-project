@@ -152,13 +152,13 @@ Running `python seed.py` will seed the database with some initial data. This dat
     - prints movement if found else not found
 
 - create_movement
-    - prompts user for movement name
+    - prompts user for movement name and year_founded
     - creates movement and prints if valid, else error
 
 - update_movement
     - prompts user for movement id
     - if not valid, print error
-    - if valid, prompts user to enter new name
+    - if valid, prompts user to enter new name and year_founded
     - if new name valid, update and print movement else error
 
 - delete_movement
