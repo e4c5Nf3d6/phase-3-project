@@ -1,4 +1,4 @@
-from lib.models.painting import Painting
+from models.painting import Painting
 
 def exit_program():
     print("Goodbye!")

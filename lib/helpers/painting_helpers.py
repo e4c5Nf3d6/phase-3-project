@@ -5,7 +5,7 @@ from termcolor import colored, cprint
 from models.artist import Artist
 from models.painting import Painting
 
-from helpers import choose_medium
+from helpers.helpers import choose_medium
 
 def list_paintings():
     paintings = Painting.get_all()

@@ -2,11 +2,11 @@
 
 from termcolor import cprint
 
-from lib.helpers.artist_helpers import *
-from lib.helpers.movement_helpers import *
-from lib.helpers.painting_helpers import *
+from helpers.artist_helpers import *
+from helpers.movement_helpers import *
+from helpers.painting_helpers import *
 
-from lib.helpers.helpers import exit_program
+from helpers.helpers import exit_program
 
 from menus import (
     main_menu,

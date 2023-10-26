@@ -81,7 +81,7 @@ def list_paintings_by_artist(artist):
         for painting in paintings:
             cprint(painting, "green")
     else:
-        cprint(f'No paintings found by {artist.name}', "red")
+        cprint(f'No paintings found by {artist.name}', "green")
 
 def display_artist_movement(artist):
     movement = Movement.find_by_id(artist.movement_id)
@@ -95,8 +95,11 @@ def list_artists_in_same_movement(artist):
         for artist in other_artists:
             cprint(artist, "green")
     else:
-        cprint(f'No other {movement.name} artists found', "red")
+        cprint(f'No other {movement.name} artists found', "green")
 
 def list_artist_mediums(artist):
     mediums = [painting.medium for painting in Painting.get_all() if painting.artist_id == artist.id]
-    cprint(", ".join(set(mediums)), "green")
+    if mediums:
+        cprint(", ".join(set(mediums)), "green")
+    else:
+        cprint(f"No mediums recorded for {artist.name}", "green")
