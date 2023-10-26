@@ -42,138 +42,47 @@ Running `python seed.py` will seed the database with some initial data. This dat
 
 ### artist_helpers.py
 
-- list_artists
-    - prints each artist
+`artist_helpers.py` contains all functions executed by user choices in the artist menu. Any functions that take in an artists as a parameter are a part of the explore artist menu; the artist chosen when entering that menu is automatically passed in to these functions.
 
-- find_artist_by_name
-    - prompts the user to enter an artist name
-    - prints all artists that match
-    - prints artist not found if none match
-
-- find_artist_by_id:
-    - optional parameter
-    - prompts the user to enter an artist id
-    - prints (or returns) the artist that matches
-    - prints artist not found if none match
-
-- create_artist:
-    - prompts the user to enter an artist name
-    - prompts the user to enter a movement id
-    - creates and prints an artist if both are valid, else prints error
-
-- update_artist
-    - prompts the user to enter an artist id
-    - if artist exists, prompts user to input a name and movement id, else prints error
-    - if both are valid, updates and prints artist, else prints error
-
-- delete_artist
-    - prompts the user to enter an artist id
-    - prints error if artist doesn't exist
-    - prompts user to confirm deletion if artist exists
-    - deletes artist and all associated paintings if confirmed and prints deletion messages, else prints deletion aborted
-
-- list_paintings_by_artist
-    - takes in artist as parameter
-    - if paintings by artist exist, prints each
-    - else prints none found
-
-- display_artist_movement
-    - takes in artist
-    - displays associated movement
-
-- list_artists_in_same_movement
-    - takes in artist
-    - if others, prints
-    - else prints no others
-
-- list_artist_mediums
-    - prints mediums used by artist
-    - else prints none
+- `list_artists` prints each artist.
+- `find_artist_by_name` prompts the user to enter an artist's name. If any artists have names that match the input, those artists are printed. If not, the function prints a message that no matching artist was found.
+- `find_artist_by_id` prompts the user to enter an artist's id. If an artist has an id that matches the input, that artist is printed. If not, the function prints a message that no matching artist was found. (The function takes an optional parameter, result, that has a default value of "print". If the value "return" is passed in, the function returns the artist instead of printing and returns `None` if there is no match.)
+- `create_artist` prompts the user to enter an artist's name and a movement id. If both are valid, the function creates and prints the artist. Otherwise, the function prints an error message.
+- `update_artist` prompts the user to enter an artist's id. If a matching artist exists in the database, the function prompts the user to input a new name and a new movement id. If both are valid, it updates and prints artist. Otherwise, it prints an error message. If no matching artist exists, it prints a message that no matching artist was found.
+- `delete_artist` prompts the user to enter an artist's id. If a matching artist exists in the database, the function prompts the user to confirm the deletion. If confirmed, the artist and all associated paintings are deleted and deletion messages are printed. If not confirmed, a message is printed that the deletion was aborted. If no matching artist exists, it prints a message that no matching artist was found.
+- `list_paintings_by_artist` takes in an artist as a parameter. If any paintings are associated with that artists, they are printed. If not, a message that none were found is printed.
+- `display_artist_movement` takes in an artist as a parameter and prints the associated movement.
+- `list_artists_in_same_movement`takes in an artist as a parameter. If any other artists are associated with the movement with which the artist is associated, they are printed. If not, a message that no other artists were found is printed.
+- `list_artist_mediums`takes in an artist as a parameter. If any paintings are associated with the artist, a list of mediums are printed. If not, a message that none were found is printed.
 
 ### paintings_helpers.py
 
-- list_paintings
-    prints all paintings
+`painting_helpers.py`contains all functions executed by user choices in the paintings menu. Any functions that take in a painting as a parameter are a part of the explore painting menu; the painting chosen when entering that menu is automatically passed in to these functions.
 
-- find_painting_by_name
-    - prompts user for painting name
-    - prints all matching paintings if any else none found
-
-- find_painting_by_id
-    - optional parameter
-    - prompts for painting id
-    - prints painting if found else not found
-
-- create_painting
-    - prompts user for name, year, choose medium, artist_id
-    - if all valid, creates and prints painting, else error
-
-- update_painting
-    - prompts for painting id
-    - if exists prompts for new name, year, choose medium, artist_id
-    - if valid, updates and prints painting else prints error
-    - if not exists, prints not found
-
-- delete_painting
-    - prompts for painting id
-    - if not exists, prints not found
-    - if exists, asks for confirmation
-    - if confirmed, deletes painting and prints deletion confirmation
-    - if not confirmed, prints abort message
-
-- display_artist
-    - takes in painting
-    - prints associated artist
-
-- list_paintings_by_same_artist
-    - takes in painting
-    - prints all other paintings by associated artist if any, else none found
-
-- list_paintings_by_medium
-    - prompts user to choose medium
-    - if valid, prints all paintings with that medium if any else none found
-    - if not valid prints invalid choice
-
-- list_paintings_by_year
-    - prints paintings in chronological order
+- `list_paintings` prints each painting.
+- `find_painting_by_name`prompts the user for a painting's name. If any paintings match, it prints all matching paintings. If not, it prints a message that no matching painting was found. 
+- `find_painting_by_id` prompts the user to enter a painting's id. If a painting has an id that matches the input, that painting is printed. If not, the function prints a message that no matching painting was found. (The function takes an optional parameter, result, that has a default value of "print". If the value "return" is passed in, the function returns the painting instead of printing and returns `None` if there is no match.)
+- `create_painting` prompts the user to enter a painting name and year, prompts them to choose a medium, and prompts them to enter an artist_id. If all inputs are valid, the function creates and prints a painting. If not, it prints an error message.
+- `update_painting` prompts the user to enter a painting's id. If a matching painting exists, the function prompts the user to enter a new painting name and year, prompts them to choose a new medium, and prompts them to enter a new artist_id. If all inputs are valid, the function updates and prints the painting. If not, it prints an error message. If a matching painting does not exist, a message that no matching painting was found is printed.
+- `delete_painting`prompts the user to enter a painting's id. If a matching painting exists in the database, the function prompts the user to confirm the deletion. If confirmed, the painting is deleted and a deletion message is printed. If not confirmed, a message is printed that the deletion was aborted. If no matching painting exists, it prints a message that no matching painting was found.
+- `display_artist` takes in a painting as a parameter and prints the associated artist.
+- `list_paintings_by_same_artist` takes in painting as a parameter. If any other paintings are associated with the artist with which the painting is associated, they are printed. If not, a message that no other paintings were found is printed.
+- `list_paintings_by_medium` prompts the user to choose a medium. If the choice is valid, the function prints each painting with the chosen medium or a message that none were found. If not, it prints a message that the choice was invalid.
+- `list_paintings_by_year` prints all paintings in chronological order.
 
 ### movement_helpers.py
 
-- list_movements
-    - lists all movements
+`movement_helpers.py`contains all functions executed by user choices in the movements menu. Any functions that take in a movement as a parameter are a part of the explore movement menu; the movement chosen when entering that menu is automatically passed in to these functions.
 
-- find_movement_by_name
-    - optional parameter
-    - prompts user for movement name
-    - prints or returns movement if exists, else not found
-
-- find_movement_by_id
-    - prompts user for movement id
-    - prints movement if found else not found
-
-- create_movement
-    - prompts user for movement name and year_founded
-    - creates movement and prints if valid, else error
-
-- update_movement
-    - prompts user for movement id
-    - if not valid, print error
-    - if valid, prompts user to enter new name and year_founded
-    - if new name valid, update and print movement else error
-
-- delete_movement
-    - prompts user for movement id
-    - if exists, asks for confirmation, else print not found
-    - if confirmed, deletes movement and associated artists and paintings and prints deletion confirmations
-    - if not confirmed, prints abort message
-
-- list_artists_by_movement
-    - takes in a movement
-    - prints all associated artists if any else none
-
-def list_paintings_by_movement(movement):
-    - takes in a movement
-    - prints all associated paintings if any else none
+- `list_movements` prints each movement.
+- `find_movement_by_name` prompts the user to enter a movement's name. If a matching movement is found, it is printed. If not, a message that no matching movement was found is printed. (The function takes an optional parameter, result, that has a default value of "print". If the value "return" is passed in, the function returns the movement instead of printing and returns `None` if there is no match.)
+- `find_movement_by_id` prompts the user to enter a movement's id. If a matching movement is found, it is printed. If not, a message that no matching movement was found is printed.
+- `create_movement` prompts the user to enter a name and year_founded. If both are valid, a movement is created and printed. If not, an error message is displayed.
+- `update_movement` prompts the user to enter a movement's id. If a matching movement exists, the function prompts the user to enter a new movement name and year_founded. If both are valid, the function updates and prints the movement. If not, it prints an error message. If a matching movement does not exist, a message that no matching movement was found is printed.
+- `delete_movement` prompts the user to enter a movement's id. If a matching movement exists, the function prompts the user to confirm the deletion. If the deletion is confirmed, the movement is deleted along with associated artists and paintings and deletion messages are printed. If it is not confirmed, a message that the deletion was aborted is printed. If no matching movement exists, a message that no matching movement was found is printed.
+- `list_artists_by_movement` takes in a movement as a parameter. If any artists are associated with that movement, they are printed. If not, a message that no associated artists were found is printed.
+- `list_paintings_by_movement` takes in a movement as a parameter. If any paintings are associated with any artists that are associated with that movement, they are printed. If not, a message that no associated paintings were found is printed.
+- `list_movements_by_year` prints all movements in chronological order.
 
 ## Models
 
