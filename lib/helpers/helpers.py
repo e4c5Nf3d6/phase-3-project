@@ -1,13 +1,16 @@
+from termcolor import cprint
+
 from models.painting import Painting
 
 def exit_program():
-    print("Goodbye!")
+    spacer()
+    cprint("Goodbye!", "green")
+    spacer()
     exit()
     
 def divider():
-    print(" ")
     print("_______________________________________________")
-    print(" ")
+    print("")
 
 def spacer():
     print(" ")

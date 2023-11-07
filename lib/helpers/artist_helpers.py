@@ -3,18 +3,32 @@
 from termcolor import colored, cprint
 
 from models.artist import Artist
-from models.movement import Movement
 from models.painting import Painting
 
-from helpers.helpers import divider
+from helpers.helpers import spacer
+
+from helpers.movement_helpers import choose_movement
 
 def list_artists():
-    divider()
-    artists = sorted(Artist.get_all(), key=lambda x: x.name)
+    spacer()
+    artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
     for artist in artists:
         cprint(f"{artists.index(artist) + 1}. {artist.name}", "green")
-    divider()
+    spacer()
 
+def choose_artist():
+    spacer()
+    artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
+    for artist in artists:
+        print(f"{artists.index(artist) + 1}. {artist.name}")
+    spacer()
+    id = input("Enter the artist's ID: ")
+    artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
+    try:
+        return artists[int(id) - 1]
+    except:
+        return None
+    
 # def find_artist_by_name():
 #     name = input("Enter the artist's name: ")
 #     artists = Artist.find_by_name(name)
@@ -24,32 +38,26 @@ def list_artists():
 #     else:
 #         cprint(f'Artist {name} not found', "red")
 
-def choose_artist():
-    id = input("Enter the artist's ID: ")
-    artists = sorted(Artist.get_all(), key=lambda x: x.name)
-    try:
-        return artists[int(id) - 1]
-    except:
-        return None
-
 def create_artist():
     name = input("Enter the artist's name: ")
-    movement_id = input("Enter the artist's movement_id: ")
+    movement_id = choose_movement().id
+    spacer()
     try:
         artist = Artist.create(name, movement_id)
-        cprint(f'Creation successful: {artist}', "green")
+        cprint(f'{artist.name} created successfully', "green")
     except Exception as exc:
         cprint(f"Error creating artist: {exc}", "red")
 
 def update_artist(artist):
+    spacer()
     try:
         name = input("Enter the artist's new name: ")
         artist.name = name
-        movement_id = input("Enter the artist's new movement_id: ")
+        movement_id = choose_movement().id
         artist.movement_id = movement_id
 
         artist.update()
-        cprint(f"Update successful: {artist}", "green")
+        cprint(f"{artist.name} updated successfully", "green")
     except Exception as exc:
         cprint(f"Error updating artist: {exc}", "red")
 
@@ -59,26 +67,28 @@ def delete_artist(artist):
         "yellow", 
         attrs=["bold"]
     )
+    spacer()
     confirmation = input(confirmation_text)
+    spacer()
     if confirmation == "y" or confirmation == "Y":
         paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
         for painting in paintings:
-            painting_id = painting.id
             painting.delete()
-            cprint(f'Painting {painting_id} deleted', "green")
         artist.delete()
         cprint(f'{artist.name} deleted', "green")
         return "deleted"
     else:
         cprint('Deletion aborted', "green")
-        return "aborted"
 
 def list_paintings_by_artist(artist):
     paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
     if paintings:
+        spacer()
         for painting in paintings:
-            cprint(painting, "green")
+            cprint(f"{painting.name}, {painting.year}", "green")
+        spacer()
     else:
+        spacer()
         cprint(f'No paintings found by {artist.name}', "green")
 
 # def display_artist_movement(artist):

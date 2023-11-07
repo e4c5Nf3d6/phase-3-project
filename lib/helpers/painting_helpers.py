@@ -7,19 +7,26 @@ from models.painting import Painting
 
 from helpers.helpers import (
     choose_medium, 
-    divider
+    spacer
 )
 
+from helpers.artist_helpers import choose_artist
+
 def list_paintings():
-    divider()
-    paintings = sorted(Painting.get_all(), key=lambda x: x.name)
+    spacer()
+    paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
     for painting in paintings:
         cprint(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
-    divider()
+    spacer()
 
 def choose_painting():
+    spacer()
+    paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
+    for painting in paintings:
+        print(f"{paintings.index(painting) + 1}. {painting.name}")
+    spacer()
     id = input("Enter the painting's ID: ")
-    paintings = sorted(Painting.get_all(), key=lambda x: x.name)
+    paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
     try:
         return paintings[int(id) - 1]
     except:
@@ -44,14 +51,16 @@ def create_painting():
     year = input("Enter the painting's year: ")
     print("Choose the painting's medium: ")
     medium = choose_medium()
-    artist_id = input("Enter the painting's artist_id: ")
+    artist_id = choose_artist().id
+    spacer()
     try:
         painting = Painting.create(name, year, medium, artist_id)
-        cprint(f'Creation successful: {painting}', "green")
+        cprint(f'{painting.name} successfully created', "green")
     except Exception as exc:
         cprint(f"Error creating painting: {exc}", "red")
 
 def update_painting(painting):
+    spacer()
     try:
         name = input("Enter the painting's new name: ")
         painting.name = name
@@ -64,7 +73,7 @@ def update_painting(painting):
         painting.artist_id = artist_id
 
         painting.update()
-        cprint(f"Update successful: {painting}", "green")
+        cprint(f"{painting.name} successfully updated", "green")
     except Exception as exc:
         cprint(f"Error updating painting: {exc}", "red")
 
@@ -74,14 +83,15 @@ def delete_painting(painting):
         "yellow", 
         attrs=["bold"]
     )
+    spacer()
     confirmation = input(confirmation_text)
+    spacer()
     if confirmation == "y" or confirmation == "Y":
         painting.delete()
-        cprint(f'{painting.name} deleted', "green")
+        cprint(f'{painting.name} successfully deleted', "green")
         return "deleted"
     else:
         cprint("Deletion aborted", "green")
-        return "aborted"
 
 # def display_artist(painting):
 #     artist = Artist.find_by_id(painting.artist_id)
@@ -104,10 +114,14 @@ def list_paintings_by_medium():
         paintings = [painting for painting in Painting.get_all() if painting.medium == medium]
         if paintings:
             for painting in paintings:
+                spacer()
                 cprint(painting, "green")
+                spacer()
         else:
+            spacer()
             cprint(f"No {medium} paintings found", "green")
     else:
+        spacer()
         cprint("Invalid choice", "red")
 
 # def list_paintings_by_year():

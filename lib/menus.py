@@ -1,68 +1,85 @@
 from termcolor import cprint
 
-from helpers.helpers import spacer
+from models.movement import Movement
+from models.artist import Artist
+
+from helpers.helpers import (
+    divider,
+    spacer
+)
 
 def main_menu():
-    spacer()
+    divider()
     cprint("Main Menu", "cyan")
+    spacer()
     print("0. Exit the program")
     print("1. Artists")
     print("2. Paintings")
     print("3. Movements")
-    spacer()
+    divider()
 
 
 def artists_menu():
+    divider()
+    cprint("Artists Menu", "cyan")
     spacer()
-    cprint("Artist Menu", "cyan")
     print("0. Return to main menu")
     print("1. List all artists")
     print("2. Add a new artist")
     print("3. Explore an artist")
-    spacer()
+    divider()
 
 def artist_options_menu(artist):
-    spacer()
+    divider()
     cprint(f"Exploring {artist.name}", "cyan")
+    print(f"   Movement: {Movement.find_by_id(artist.movement_id).name}")
+    spacer()
     print("0. Go back to the artists menu")
     print(f"1. List paintings by {artist.name}")
     print(f"2. Update {artist.name}")
     print(f"3. Delete {artist.name}")
-    spacer()
+    divider()
 
 def paintings_menu():
-    spacer()
+    divider()
     cprint("Paintings Menu", "cyan")
+    spacer()
     print("0. Go back to main menu")
     print("1. List all paintings")
     print("2. Create painting")
     print("3. List paintings by medium")
     print("4. Explore a painting")
-    spacer()
+    divider()
 
 def painting_options_menu(painting):
+    divider()
+    cprint(f"Exploring {painting.name}", "cyan")
+    print(f"  Artist: {Artist.find_by_id(painting.artist_id).name}")
+    print(f"  Year: {painting.year}")
+    print(f"  Medium: {painting.medium}")
     spacer()
-    cprint(f"Exploring {painting}", "cyan")
     print("0. Go back to paintings menu")
     print(f"1. Update {painting.name}")
     print(f"2. Delete {painting.name}")
-    spacer()
+    divider()
 
 def movements_menu():
-    spacer()
+    divider()
     cprint("Movements Menu", "cyan")
+    spacer()
     print("0. Go back to main menu")
     print("1. List all movements")
-    print("4. Create movement")
-    print("8. Explore a movement")
-    spacer()
+    print("2. Create movement")
+    print("3. Explore a movement")
+    divider()
 
 def movement_options_menu(movement):
+    divider()
+    cprint(f"Exploring {movement.name} movement", "cyan")
     spacer()
-    cprint(f"Exploring {movement}", "cyan")
     print("0. Go back to movements menu")
     print("1. Update Movement")
-    print("1. Delete movement")
-    print("1. List artists in this movement")
-    print("2. List paintings in this movement")
-    spacer()
+    print("2. Delete movement")
+    print(f"3. List artists in the {movement.name} movement")
+    print(f"4. List paintings in the {movement.name} movement")
+    divider()
