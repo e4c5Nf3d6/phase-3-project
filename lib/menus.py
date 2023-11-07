@@ -31,10 +31,10 @@ def artists_menu():
 
 def artist_options_menu(artist):
     divider()
-    cprint(f"Exploring {artist.name}", "cyan")
+    cprint(f"Exploring artist: {artist.name}", "cyan")
     print(f"   Movement: {Movement.find_by_id(artist.movement_id).name}")
     spacer()
-    print("0. Go back to the artists menu")
+    print("0. Go back to the previous menu")
     print(f"1. List paintings by {artist.name}")
     print(f"2. Add a new {artist.name} painting")
     print(f"3. Update {artist.name}")
@@ -54,12 +54,12 @@ def paintings_menu():
 
 def painting_options_menu(painting):
     divider()
-    cprint(f"Exploring {painting.name}", "cyan")
+    cprint(f"Exploring painting: {painting.name}", "cyan")
     print(f"  Artist: {Artist.find_by_id(painting.artist_id).name}")
     print(f"  Year: {painting.year}")
     print(f"  Medium: {painting.medium}")
     spacer()
-    print("0. Go back to paintings menu")
+    print("0. Go back to the previous menu")
     print(f"1. Update {painting.name}")
     print(f"2. Delete {painting.name}")
     divider()
@@ -76,10 +76,10 @@ def movements_menu():
 
 def movement_options_menu(movement):
     divider()
-    cprint(f"Exploring {movement.name} movement", "cyan")
+    cprint(f"Exploring movement: {movement.name} movement", "cyan")
     print(f"  Year founded: {movement.year_founded}")
     spacer()
-    print("0. Go back to movements menu")
+    print("0. Go back to the previous menu")
     print(f"1. List artists in the {movement.name} movement")
     print(f"2. Add a new {movement.name} artist")
     print("3. Update movement")

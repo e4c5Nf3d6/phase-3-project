@@ -42,14 +42,20 @@ def choose_artist():
 
 def create_artist(movement_id=None):
     name = input("Enter the artist's name: ")
-    if not movement_id:
-        movement_id = choose_movement().id
     spacer()
+    if not movement_id:
+        try:
+            movement_id = choose_movement().id
+        except:
+            cprint("Invalid choice", "red")
+            return None
     try:
         artist = Artist.create(name, movement_id)
         cprint(f'{artist.name} created successfully', "green")
+        return artist
     except Exception as exc:
         cprint(f"Error creating artist: {exc}", "red")
+        return None
 
 def update_artist(artist):
     spacer()

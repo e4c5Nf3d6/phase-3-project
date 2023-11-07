@@ -47,8 +47,10 @@ def create_movement():
     try:
         movement = Movement.create(name, year_founded)
         cprint(f'{movement.name} movement successfully created', "green")
+        return movement
     except Exception as exc:
         cprint(f"Error creating movement: {exc}", "red")
+        return None
 
 def update_movement(movement):
     try:

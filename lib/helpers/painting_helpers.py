@@ -54,13 +54,19 @@ def create_painting(artist_id=None):
     print("Choose the painting's medium: ")
     medium = choose_medium()
     if not artist_id:
-        artist_id = choose_artist().id
+        try:
+            artist_id = choose_artist().id
+        except:
+            cprint("Invalid choice", "red")
+            return None
     spacer()
     try:
         painting = Painting.create(name, year, medium, artist_id)
         cprint(f'{painting.name} successfully created', "green")
+        return painting
     except Exception as exc:
         cprint(f"Error creating painting: {exc}", "red")
+        return None
 
 def update_painting(painting):
     spacer()

@@ -72,7 +72,9 @@ def artists():
         elif choice == "1":
             list_artists()
         elif choice == "2":
-            create_artist()
+            artist = create_artist()
+            if artist:
+                explore_artist(artist)
         elif choice == "3":
             artist = choose_artist()
             if artist:
@@ -94,7 +96,9 @@ def explore_artist(artist):
         elif choice == "1":
             list_paintings_by_artist(artist)
         elif choice == "2":
-            create_painting(artist.id)
+            painting = create_painting(artist.id)
+            if painting:
+                explore_painting(painting)
         elif choice == "3":
             update_artist(artist)
         elif choice == "4":
@@ -117,7 +121,9 @@ def paintings():
         elif choice == "2":
             list_paintings_by_medium()        
         elif choice == "3":
-            create_painting()
+            painting = create_painting()
+            if painting:
+                explore_painting(painting)
         elif choice == "4":
             painting = choose_painting()
             if painting:
@@ -156,7 +162,9 @@ def movements():
         elif choice == "1":
             list_movements()
         elif choice == "2":
-            create_movement()
+            movement = create_movement()
+            if movement:
+                explore_movement(movement)
         elif choice == "3":
             movement = choose_movement()
             if movement:
@@ -178,7 +186,9 @@ def explore_movement(movement):
         elif choice == "1":
             list_artists_by_movement(movement)
         elif choice == "2":
-            create_artist(movement.id)
+            artist = create_artist(movement.id)
+            if artist:
+                explore_artist(artist)
         elif choice == "3":
             update_movement(movement)
         elif choice == "4":
