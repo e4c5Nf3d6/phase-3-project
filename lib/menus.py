@@ -3,7 +3,7 @@ from termcolor import cprint
 from models.movement import Movement
 from models.artist import Artist
 
-from helpers.helpers import (
+from helpers.general_helpers import (
     divider,
     spacer
 )
@@ -36,8 +36,9 @@ def artist_options_menu(artist):
     spacer()
     print("0. Go back to the artists menu")
     print(f"1. List paintings by {artist.name}")
-    print(f"2. Update {artist.name}")
-    print(f"3. Delete {artist.name}")
+    print(f"2. Add a new {artist.name} painting")
+    print(f"3. Update {artist.name}")
+    print(f"4. Delete {artist.name}")
     divider()
 
 def paintings_menu():
@@ -46,8 +47,8 @@ def paintings_menu():
     spacer()
     print("0. Go back to main menu")
     print("1. List all paintings")
-    print("2. Create painting")
-    print("3. List paintings by medium")
+    print("2. List paintings by medium")
+    print("3. Create painting")
     print("4. Explore a painting")
     divider()
 
@@ -76,10 +77,11 @@ def movements_menu():
 def movement_options_menu(movement):
     divider()
     cprint(f"Exploring {movement.name} movement", "cyan")
+    print(f"  Year founded: {movement.year_founded}")
     spacer()
     print("0. Go back to movements menu")
-    print("1. Update Movement")
-    print("2. Delete movement")
-    print(f"3. List artists in the {movement.name} movement")
-    print(f"4. List paintings in the {movement.name} movement")
+    print(f"1. List artists in the {movement.name} movement")
+    print(f"2. Add a new {movement.name} artist")
+    print("3. Update movement")
+    print("4. Delete movement")
     divider()

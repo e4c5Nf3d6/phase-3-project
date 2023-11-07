@@ -30,8 +30,9 @@ from helpers.painting_helpers import (
     list_paintings_by_medium,
 )
 
-from helpers.helpers import (
+from helpers.general_helpers import (
     exit_program,
+    spacer
 )
 
 from menus import (
@@ -58,6 +59,7 @@ def main():
         elif choice == "3":
             movements()
         else:
+            spacer()
             cprint("Invalid choice", "red")
 
 def artists():
@@ -76,8 +78,10 @@ def artists():
             if artist:
                 explore_artist(artist) 
             else:
+                spacer()
                 cprint("Invalid choice", "red")   
         else:
+            spacer()
             cprint("Invalid choice", "red")
 
 def explore_artist(artist):
@@ -90,12 +94,15 @@ def explore_artist(artist):
         elif choice == "1":
             list_paintings_by_artist(artist)
         elif choice == "2":
-            update_artist(artist)
+            create_painting(artist.id)
         elif choice == "3":
+            update_artist(artist)
+        elif choice == "4":
             result = delete_artist(artist)
             if result == "deleted":
                 m = "artists"
         else:
+            spacer()
             cprint("Invalid choice", "red")
 
 def paintings():
@@ -108,16 +115,18 @@ def paintings():
         elif choice == "1":
             list_paintings()
         elif choice == "2":
-            create_painting()
+            list_paintings_by_medium()        
         elif choice == "3":
-            list_paintings_by_medium()
+            create_painting()
         elif choice == "4":
             painting = choose_painting()
             if painting:
                 explore_painting(painting) 
             else:
+                spacer()
                 cprint("Invalid Choice", "red")     
         else:
+            spacer()
             cprint("Invalid choice", "red")
 
 def explore_painting(painting):
@@ -134,6 +143,7 @@ def explore_painting(painting):
             if result == "deleted":
                 m = "paintings"
         else:
+            spacer()
             cprint("Invalid choice", "red")
 
 def movements():
@@ -152,8 +162,10 @@ def movements():
             if movement:
                 explore_movement(movement) 
             else:
+                spacer()
                 cprint("Invalid choice", "red")           
         else:
+            spacer()
             cprint("Invalid choice", "red")
 
 def explore_movement(movement):
@@ -164,16 +176,17 @@ def explore_movement(movement):
         if choice == "0":
             m = "movements"
         elif choice == "1":
-            update_movement(movement)
+            list_artists_by_movement(movement)
         elif choice == "2":
+            create_artist(movement.id)
+        elif choice == "3":
+            update_movement(movement)
+        elif choice == "4":
             result = delete_movement(movement)
             if result == "deleted":
                 m = "movements"
-        elif choice == "3":
-            list_artists_by_movement(movement)
-        elif choice == "4":
-            list_paintings_by_movement(movement)
         else:
+            spacer()
             cprint("Invalid choice", "red")
 
 if __name__ == "__main__":

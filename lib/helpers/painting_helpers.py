@@ -5,7 +5,7 @@ from termcolor import colored, cprint
 from models.artist import Artist
 from models.painting import Painting
 
-from helpers.helpers import (
+from helpers.general_helpers import (
     choose_medium, 
     spacer
 )
@@ -28,6 +28,8 @@ def choose_painting():
     id = input("Enter the painting's ID: ")
     paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
     try:
+        if int(id) == 0:
+            raise ValueError
         return paintings[int(id) - 1]
     except:
         return None
@@ -46,12 +48,13 @@ def choose_painting():
 #     painting = Painting.find_by_id(id_)
 #     return painting
 
-def create_painting():
+def create_painting(artist_id=None):
     name = input("Enter the painting's name: ")
     year = input("Enter the painting's year: ")
     print("Choose the painting's medium: ")
     medium = choose_medium()
-    artist_id = choose_artist().id
+    if not artist_id:
+        artist_id = choose_artist().id
     spacer()
     try:
         painting = Painting.create(name, year, medium, artist_id)
@@ -110,18 +113,15 @@ def delete_painting(painting):
 def list_paintings_by_medium():
     print("Choose a medium: ")
     medium = choose_medium()
+    spacer()
     if medium in Painting.mediums:
         paintings = [painting for painting in Painting.get_all() if painting.medium == medium]
         if paintings:
             for painting in paintings:
-                spacer()
-                cprint(painting, "green")
-                spacer()
+                cprint(f"{painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
         else:
-            spacer()
             cprint(f"No {medium} paintings found", "green")
     else:
-        spacer()
         cprint("Invalid choice", "red")
 
 # def list_paintings_by_year():

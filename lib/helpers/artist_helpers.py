@@ -5,7 +5,7 @@ from termcolor import colored, cprint
 from models.artist import Artist
 from models.painting import Painting
 
-from helpers.helpers import spacer
+from helpers.general_helpers import spacer
 
 from helpers.movement_helpers import choose_movement
 
@@ -25,6 +25,8 @@ def choose_artist():
     id = input("Enter the artist's ID: ")
     artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
     try:
+        if int(id) == 0:
+            raise ValueError
         return artists[int(id) - 1]
     except:
         return None
@@ -38,9 +40,10 @@ def choose_artist():
 #     else:
 #         cprint(f'Artist {name} not found', "red")
 
-def create_artist():
+def create_artist(movement_id=None):
     name = input("Enter the artist's name: ")
-    movement_id = choose_movement().id
+    if not movement_id:
+        movement_id = choose_movement().id
     spacer()
     try:
         artist = Artist.create(name, movement_id)

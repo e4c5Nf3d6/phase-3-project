@@ -6,7 +6,7 @@ from models.artist import Artist
 from models.movement import Movement
 from models.painting import Painting
 
-from helpers.helpers import spacer
+from helpers.general_helpers import spacer
 
 def list_movements():
     spacer()
@@ -24,6 +24,8 @@ def choose_movement():
     id = input("Enter the movement's ID: ")
     movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
     try:
+        if int(id) == 0:
+            raise ValueError
         return movements[int(id) - 1]
     except:
         return None
