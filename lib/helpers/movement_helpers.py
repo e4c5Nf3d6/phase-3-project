@@ -6,23 +6,32 @@ from models.artist import Artist
 from models.movement import Movement
 from models.painting import Painting
 
+from helpers.helpers import divider
+
 def list_movements():
-    movements = Movement.get_all()
+    divider()
+    movements = sorted(Movement.get_all(), key=lambda x: x.name)
     for movement in movements:
-        cprint(movement, "green")
+        cprint(f"{movements.index(movement) + 1}. {movement.name}", "green")
+    divider()
 
-def find_movement_by_name():
-    name = input("Enter the movement's name: ")
-    movement = Movement.find_by_name(name)
-    cprint(movement, "green") if movement else cprint(f'Movement {name} not found', "red")
+def choose_movement():
+    id = input("Enter the movement's ID: ")
+    movements = sorted(Movement.get_all(), key=lambda x: x.name)
+    try:
+        return movements[int(id) - 1]
+    except:
+        return None
 
-def find_movement_by_id(result="print"):
-    id_ = input("Enter the movement's id: ")
-    movement = Movement.find_by_id(id_)
-    if result == "print":
-        cprint(movement, "green") if movement else cprint(f'Movement {id_} not found', "red")
-    elif result == "return":
-        return movement if movement else None
+# def find_movement_by_name():
+#     name = input("Enter the movement's name: ")
+#     movement = Movement.find_by_name(name)
+#     cprint(movement, "green") if movement else cprint(f'Movement {name} not found', "red")
+
+# def find_movement_by_id():
+#     id_ = input("Enter the movement's id: ")
+#     movement = Movement.find_by_id(id_)
+#     return movement
 
 def create_movement():
     name = input("Enter the movement's name: ")
@@ -89,7 +98,7 @@ def list_paintings_by_movement(movement):
     else:
         cprint(f"No {movement.name} paintings found", "green")
 
-def list_movements_by_year():
-    movements = sorted(Movement.get_all(), key=lambda x: x.year_founded)
-    for movement in movements:
-        cprint(movement, "green")
+# def list_movements_by_year():
+#     movements = sorted(Movement.get_all(), key=lambda x: x.year_founded)
+#     for movement in movements:
+#         cprint(movement, "green")

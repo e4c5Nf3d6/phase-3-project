@@ -5,29 +5,39 @@ from termcolor import colored, cprint
 from models.artist import Artist
 from models.painting import Painting
 
-from helpers.helpers import choose_medium
+from helpers.helpers import (
+    choose_medium, 
+    divider
+)
 
 def list_paintings():
-    paintings = Painting.get_all()
+    divider()
+    paintings = sorted(Painting.get_all(), key=lambda x: x.name)
     for painting in paintings:
-        cprint(painting, "green")
+        cprint(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
+    divider()
 
-def find_painting_by_name():
-    name = input("Enter the painting's name: ")
-    paintings = Painting.find_by_name(name)
-    if paintings:
-        for painting in paintings:
-            cprint(painting, "green")
-    else:
-        cprint(f'Painting {name} not found', "red")
+def choose_painting():
+    id = input("Enter the painting's ID: ")
+    paintings = sorted(Painting.get_all(), key=lambda x: x.name)
+    try:
+        return paintings[int(id) - 1]
+    except:
+        return None
 
-def find_painting_by_id(result="print"):
-    id_ = input("Enter the painting's id: ")
-    painting = Painting.find_by_id(id_)
-    if result == "print":
-        cprint(painting, "green") if painting else cprint(f'Painting {id_} not found', "red")
-    elif result == "return":
-        return painting
+# def find_painting_by_name():
+#     name = input("Enter the painting's name: ")
+#     paintings = Painting.find_by_name(name)
+#     if paintings:
+#         for painting in paintings:
+#             cprint(painting, "green")
+#     else:
+#         cprint(f'Painting {name} not found', "red")
+
+# def find_painting_by_id():
+#     id_ = input("Enter the painting's id: ")
+#     painting = Painting.find_by_id(id_)
+#     return painting
 
 def create_painting():
     name = input("Enter the painting's name: ")
@@ -73,19 +83,19 @@ def delete_painting(painting):
         cprint("Deletion aborted", "green")
         return "aborted"
 
-def display_artist(painting):
-    artist = Artist.find_by_id(painting.artist_id)
-    cprint(artist, "green")
+# def display_artist(painting):
+#     artist = Artist.find_by_id(painting.artist_id)
+#     cprint(artist, "green")
 
-def list_paintings_by_same_artist(painting):
-    artist = Artist.find_by_id(painting.artist_id)
-    paintings = [p for p in Painting.get_all() if p.artist_id == painting.artist_id]
-    other_paintings = [p for p in paintings if p.id != painting.id]
-    if other_paintings:
-        for painting in other_paintings:
-            cprint(painting, "green")
-    else:
-        cprint(f"No other paintings by {artist.name} found", "green")
+# def list_paintings_by_same_artist(painting):
+#     artist = Artist.find_by_id(painting.artist_id)
+#     paintings = [p for p in Painting.get_all() if p.artist_id == painting.artist_id]
+#     other_paintings = [p for p in paintings if p.id != painting.id]
+#     if other_paintings:
+#         for painting in other_paintings:
+#             cprint(painting, "green")
+#     else:
+#         cprint(f"No other paintings by {artist.name} found", "green")
 
 def list_paintings_by_medium():
     print("Choose a medium: ")
@@ -100,7 +110,7 @@ def list_paintings_by_medium():
     else:
         cprint("Invalid choice", "red")
 
-def list_paintings_by_year():
-    paintings = sorted(Painting.get_all(), key=lambda x: x.year)
-    for painting in paintings:
-        cprint(painting, "green")
+# def list_paintings_by_year():
+#     paintings = sorted(Painting.get_all(), key=lambda x: x.year)
+#     for painting in paintings:
+#         cprint(painting, "green")

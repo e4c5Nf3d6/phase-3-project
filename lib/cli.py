@@ -4,21 +4,16 @@ from termcolor import cprint
 
 from helpers.artist_helpers import (
     list_artists,
-    find_artist_by_name,
-    find_artist_by_id,
+    choose_artist,
     create_artist,
     update_artist,
     delete_artist,
     list_paintings_by_artist,
-    display_artist_movement,
-    list_artists_in_same_movement,
-    list_artist_mediums
 )
 
 from helpers.movement_helpers import (
     list_movements,
-    find_movement_by_name,
-    find_movement_by_id,
+    choose_movement,
     create_movement,
     update_movement,
     delete_movement,
@@ -29,18 +24,16 @@ from helpers.movement_helpers import (
 
 from helpers.painting_helpers import (
     list_paintings,
-    find_painting_by_id,
-    find_painting_by_name,
+    choose_painting,
     create_painting,
     update_painting,
     delete_painting,
-    display_artist,
-    list_paintings_by_same_artist,
     list_paintings_by_medium,
-    list_paintings_by_year
 )
 
-from helpers.helpers import exit_program
+from helpers.helpers import (
+    exit_program,
+)
 
 from menus import (
     main_menu,
@@ -66,7 +59,7 @@ def main():
         elif choice == "3":
             movements()
         else:
-            print("Invalid choice")
+            cprint("Invalid choice", "red")
 
 def artists():
     m = "artists"
@@ -80,13 +73,13 @@ def artists():
         elif choice == "2":
             create_artist()
         elif choice == "3":
-            artist = find_artist_by_id("return")
+            artist = choose_artist()
             if artist:
                 explore_artist(artist) 
             else:
-                cprint("Artist not found", "red")   
+                cprint("Invalid choice", "red")   
         else:
-            print("Invalid choice")
+            cprint("Invalid choice", "red")
 
 def explore_artist(artist):
     m = "explore artist"
@@ -104,7 +97,7 @@ def explore_artist(artist):
             if result == "deleted":
                 m = "artists"
         else:
-            print("Invalid choice")
+            cprint("Invalid choice", "red")
 
 def paintings():
     m = "paintings"
@@ -120,13 +113,13 @@ def paintings():
         elif choice == "3":
             list_paintings_by_medium()
         elif choice == "4":
-            painting = find_painting_by_id("return")
+            painting = choose_painting()
             if painting:
                 explore_painting(painting) 
             else:
-                cprint("Painting not found", "red")     
+                cprint("Invalid Choice", "red")     
         else:
-            print("Invalid choice")
+            cprint("Invalid choice", "red")
 
 def explore_painting(painting):
     m = "explore painting"
@@ -142,7 +135,7 @@ def explore_painting(painting):
             if result == "deleted":
                 m = "paintings"
         else:
-            print("Invalid choice")
+            cprint("Invalid choice", "red")
 
 def movements():
     m = "movements"
@@ -156,13 +149,13 @@ def movements():
         elif choice == "2":
             create_movement()
         elif choice == "3":
-            movement = find_movement_by_id("return")
+            movement = choose_movement()
             if movement:
                 explore_movement(movement) 
             else:
-                cprint("Movement not found", "red")           
+                cprint("Invalid choice", "red")           
         else:
-            print("Invalid choice")
+            cprint("Invalid choice", "red")
 
 def explore_movement(movement):
     m = "explore movement"
@@ -182,7 +175,7 @@ def explore_movement(movement):
         elif choice == "4":
             list_paintings_by_movement(movement)
         else:
-            print("Invalid choice")
+            cprint("Invalid choice", "red")
 
 if __name__ == "__main__":
     main()

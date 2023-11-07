@@ -3,11 +3,19 @@ from models.painting import Painting
 def exit_program():
     print("Goodbye!")
     exit()
+    
+def divider():
+    print(" ")
+    print("_______________________________________________")
+    print(" ")
+
+def spacer():
+    print(" ")
 
 def choose_medium():
-    for i in range(len(Painting.mediums)):
-        print(f"{i + 1}. {Painting.mediums[i]}")
-    choice = input("> ")
+    for medium in Painting.mediums:
+        print(f"{Painting.mediums.index(medium)}. {medium}")
+    choice = input("Enter your choice: ")
     try:
         medium = Painting.mediums[int(choice) - 1]
         return medium
