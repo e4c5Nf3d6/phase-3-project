@@ -37,43 +37,37 @@ def create_artist():
     except Exception as exc:
         cprint(f"Error creating artist: {exc}", "red")
 
-def update_artist():
-    id_ = input("Enter the artist's id: ")
-    if artist := Artist.find_by_id(id_):
-        try:
-            name = input("Enter the artist's new name: ")
-            artist.name = name
-            movement_id = input("Enter the artist's new movement_id: ")
-            artist.movement_id = movement_id
+def update_artist(artist):
+    try:
+        name = input("Enter the artist's new name: ")
+        artist.name = name
+        movement_id = input("Enter the artist's new movement_id: ")
+        artist.movement_id = movement_id
 
-            artist.update()
-            cprint(f"Update successful: {artist}", "green")
-        except Exception as exc:
-            cprint(f"Error updating artist: {exc}", "red")
-    else:
-        cprint(f'Artist {id_} not found', "red")
+        artist.update()
+        cprint(f"Update successful: {artist}", "green")
+    except Exception as exc:
+        cprint(f"Error updating artist: {exc}", "red")
 
-def delete_artist():
-    id_ = input("Enter the artist's id: ")
-    if artist := Artist.find_by_id(id_):
-        confirmation_text = colored(
-            "Deleting an artist will delete all associated paintings. Are you sure you want to proceed? Y/N: ", 
-            "yellow", 
-            attrs=["bold"]
-        )
-        confirmation = input(confirmation_text)
-        if confirmation == "y" or confirmation == "Y":
-            paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
-            for painting in paintings:
-                painting_id = painting.id
-                painting.delete()
-                cprint(f'Painting {painting_id} deleted', "green")
-            artist.delete()
-            cprint(f'Artist {id_} deleted', "green")
-        else:
-            cprint('Deletion aborted', "green")
+def delete_artist(artist):
+    confirmation_text = colored(
+        "Deleting an artist will delete all associated paintings. Are you sure you want to proceed? Y/N: ", 
+        "yellow", 
+        attrs=["bold"]
+    )
+    confirmation = input(confirmation_text)
+    if confirmation == "y" or confirmation == "Y":
+        paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
+        for painting in paintings:
+            painting_id = painting.id
+            painting.delete()
+            cprint(f'Painting {painting_id} deleted', "green")
+        artist.delete()
+        cprint(f'{artist.name} deleted', "green")
+        return "deleted"
     else:
-        cprint(f'Artist {id_} not found', "red")
+        cprint('Deletion aborted', "green")
+        return "aborted"
 
 def list_paintings_by_artist(artist):
     paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]

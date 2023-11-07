@@ -33,48 +33,40 @@ def create_movement():
     except Exception as exc:
         cprint(f"Error creating movement: {exc}", "red")
 
-def update_movement():
-    id_ = input("Enter the movement's id: ")
-    if movement := Movement.find_by_id(id_):
-        try:
-            name = input("Enter the movement's new name: ")
-            movement.name = name
-            year_founded = input("Enter the movement's new founding year: ")
-            movement.year_founded = year_founded
+def update_movement(movement):
+    try:
+        name = input("Enter the movement's new name: ")
+        movement.name = name
+        year_founded = input("Enter the movement's new founding year: ")
+        movement.year_founded = year_founded
 
-            movement.update()
-            cprint(f"Update successful: {movement}", "green")
-        except Exception as exc:
-            cprint(f"Error updating movement: {exc}", "red")
-    else:
-        cprint(f'Movement {id_} not found', "red")
+        movement.update()
+        cprint(f"Update successful: {movement}", "green")
+    except Exception as exc:
+        cprint(f"Error updating movement: {exc}", "red")
 
-def delete_movement():
-    id_ = input("Enter the movement's id: ")
-    if movement := Movement.find_by_id(id_):
-        confirmation_text = colored(
-            "Deleting a movement will delete all associated artists and paintings. Are you sure you want to proceed? Y/N: ", 
-            "red", 
-            attrs=["bold"]
-        )
-        confirmation = input(confirmation_text)
-        if confirmation == "y" or confirmation == "Y":
-            artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
-            for artist in artists:
-                artist_id = artist.id
-                paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
-                for painting in paintings:
-                    painting_id = painting.id
-                    painting.delete()
-                    cprint(f'Painting {painting_id} deleted', "green")
-                artist.delete()
-                cprint(f'Artist {artist_id} deleted', "green")
-            movement.delete()
-            cprint(f'Movement {id_} deleted', "green")
-        else:
-            cprint("Deletion aborted", "green")
+def delete_movement(movement):
+    confirmation_text = colored(
+        "Deleting a movement will delete all associated artists and paintings. Are you sure you want to proceed? Y/N: ", 
+        "red", 
+        attrs=["bold"]
+    )
+    confirmation = input(confirmation_text)
+    if confirmation == "y" or confirmation == "Y":
+        artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
+        for artist in artists:
+            artist_id = artist.id
+            paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
+            for painting in paintings:
+                painting_id = painting.id
+                painting.delete()
+                cprint(f'Painting {painting_id} deleted', "green")
+            artist.delete()
+            cprint(f'Artist {artist_id} deleted', "green")
+        movement.delete()
+        cprint(f'{movement.name} deleted', "green")
     else:
-        cprint(f'Movement {id_} not found', "red")
+        cprint("Deletion aborted", "green")
 
 def list_artists_by_movement(movement):
     artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]

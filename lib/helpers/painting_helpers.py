@@ -41,43 +41,37 @@ def create_painting():
     except Exception as exc:
         cprint(f"Error creating painting: {exc}", "red")
 
-def update_painting():
-    id_ = input("Enter the painting's id: ")
-    if painting := Painting.find_by_id(id_):
-        try:
-            name = input("Enter the painting's new name: ")
-            painting.name = name
-            year = input("Enter the painting's new year: ")
-            painting.year = year
-            print("Choose the painting's new medium: ")
-            medium = choose_medium()
-            painting.medium = medium
-            artist_id = input("Enter the painting's new artist_id: ")
-            painting.artist_id = artist_id
+def update_painting(painting):
+    try:
+        name = input("Enter the painting's new name: ")
+        painting.name = name
+        year = input("Enter the painting's new year: ")
+        painting.year = year
+        print("Choose the painting's new medium: ")
+        medium = choose_medium()
+        painting.medium = medium
+        artist_id = input("Enter the painting's new artist_id: ")
+        painting.artist_id = artist_id
 
-            painting.update()
-            cprint(f"Update successful: {painting}", "green")
-        except Exception as exc:
-            cprint(f"Error updating painting: {exc}", "red")
-    else:
-        cprint(f'Painting {id_} not found', "red")
+        painting.update()
+        cprint(f"Update successful: {painting}", "green")
+    except Exception as exc:
+        cprint(f"Error updating painting: {exc}", "red")
 
-def delete_painting():
-    id_ = input("Enter the painting's id: ")
-    if painting := Painting.find_by_id(id_):
-        confirmation_text = colored(
-            "Are you sure you want to proceed? Y/N: ", 
-            "yellow", 
-            attrs=["bold"]
-        )
-        confirmation = input(confirmation_text)
-        if confirmation == "y" or confirmation == "Y":
-            painting.delete()
-            cprint(f'Painting {id_} deleted', "green")
-        else:
-            cprint("Deletion aborted", "green")
+def delete_painting(painting):
+    confirmation_text = colored(
+        "Are you sure you want to proceed? Y/N: ", 
+        "yellow", 
+        attrs=["bold"]
+    )
+    confirmation = input(confirmation_text)
+    if confirmation == "y" or confirmation == "Y":
+        painting.delete()
+        cprint(f'{painting.name} deleted', "green")
+        return "deleted"
     else:
-        cprint(f'Painting {id_} not found', "red")
+        cprint("Deletion aborted", "green")
+        return "aborted"
 
 def display_artist(painting):
     artist = Artist.find_by_id(painting.artist_id)
