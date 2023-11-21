@@ -61,7 +61,7 @@ class Movement():
     @classmethod
     def create(cls, name, year_founded):
         if Movement.find_by_name(name):
-            raise ValueError(f"This movement already exists: {Movement.find_by_name(name)}")
+            raise ValueError(f"This movement already exists")
         else:
             movement = cls(name, year_founded)
             movement.save()

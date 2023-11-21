@@ -18,16 +18,21 @@ def list_movements():
 def choose_movement():
     spacer()
     movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
-    for movement in movements:
-        print(f"{movements.index(movement) + 1}. {movement.name}")
-    spacer()
-    id = input("Enter the movement's ID: ")
-    try:
-        if int(id) == 0:
-            raise ValueError
-        return movements[int(id) - 1]
-    except:
-        return None
+    if movements:
+        for movement in movements:
+            print(f"{movements.index(movement) + 1}. {movement.name}")
+        spacer()
+        id = input("Enter the movement's ID: ")
+        try:
+            if int(id) == 0:
+                raise ValueError
+            return movements[int(id) - 1]
+        except:
+            spacer()
+            cprint("Invalid choice", "red")
+    else:
+        spacer()
+        cprint("No movements found", "red")
 
 # def find_movement_by_name():
 #     name = input("Enter the movement's name: ")
@@ -68,7 +73,7 @@ def update_movement(movement):
 def delete_movement(movement):
     confirmation_text = colored(
         "Deleting a movement will delete all associated artists and paintings. Are you sure you want to proceed? Y/N: ", 
-        "red", 
+        "yellow", 
         attrs=["bold"]
     )
     spacer()
@@ -99,16 +104,20 @@ def list_artists_by_movement(movement):
 def choose_artist_by_movement(movement):
     spacer()
     artists = [a for a in sorted(Artist.get_all(), key=lambda x: x.name.lower()) if a.movement_id == movement.id]
-    for artist in artists:
-        print(f"{artists.index(artist) + 1}. {artist.name}")
-    spacer()
-    id = input("Enter the artist's ID: ")
-    try:
-        if int(id) == 0:
-            raise ValueError
-        return artists[int(id) - 1]
-    except:
-        return None
+    if artists:
+        for artist in artists:
+            print(f"{artists.index(artist) + 1}. {artist.name}")
+        spacer()
+        id = input("Enter the artist's ID: ")
+        try:
+            if int(id) == 0:
+                raise ValueError
+            return artists[int(id) - 1]
+        except:
+            spacer()
+            cprint("Invalid choice", "red")   
+    else:
+        cprint(f"No {movement.name} artists found", "red")
 
 def list_paintings_by_movement(movement):
     artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
@@ -123,9 +132,9 @@ def list_paintings_by_movement(movement):
             spacer()
         else:
             spacer()
-            cprint(f"No {movement.name} paintings found", "green")
+            cprint(f"No {movement.name} paintings found", "red")
     else:
-        cprint(f"No {movement.name} paintings found", "green")
+        cprint(f"No {movement.name} paintings found", "red")
 
 
 # def list_movements_by_year():

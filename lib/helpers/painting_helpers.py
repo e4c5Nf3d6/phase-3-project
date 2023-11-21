@@ -22,16 +22,20 @@ def list_paintings():
 def choose_painting():
     spacer()
     paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
-    for painting in paintings:
-        print(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}")
-    spacer()
-    id = input("Enter the painting's ID: ")
-    try:
-        if int(id) == 0:
-            raise ValueError
-        return paintings[int(id) - 1]
-    except:
-        return None
+    if paintings:
+        for painting in paintings:
+            print(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}")
+        spacer()
+        id = input("Enter the painting's ID: ")
+        try:
+            if int(id) == 0:
+                raise ValueError
+            return paintings[int(id) - 1]
+        except:
+            spacer()
+            cprint("Invalid choice", "red")
+    else:
+        cprint("No paintings found", "red")
 
 # def find_painting_by_name():
 #     name = input("Enter the painting's name: ")
@@ -120,6 +124,7 @@ def delete_painting(painting):
 #         cprint(f"No other paintings by {artist.name} found", "green")
 
 def list_paintings_by_medium():
+    spacer()
     print("Choose a medium: ")
     medium = choose_medium()
     spacer()
@@ -129,7 +134,7 @@ def list_paintings_by_medium():
             for painting in paintings:
                 cprint(f"{painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
         else:
-            cprint(f"No {medium} paintings found", "green")
+            cprint(f"No {medium} paintings found", "red")
     else:
         cprint("Invalid choice", "red")
 

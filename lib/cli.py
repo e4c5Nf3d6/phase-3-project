@@ -55,11 +55,11 @@ def main():
         if choice == "0":
             exit_program()
         elif choice == "1":
-            artists()
-        elif choice == "2":
-            paintings()
-        elif choice == "3":
             movements()
+        elif choice == "2":
+            artists()
+        elif choice == "3":
+            paintings()
         else:
             spacer()
             cprint("Invalid choice", "red")
@@ -80,10 +80,7 @@ def artists():
         elif choice == "3":
             artist = choose_artist()
             if artist:
-                explore_artist(artist) 
-            else:
-                spacer()
-                cprint("Invalid choice", "red")   
+                explore_artist(artist)
         else:
             spacer()
             cprint("Invalid choice", "red")
@@ -101,9 +98,6 @@ def explore_artist(artist):
             painting = choose_painting_by_artist(artist)
             if painting:
                 explore_painting(painting) 
-            else:
-                spacer()
-                cprint("Invalid Choice", "red")   
         elif choice == "3":
             painting = create_painting(artist.id)
             if painting:
@@ -136,10 +130,7 @@ def paintings():
         elif choice == "4":
             painting = choose_painting()
             if painting:
-                explore_painting(painting) 
-            else:
-                spacer()
-                cprint("Invalid Choice", "red")     
+                explore_painting(painting)     
         else:
             spacer()
             cprint("Invalid choice", "red")
@@ -177,10 +168,7 @@ def movements():
         elif choice == "3":
             movement = choose_movement()
             if movement:
-                explore_movement(movement) 
-            else:
-                spacer()
-                cprint("Invalid choice", "red")           
+                explore_movement(movement)     
         else:
             spacer()
             cprint("Invalid choice", "red")
@@ -197,10 +185,7 @@ def explore_movement(movement):
         elif choice == "2":
             artist = choose_artist_by_movement(movement)
             if artist:
-                explore_artist(artist) 
-            else:
-                spacer()
-                cprint("Invalid Choice", "red")               
+                explore_artist(artist)            
         elif choice == "3":
             artist = create_artist(movement.id)
             if artist:

@@ -6,7 +6,6 @@ from models.artist import Artist
 from models.painting import Painting
 
 from helpers.general_helpers import spacer
-
 from helpers.movement_helpers import choose_movement
 
 def list_artists():
@@ -28,7 +27,8 @@ def choose_artist():
             raise ValueError
         return artists[int(id) - 1]
     except:
-        return None
+        spacer()
+        cprint("Invalid choice", "red")   
     
 # def find_artist_by_name():
 #     name = input("Enter the artist's name: ")
@@ -67,10 +67,12 @@ def update_artist(artist):
             artist.movement_id = movement.id
 
             artist.update()
+            spacer()
             cprint(f"{artist.name} updated successfully", "green")
         else:
             raise Exception("Invalid movement choice")
     except Exception as exc:
+        spacer()
         cprint(f"Error updating artist: {exc}", "red")
 
 def delete_artist(artist):
@@ -101,21 +103,26 @@ def list_paintings_by_artist(artist):
         spacer()
     else:
         spacer()
-        cprint(f'No paintings found by {artist.name}', "green")
+        cprint(f'No paintings by {artist.name} found', "red")
 
 def choose_painting_by_artist(artist):
     spacer()
     paintings = [p for p in sorted(Painting.get_all(), key=lambda x: x.name.lower()) if p.artist_id == artist.id]
-    for painting in paintings:
-        print(f"{paintings.index(painting) + 1}. {painting.name}")
-    spacer()
-    id = input("Enter the painting's ID: ")
-    try:
-        if int(id) == 0:
-            raise ValueError
-        return paintings[int(id) - 1]
-    except:
-        return None
+    if paintings:
+        for painting in paintings:
+            print(f"{paintings.index(painting) + 1}. {painting.name}")
+        spacer()
+        id = input("Enter the painting's ID: ")
+        try:
+            if int(id) == 0:
+                raise ValueError
+            return paintings[int(id) - 1]
+        except:
+            spacer()
+            cprint("Invalid choice", "red")
+    else:
+        spacer()
+        cprint(f"No paintings by {artist.name} found", "red")
 
 # def display_artist_movement(artist):
 #     movement = Movement.find_by_id(artist.movement_id)

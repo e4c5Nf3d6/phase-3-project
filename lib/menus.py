@@ -13,9 +13,9 @@ def main_menu():
     cprint("Main Menu", "cyan")
     spacer()
     print("0. Exit the program")
-    print("1. Artists")
-    print("2. Paintings")
-    print("3. Movements")
+    print("1. Movements")
+    print("2. Artists")
+    print("3. Paintings")
     divider()
 
 
@@ -77,7 +77,7 @@ def movements_menu():
 
 def movement_options_menu(movement):
     divider()
-    cprint(f"Exploring movement: {movement.name} movement", "cyan")
+    cprint(f"Exploring movement: {movement.name}", "cyan")
     print(f"  Year founded: {movement.year_founded}")
     spacer()
     print("0. Go back to the previous menu")

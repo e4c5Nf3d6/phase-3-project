@@ -18,6 +18,7 @@ def spacer():
 def choose_medium():
     for medium in Painting.mediums:
         print(f"{Painting.mediums.index(medium) + 1}. {medium}")
+    spacer()
     choice = input("Enter your choice: ")
     try:
         medium = Painting.mediums[int(choice) - 1]
