@@ -23,10 +23,9 @@ def choose_painting():
     spacer()
     paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
     for painting in paintings:
-        print(f"{paintings.index(painting) + 1}. {painting.name}")
+        print(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}")
     spacer()
     id = input("Enter the painting's ID: ")
-    paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
     try:
         if int(id) == 0:
             raise ValueError
@@ -72,17 +71,21 @@ def update_painting(painting):
     spacer()
     try:
         name = input("Enter the painting's new name: ")
-        painting.name = name
         year = input("Enter the painting's new year: ")
-        painting.year = year
         print("Choose the painting's new medium: ")
         medium = choose_medium()
-        painting.medium = medium
-        artist_id = input("Enter the painting's new artist_id: ")
-        painting.artist_id = artist_id
+        artist = choose_artist()
 
-        painting.update()
-        cprint(f"{painting.name} successfully updated", "green")
+        if artist:
+            painting.name = name
+            painting.year = year       
+            painting.medium = medium
+            painting.artist_id = artist.id
+
+            painting.update()
+            cprint(f"{painting.name} successfully updated", "green")
+        else:
+            raise Exception("Invalid artist choice")
     except Exception as exc:
         cprint(f"Error updating painting: {exc}", "red")
 

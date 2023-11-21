@@ -23,7 +23,6 @@ def choose_artist():
         print(f"{artists.index(artist) + 1}. {artist.name}")
     spacer()
     id = input("Enter the artist's ID: ")
-    artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
     try:
         if int(id) == 0:
             raise ValueError
@@ -61,12 +60,16 @@ def update_artist(artist):
     spacer()
     try:
         name = input("Enter the artist's new name: ")
-        artist.name = name
-        movement_id = choose_movement().id
-        artist.movement_id = movement_id
+        movement = choose_movement()
 
-        artist.update()
-        cprint(f"{artist.name} updated successfully", "green")
+        if movement:
+            artist.name = name
+            artist.movement_id = movement.id
+
+            artist.update()
+            cprint(f"{artist.name} updated successfully", "green")
+        else:
+            raise Exception("Invalid movement choice")
     except Exception as exc:
         cprint(f"Error updating artist: {exc}", "red")
 
@@ -99,6 +102,20 @@ def list_paintings_by_artist(artist):
     else:
         spacer()
         cprint(f'No paintings found by {artist.name}', "green")
+
+def choose_painting_by_artist(artist):
+    spacer()
+    paintings = [p for p in sorted(Painting.get_all(), key=lambda x: x.name.lower()) if p.artist_id == artist.id]
+    for painting in paintings:
+        print(f"{paintings.index(painting) + 1}. {painting.name}")
+    spacer()
+    id = input("Enter the painting's ID: ")
+    try:
+        if int(id) == 0:
+            raise ValueError
+        return paintings[int(id) - 1]
+    except:
+        return None
 
 # def display_artist_movement(artist):
 #     movement = Movement.find_by_id(artist.movement_id)

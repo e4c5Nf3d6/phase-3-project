@@ -22,7 +22,6 @@ def choose_movement():
         print(f"{movements.index(movement) + 1}. {movement.name}")
     spacer()
     id = input("Enter the movement's ID: ")
-    movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
     try:
         if int(id) == 0:
             raise ValueError
@@ -97,6 +96,20 @@ def list_artists_by_movement(movement):
     else:
         cprint(f'No {movement.name} artists found', "red")
 
+def choose_artist_by_movement(movement):
+    spacer()
+    artists = [a for a in sorted(Artist.get_all(), key=lambda x: x.name.lower()) if a.movement_id == movement.id]
+    for artist in artists:
+        print(f"{artists.index(artist) + 1}. {artist.name}")
+    spacer()
+    id = input("Enter the artist's ID: ")
+    try:
+        if int(id) == 0:
+            raise ValueError
+        return artists[int(id) - 1]
+    except:
+        return None
+
 def list_paintings_by_movement(movement):
     artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
     if artists:
@@ -113,6 +126,7 @@ def list_paintings_by_movement(movement):
             cprint(f"No {movement.name} paintings found", "green")
     else:
         cprint(f"No {movement.name} paintings found", "green")
+
 
 # def list_movements_by_year():
 #     movements = sorted(Movement.get_all(), key=lambda x: x.year_founded)
