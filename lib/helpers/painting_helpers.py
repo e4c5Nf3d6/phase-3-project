@@ -5,12 +5,21 @@ from termcolor import colored, cprint
 from models.artist import Artist
 from models.painting import Painting
 
-from helpers.general_helpers import (
-    choose_medium, 
-    spacer
-)
+from helpers.general_helpers import spacer
 
 from helpers.artist_helpers import choose_artist
+
+def choose_medium(prompt="Choose a medium: "):
+    for medium in Painting.mediums:
+        print(f"{Painting.mediums.index(medium) + 1}. {medium}")
+    spacer()
+    choice = input(prompt)
+    try:
+        medium = Painting.mediums[int(choice) - 1]
+        return medium
+    except:
+        spacer()
+        cprint("Invalid choice", "red")
 
 def list_paintings():
     paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
@@ -39,12 +48,16 @@ def create_painting(artist_id=None):
     year = input("Enter the painting's year: ")
     spacer()
     medium = choose_medium("Choose the painting's medium: ")
+
+    if not medium:
+        return None
+    
     if not artist_id:
         try:
             artist_id = choose_artist("Choose the painting's artist: ").id
         except:
-            cprint("Invalid choice", "red")
             return None
+        
     spacer()
     try:
         painting = Painting.create(name, year, medium, artist_id)
@@ -60,6 +73,10 @@ def update_painting(painting):
         year = input("Enter the painting's new year: ")
         spacer()
         medium = choose_medium("Choose the painting's new medium: ")
+
+        if not medium:
+            return None
+        
         artist = choose_artist("Choose the painting's new artist: ")
 
         if artist:
@@ -93,12 +110,10 @@ def delete_painting(painting):
 def list_paintings_by_medium():
     medium = choose_medium()
     spacer()
-    if medium in Painting.mediums:
+    if medium:
         paintings = [painting for painting in Painting.get_all() if painting.medium == medium]
         if paintings:
             for painting in paintings:
                 cprint(f"{painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
         else:
             cprint(f"No {medium} paintings found", "red")
-    else:
-        cprint("Invalid choice", "red")

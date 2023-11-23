@@ -45,7 +45,6 @@ def create_artist(movement_id=None):
         return None
 
 def update_artist(artist):
-    spacer()
     try:
         name = input("Enter the artist's new name: ")
         movement = choose_movement("Choose the artist's new movement: ")
