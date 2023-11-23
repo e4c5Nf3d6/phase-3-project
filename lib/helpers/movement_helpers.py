@@ -79,26 +79,9 @@ def delete_movement(movement):
         cprint("Deletion aborted", "green")
 
 def list_artists_by_movement(movement):
-    artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
+    artists = Artist.find_by_movement(movement.id)
     if artists:
         for artist in artists:
             cprint(artist.name, "green")
     else:
         cprint(f'No {movement.name} artists found', "red")
-
-def choose_artist_by_movement(movement):
-    artists = [a for a in sorted(Artist.get_all(), key=lambda x: x.name.lower()) if a.movement_id == movement.id]
-    if artists:
-        for artist in artists:
-            print(f"{artists.index(artist) + 1}. {artist.name}")
-        spacer()
-        id = input("Enter the artist's ID: ")
-        try:
-            if int(id) == 0:
-                raise ValueError
-            return artists[int(id) - 1]
-        except:
-            spacer()
-            cprint("Invalid choice", "red")   
-    else:
-        cprint(f"No {movement.name} artists found", "red")

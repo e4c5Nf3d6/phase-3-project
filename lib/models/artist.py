@@ -144,3 +144,14 @@ class Artist():
 
         rows = CURSOR.execute(sql, (name,)).fetchall()
         return [cls.instance_from_db(row) for row in rows] if rows else None
+    
+    @classmethod
+    def find_by_movement(cls, movement_id):
+        sql = """
+            SELECT *
+            FROM artists
+            WHERE movement_id is ?
+        """
+
+        rows = CURSOR.execute(sql, (movement_id,)).fetchall()
+        return [cls.instance_from_db(row) for row in rows] if rows else None
