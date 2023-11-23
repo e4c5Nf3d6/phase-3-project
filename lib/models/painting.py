@@ -178,3 +178,14 @@ class Painting():
 
         rows = CURSOR.execute(sql, (name,)).fetchall()
         return [cls.instance_from_db(row) for row in rows] if rows else None
+    
+    @classmethod
+    def find_by_artist(cls, artist_id):
+        sql = """
+            SELECT *
+            FROM paintings
+            WHERE artist_id is ?
+        """
+
+        rows = CURSOR.execute(sql, (artist_id,)).fetchall()
+        return [cls.instance_from_db(row) for row in rows] if rows else None

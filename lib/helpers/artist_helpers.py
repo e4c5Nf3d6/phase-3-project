@@ -99,7 +99,7 @@ def delete_artist(artist):
         cprint('Deletion aborted', "green")
 
 def list_paintings_by_artist(artist):
-    paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
+    paintings = Painting.find_by_artist(artist.id)
     if paintings:
         for painting in paintings:
             cprint(f"{painting.name}, {painting.year}", "green")
