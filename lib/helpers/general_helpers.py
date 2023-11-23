@@ -3,7 +3,6 @@ from termcolor import cprint
 from models.painting import Painting
 
 def exit_program():
-    spacer()
     cprint("Goodbye!", "green")
     spacer()
     exit()
@@ -15,11 +14,11 @@ def divider():
 def spacer():
     print(" ")
 
-def choose_medium():
+def choose_medium(prompt="Choose a medium: "):
     for medium in Painting.mediums:
         print(f"{Painting.mediums.index(medium) + 1}. {medium}")
     spacer()
-    choice = input("Enter your choice: ")
+    choice = input(prompt)
     try:
         medium = Painting.mediums[int(choice) - 1]
         return medium

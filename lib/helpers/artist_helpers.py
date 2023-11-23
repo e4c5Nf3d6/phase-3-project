@@ -9,19 +9,16 @@ from helpers.general_helpers import spacer
 from helpers.movement_helpers import choose_movement
 
 def list_artists():
-    spacer()
     artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
     for artist in artists:
         cprint(f"{artists.index(artist) + 1}. {artist.name}", "green")
-    spacer()
 
-def choose_artist():
-    spacer()
+def choose_artist(prompt="Choose an artist: "):
     artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
     for artist in artists:
         print(f"{artists.index(artist) + 1}. {artist.name}")
     spacer()
-    id = input("Enter the artist's ID: ")
+    id = input(prompt)
     try:
         if int(id) == 0:
             raise ValueError
@@ -44,9 +41,9 @@ def create_artist(movement_id=None):
     spacer()
     if not movement_id:
         try:
-            movement_id = choose_movement().id
+            movement_id = choose_movement("Choose the artist's movement: ").id
+            spacer()
         except:
-            cprint("Invalid choice", "red")
             return None
     try:
         artist = Artist.create(name, movement_id)
@@ -60,7 +57,7 @@ def update_artist(artist):
     spacer()
     try:
         name = input("Enter the artist's new name: ")
-        movement = choose_movement()
+        movement = choose_movement("Choose the artist's new movement: ")
 
         if movement:
             artist.name = name
@@ -97,16 +94,12 @@ def delete_artist(artist):
 def list_paintings_by_artist(artist):
     paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
     if paintings:
-        spacer()
         for painting in paintings:
             cprint(f"{painting.name}, {painting.year}", "green")
-        spacer()
     else:
-        spacer()
         cprint(f'No paintings by {artist.name} found', "red")
 
 def choose_painting_by_artist(artist):
-    spacer()
     paintings = [p for p in sorted(Painting.get_all(), key=lambda x: x.name.lower()) if p.artist_id == artist.id]
     if paintings:
         for painting in paintings:

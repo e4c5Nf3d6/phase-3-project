@@ -9,20 +9,17 @@ from models.painting import Painting
 from helpers.general_helpers import spacer
 
 def list_movements():
-    spacer()
     movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
     for movement in movements:
         cprint(f"{movements.index(movement) + 1}. {movement.name}", "green")
-    spacer()
 
-def choose_movement():
-    spacer()
+def choose_movement(prompt="Choose a movement: "):
     movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
     if movements:
         for movement in movements:
             print(f"{movements.index(movement) + 1}. {movement.name}")
         spacer()
-        id = input("Enter the movement's ID: ")
+        id = input(prompt)
         try:
             if int(id) == 0:
                 raise ValueError
@@ -76,7 +73,6 @@ def delete_movement(movement):
         "yellow", 
         attrs=["bold"]
     )
-    spacer()
     confirmation = input(confirmation_text)
     spacer()
     if confirmation == "y" or confirmation == "Y":
@@ -94,7 +90,6 @@ def delete_movement(movement):
 
 def list_artists_by_movement(movement):
     artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
-    spacer()
     if artists:
         for artist in artists:
             cprint(artist.name, "green")
@@ -102,7 +97,6 @@ def list_artists_by_movement(movement):
         cprint(f'No {movement.name} artists found', "red")
 
 def choose_artist_by_movement(movement):
-    spacer()
     artists = [a for a in sorted(Artist.get_all(), key=lambda x: x.name.lower()) if a.movement_id == movement.id]
     if artists:
         for artist in artists:

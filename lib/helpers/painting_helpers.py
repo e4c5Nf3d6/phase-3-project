@@ -13,11 +13,9 @@ from helpers.general_helpers import (
 from helpers.artist_helpers import choose_artist
 
 def list_paintings():
-    spacer()
     paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
     for painting in paintings:
         cprint(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
-    spacer()
 
 def choose_painting():
     spacer()
@@ -54,11 +52,11 @@ def choose_painting():
 def create_painting(artist_id=None):
     name = input("Enter the painting's name: ")
     year = input("Enter the painting's year: ")
-    print("Choose the painting's medium: ")
-    medium = choose_medium()
+    spacer()
+    medium = choose_medium("Choose the painting's medium: ")
     if not artist_id:
         try:
-            artist_id = choose_artist().id
+            artist_id = choose_artist("Choose the painting's artist: ").id
         except:
             cprint("Invalid choice", "red")
             return None
@@ -72,13 +70,12 @@ def create_painting(artist_id=None):
         return None
 
 def update_painting(painting):
-    spacer()
     try:
         name = input("Enter the painting's new name: ")
         year = input("Enter the painting's new year: ")
-        print("Choose the painting's new medium: ")
-        medium = choose_medium()
-        artist = choose_artist()
+        spacer()
+        medium = choose_medium("Choose the painting's new medium: ")
+        artist = choose_artist("Choose the painting's new artist: ")
 
         if artist:
             painting.name = name
@@ -87,9 +84,9 @@ def update_painting(painting):
             painting.artist_id = artist.id
 
             painting.update()
+            spacer()
             cprint(f"{painting.name} successfully updated", "green")
-        else:
-            raise Exception("Invalid artist choice")
+    
     except Exception as exc:
         cprint(f"Error updating painting: {exc}", "red")
 
@@ -99,7 +96,6 @@ def delete_painting(painting):
         "yellow", 
         attrs=["bold"]
     )
-    spacer()
     confirmation = input(confirmation_text)
     spacer()
     if confirmation == "y" or confirmation == "Y":
@@ -124,8 +120,6 @@ def delete_painting(painting):
 #         cprint(f"No other paintings by {artist.name} found", "green")
 
 def list_paintings_by_medium():
-    spacer()
-    print("Choose a medium: ")
     medium = choose_medium()
     spacer()
     if medium in Painting.mediums:

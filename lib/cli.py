@@ -52,6 +52,7 @@ def main():
     while m == "main":
         main_menu()
         choice = input("Enter your choice: ")
+        spacer()
         if choice == "0":
             exit_program()
         elif choice == "1":
@@ -61,7 +62,6 @@ def main():
         elif choice == "3":
             paintings()
         else:
-            spacer()
             cprint("Invalid choice", "red")
 
 def artists():
@@ -69,6 +69,7 @@ def artists():
     while m == "artists":
         artists_menu()
         choice = input("Enter your choice: ")
+        spacer()
         if choice == "0":
             m = "main"
         elif choice == "1":
@@ -82,7 +83,6 @@ def artists():
             if artist:
                 explore_artist(artist)
         else:
-            spacer()
             cprint("Invalid choice", "red")
 
 def explore_artist(artist):
@@ -90,6 +90,7 @@ def explore_artist(artist):
     while m == "explore artist":
         artist_options_menu(artist)
         choice = input("Enter your choice: ")
+        spacer()
         if choice == "0":
             m = ""
         elif choice == "1":
@@ -109,7 +110,6 @@ def explore_artist(artist):
             if result == "deleted":
                 m = "artists"
         else:
-            spacer()
             cprint("Invalid choice", "red")
 
 def paintings():
@@ -117,6 +117,7 @@ def paintings():
     while m == "paintings":
         paintings_menu()
         choice = input("Enter your choice: ")
+        spacer()
         if choice == "0":
             m = "main"
         elif choice == "1":
@@ -132,7 +133,6 @@ def paintings():
             if painting:
                 explore_painting(painting)     
         else:
-            spacer()
             cprint("Invalid choice", "red")
 
 def explore_painting(painting):
@@ -140,6 +140,7 @@ def explore_painting(painting):
     while m == "explore painting":
         painting_options_menu(painting)
         choice = input("Enter your choice: ")
+        spacer()
         if choice == "0":
             m = ""
         elif choice == "1":
@@ -149,7 +150,6 @@ def explore_painting(painting):
             if result == "deleted":
                 m = "paintings"
         else:
-            spacer()
             cprint("Invalid choice", "red")
 
 def movements():
@@ -157,6 +157,7 @@ def movements():
     while m == "movements":
         movements_menu()
         choice = input("Enter your choice: ")
+        spacer()
         if choice == "0":
             m = "main"
         elif choice == "1":
@@ -170,7 +171,6 @@ def movements():
             if movement:
                 explore_movement(movement)     
         else:
-            spacer()
             cprint("Invalid choice", "red")
 
 def explore_movement(movement):
@@ -178,6 +178,7 @@ def explore_movement(movement):
     while m == "explore movement":
         movement_options_menu(movement)
         choice = input("Enter your choice: ")
+        spacer()
         if choice == "0":
             m = ""
         elif choice == "1":
@@ -197,7 +198,6 @@ def explore_movement(movement):
             if result == "deleted":
                 m = "movements"
         else:
-            spacer()
             cprint("Invalid choice", "red")
 
 if __name__ == "__main__":
