@@ -36,7 +36,7 @@ from helpers.general_helpers import (
     spacer
 )
 
-from menus import (
+from helpers.menus import (
     main_menu,
     artists_menu,
     paintings_menu,
