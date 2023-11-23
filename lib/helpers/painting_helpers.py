@@ -44,7 +44,7 @@ def choose_painting():
         cprint("No paintings found", "red")
 
 def choose_painting_by_artist(artist):
-    paintings = [p for p in sorted(Painting.get_all(), key=lambda x: x.name.lower()) if p.artist_id == artist.id]
+    paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
     if paintings:
         for painting in paintings:
             print(f"{paintings.index(painting) + 1}. {painting.name}")

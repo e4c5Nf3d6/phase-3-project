@@ -79,7 +79,7 @@ def delete_movement(movement):
         cprint("Deletion aborted", "green")
 
 def list_artists_by_movement(movement):
-    artists = Artist.find_by_movement(movement.id)
+    artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
     if artists:
         for artist in artists:
             cprint(artist.name, "green")

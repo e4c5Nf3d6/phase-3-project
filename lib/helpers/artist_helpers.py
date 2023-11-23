@@ -28,7 +28,7 @@ def choose_artist(prompt="Choose an artist: "):
         cprint("Invalid choice", "red")   
         
 def choose_artist_by_movement(movement):
-    artists = [a for a in sorted(Artist.get_all(), key=lambda x: x.name.lower()) if a.movement_id == movement.id]
+    artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
     if artists:
         for artist in artists:
             print(f"{artists.index(artist) + 1}. {artist.name}")
@@ -99,7 +99,7 @@ def delete_artist(artist):
         cprint('Deletion aborted', "green")
 
 def list_paintings_by_artist(artist):
-    paintings = Painting.find_by_artist(artist.id)
+    paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
     if paintings:
         for painting in paintings:
             cprint(f"{painting.name}, {painting.year}", "green")
