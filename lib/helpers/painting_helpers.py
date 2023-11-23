@@ -18,13 +18,12 @@ def list_paintings():
         cprint(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
 
 def choose_painting():
-    spacer()
     paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
     if paintings:
         for painting in paintings:
             print(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}")
         spacer()
-        id = input("Enter the painting's ID: ")
+        id = input("Choose a painting: ")
         try:
             if int(id) == 0:
                 raise ValueError
@@ -34,15 +33,6 @@ def choose_painting():
             cprint("Invalid choice", "red")
     else:
         cprint("No paintings found", "red")
-
-# def find_painting_by_name():
-#     name = input("Enter the painting's name: ")
-#     paintings = Painting.find_by_name(name)
-#     if paintings:
-#         for painting in paintings:
-#             cprint(painting, "green")
-#     else:
-#         cprint(f'Painting {name} not found', "red")
 
 def create_painting(artist_id=None):
     name = input("Enter the painting's name: ")

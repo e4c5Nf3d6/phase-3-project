@@ -31,16 +31,6 @@ def choose_movement(prompt="Choose a movement: "):
         spacer()
         cprint("No movements found", "red")
 
-# def find_movement_by_name():
-#     name = input("Enter the movement's name: ")
-#     movement = Movement.find_by_name(name)
-#     cprint(movement, "green") if movement else cprint(f'Movement {name} not found', "red")
-
-# def find_movement_by_id():
-#     id_ = input("Enter the movement's id: ")
-#     movement = Movement.find_by_id(id_)
-#     return movement
-
 def create_movement():
     name = input("Enter the movement's name: ")
     year_founded = input("Enter the movement's founding year: ")
@@ -112,26 +102,3 @@ def choose_artist_by_movement(movement):
             cprint("Invalid choice", "red")   
     else:
         cprint(f"No {movement.name} artists found", "red")
-
-# def list_paintings_by_movement(movement):
-#     artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
-#     if artists:
-#         paintings = []
-#         for artist in artists:
-#             paintings = paintings + [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
-#         if paintings:
-#             spacer()
-#             for painting in paintings:
-#                 cprint(f"{painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
-#             spacer()
-#         else:
-#             spacer()
-#             cprint(f"No {movement.name} paintings found", "red")
-#     else:
-#         cprint(f"No {movement.name} paintings found", "red")
-
-
-# def list_movements_by_year():
-#     movements = sorted(Movement.get_all(), key=lambda x: x.year_founded)
-#     for movement in movements:
-#         cprint(movement, "green")

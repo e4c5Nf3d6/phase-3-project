@@ -26,15 +26,6 @@ def choose_artist(prompt="Choose an artist: "):
     except:
         spacer()
         cprint("Invalid choice", "red")   
-    
-# def find_artist_by_name():
-#     name = input("Enter the artist's name: ")
-#     artists = Artist.find_by_name(name)
-#     if artists:
-#         for artist in artists:
-#             cprint(artist, "green")
-#     else:
-#         cprint(f'Artist {name} not found', "red")
 
 def create_artist(movement_id=None):
     name = input("Enter the artist's name: ")
