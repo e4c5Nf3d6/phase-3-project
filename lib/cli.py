@@ -2,14 +2,19 @@
 
 from termcolor import cprint
 
-from helpers.artist_helpers import (
-    list_artists,
-    choose_artist,
-    create_artist,
-    update_artist,
-    delete_artist,
-    list_paintings_by_artist,
-    choose_painting_by_artist
+from helpers.menus import (
+    main_menu,
+    artists_menu,
+    paintings_menu,
+    movements_menu,
+    artist_options_menu,
+    painting_options_menu,
+    movement_options_menu
+)
+
+from helpers.general_helpers import (
+    exit_program,
+    spacer
 )
 
 from helpers.movement_helpers import (
@@ -22,6 +27,16 @@ from helpers.movement_helpers import (
     choose_artist_by_movement
 )
 
+from helpers.artist_helpers import (
+    list_artists,
+    choose_artist,
+    create_artist,
+    update_artist,
+    delete_artist,
+    list_paintings_by_artist,
+    choose_painting_by_artist
+)
+
 from helpers.painting_helpers import (
     list_paintings,
     choose_painting,
@@ -29,21 +44,6 @@ from helpers.painting_helpers import (
     update_painting,
     delete_painting,
     list_paintings_by_medium,
-)
-
-from helpers.general_helpers import (
-    exit_program,
-    spacer
-)
-
-from helpers.menus import (
-    main_menu,
-    artists_menu,
-    paintings_menu,
-    movements_menu,
-    artist_options_menu,
-    painting_options_menu,
-    movement_options_menu
 )
 
 def main():
@@ -60,6 +60,54 @@ def main():
             artists()
         elif choice == "3":
             paintings()
+        else:
+            cprint("Invalid choice", "red")
+
+def movements():
+    m = "movements"
+    while m == "movements":
+        movements_menu()
+        choice = input("Enter your choice: ")
+        spacer()
+        if choice == "0":
+            m = "main"
+        elif choice == "1":
+            list_movements()
+        elif choice == "2":
+            movement = create_movement()
+            if movement:
+                explore_movement(movement)
+        elif choice == "3":
+            movement = choose_movement()
+            if movement:
+                explore_movement(movement)     
+        else:
+            cprint("Invalid choice", "red")
+
+def explore_movement(movement):
+    m = "explore movement"
+    while m == "explore movement":
+        movement_options_menu(movement)
+        choice = input("Enter your choice: ")
+        spacer()
+        if choice == "0":
+            m = ""
+        elif choice == "1":
+            list_artists_by_movement(movement)
+        elif choice == "2":
+            artist = choose_artist_by_movement(movement)
+            if artist:
+                explore_artist(artist)            
+        elif choice == "3":
+            artist = create_artist(movement.id)
+            if artist:
+                explore_artist(artist)
+        elif choice == "4":
+            update_movement(movement)
+        elif choice == "5":
+            result = delete_movement(movement)
+            if result == "deleted":
+                m = "movements"
         else:
             cprint("Invalid choice", "red")
 
@@ -148,54 +196,6 @@ def explore_painting(painting):
             result = delete_painting(painting)
             if result == "deleted":
                 m = "paintings"
-        else:
-            cprint("Invalid choice", "red")
-
-def movements():
-    m = "movements"
-    while m == "movements":
-        movements_menu()
-        choice = input("Enter your choice: ")
-        spacer()
-        if choice == "0":
-            m = "main"
-        elif choice == "1":
-            list_movements()
-        elif choice == "2":
-            movement = create_movement()
-            if movement:
-                explore_movement(movement)
-        elif choice == "3":
-            movement = choose_movement()
-            if movement:
-                explore_movement(movement)     
-        else:
-            cprint("Invalid choice", "red")
-
-def explore_movement(movement):
-    m = "explore movement"
-    while m == "explore movement":
-        movement_options_menu(movement)
-        choice = input("Enter your choice: ")
-        spacer()
-        if choice == "0":
-            m = ""
-        elif choice == "1":
-            list_artists_by_movement(movement)
-        elif choice == "2":
-            artist = choose_artist_by_movement(movement)
-            if artist:
-                explore_artist(artist)            
-        elif choice == "3":
-            artist = create_artist(movement.id)
-            if artist:
-                explore_artist(artist)
-        elif choice == "4":
-            update_movement(movement)
-        elif choice == "5":
-            result = delete_movement(movement)
-            if result == "deleted":
-                m = "movements"
         else:
             cprint("Invalid choice", "red")
 
