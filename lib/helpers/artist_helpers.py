@@ -26,6 +26,23 @@ def choose_artist(prompt="Choose an artist: "):
     except:
         spacer()
         cprint("Invalid choice", "red")   
+        
+def choose_artist_by_movement(movement):
+    artists = [a for a in sorted(Artist.get_all(), key=lambda x: x.name.lower()) if a.movement_id == movement.id]
+    if artists:
+        for artist in artists:
+            print(f"{artists.index(artist) + 1}. {artist.name}")
+        spacer()
+        id = input("Enter the artist's ID: ")
+        try:
+            if int(id) == 0:
+                raise ValueError
+            return artists[int(id) - 1]
+        except:
+            spacer()
+            cprint("Invalid choice", "red")   
+    else:
+        cprint(f"No {movement.name} artists found", "red")
 
 def create_artist(movement_id=None):
     name = input("Enter the artist's name: ")
@@ -88,21 +105,3 @@ def list_paintings_by_artist(artist):
             cprint(f"{painting.name}, {painting.year}", "green")
     else:
         cprint(f'No paintings by {artist.name} found', "red")
-
-def choose_painting_by_artist(artist):
-    paintings = [p for p in sorted(Painting.get_all(), key=lambda x: x.name.lower()) if p.artist_id == artist.id]
-    if paintings:
-        for painting in paintings:
-            print(f"{paintings.index(painting) + 1}. {painting.name}")
-        spacer()
-        id = input("Enter the painting's ID: ")
-        try:
-            if int(id) == 0:
-                raise ValueError
-            return paintings[int(id) - 1]
-        except:
-            spacer()
-            cprint("Invalid choice", "red")
-    else:
-        spacer()
-        cprint(f"No paintings by {artist.name} found", "red")

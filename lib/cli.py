@@ -23,8 +23,7 @@ from helpers.movement_helpers import (
     create_movement,
     update_movement,
     delete_movement,
-    list_artists_by_movement,
-    choose_artist_by_movement
+    list_artists_by_movement
 )
 
 from helpers.artist_helpers import (
@@ -34,7 +33,7 @@ from helpers.artist_helpers import (
     update_artist,
     delete_artist,
     list_paintings_by_artist,
-    choose_painting_by_artist
+    choose_artist_by_movement
 )
 
 from helpers.painting_helpers import (
@@ -44,6 +43,7 @@ from helpers.painting_helpers import (
     update_painting,
     delete_painting,
     list_paintings_by_medium,
+    choose_painting_by_artist
 )
 
 def main():
