@@ -116,24 +116,3 @@ def choose_painting_by_artist(artist):
     else:
         spacer()
         cprint(f"No paintings by {artist.name} found", "red")
-
-# def display_artist_movement(artist):
-#     movement = Movement.find_by_id(artist.movement_id)
-#     cprint(movement, "green")
-
-# def list_artists_in_same_movement(artist):
-#     movement = Movement.find_by_id(artist.movement_id)
-#     artists = [a for a in Artist.get_all() if a.movement_id == movement.id]
-#     other_artists = [a for a in artists if a.id != artist.id]
-#     if other_artists:
-#         for artist in other_artists:
-#             cprint(artist, "green")
-#     else:
-#         cprint(f'No other {movement.name} artists found', "green")
-
-# def list_artist_mediums(artist):
-#     mediums = [painting.medium for painting in Painting.get_all() if painting.artist_id == artist.id]
-#     if mediums:
-#         cprint(", ".join(set(mediums)), "green")
-#     else:
-#         cprint(f"No mediums recorded for {artist.name}", "green")

@@ -19,7 +19,6 @@ from helpers.movement_helpers import (
     update_movement,
     delete_movement,
     list_artists_by_movement,
-    list_paintings_by_movement,
     choose_artist_by_movement
 )
 

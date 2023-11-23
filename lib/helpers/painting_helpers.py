@@ -44,11 +44,6 @@ def choose_painting():
 #     else:
 #         cprint(f'Painting {name} not found', "red")
 
-# def find_painting_by_id():
-#     id_ = input("Enter the painting's id: ")
-#     painting = Painting.find_by_id(id_)
-#     return painting
-
 def create_painting(artist_id=None):
     name = input("Enter the painting's name: ")
     year = input("Enter the painting's year: ")
@@ -105,20 +100,6 @@ def delete_painting(painting):
     else:
         cprint("Deletion aborted", "green")
 
-# def display_artist(painting):
-#     artist = Artist.find_by_id(painting.artist_id)
-#     cprint(artist, "green")
-
-# def list_paintings_by_same_artist(painting):
-#     artist = Artist.find_by_id(painting.artist_id)
-#     paintings = [p for p in Painting.get_all() if p.artist_id == painting.artist_id]
-#     other_paintings = [p for p in paintings if p.id != painting.id]
-#     if other_paintings:
-#         for painting in other_paintings:
-#             cprint(painting, "green")
-#     else:
-#         cprint(f"No other paintings by {artist.name} found", "green")
-
 def list_paintings_by_medium():
     medium = choose_medium()
     spacer()
@@ -131,8 +112,3 @@ def list_paintings_by_medium():
             cprint(f"No {medium} paintings found", "red")
     else:
         cprint("Invalid choice", "red")
-
-# def list_paintings_by_year():
-#     paintings = sorted(Painting.get_all(), key=lambda x: x.year)
-#     for painting in paintings:
-#         cprint(painting, "green")

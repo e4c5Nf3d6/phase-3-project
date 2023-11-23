@@ -113,22 +113,22 @@ def choose_artist_by_movement(movement):
     else:
         cprint(f"No {movement.name} artists found", "red")
 
-def list_paintings_by_movement(movement):
-    artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
-    if artists:
-        paintings = []
-        for artist in artists:
-            paintings = paintings + [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
-        if paintings:
-            spacer()
-            for painting in paintings:
-                cprint(f"{painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
-            spacer()
-        else:
-            spacer()
-            cprint(f"No {movement.name} paintings found", "red")
-    else:
-        cprint(f"No {movement.name} paintings found", "red")
+# def list_paintings_by_movement(movement):
+#     artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
+#     if artists:
+#         paintings = []
+#         for artist in artists:
+#             paintings = paintings + [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
+#         if paintings:
+#             spacer()
+#             for painting in paintings:
+#                 cprint(f"{painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
+#             spacer()
+#         else:
+#             spacer()
+#             cprint(f"No {movement.name} paintings found", "red")
+#     else:
+#         cprint(f"No {movement.name} paintings found", "red")
 
 
 # def list_movements_by_year():
