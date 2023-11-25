@@ -10,8 +10,11 @@ from helpers.movement_helpers import choose_movement
 
 def list_artists():
     artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
-    for artist in artists:
-        cprint(f"{artists.index(artist) + 1}. {artist.name}", "green")
+    if artists:
+        for artist in artists:
+            cprint(f"{artists.index(artist) + 1}. {artist.name}", "green")
+    else:
+        cprint("No artists found", "red")
 
 def choose_artist(prompt="Choose an artist: "):
     artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
@@ -25,22 +28,6 @@ def choose_artist(prompt="Choose an artist: "):
         return artists[int(id) - 1]
     except:
         error()  
-        
-def choose_artist_by_movement(movement):
-    artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
-    if artists:
-        for artist in artists:
-            print(f"{artists.index(artist) + 1}. {artist.name}")
-        spacer()
-        id = input("Enter the artist's ID: ")
-        try:
-            if int(id) == 0:
-                raise ValueError
-            return artists[int(id) - 1]
-        except:
-            error()
-    else:
-        cprint(f"No {movement.name} artists found", "red")
 
 def create_artist(movement_id=None):
     name = input("Enter the artist's name: ")
@@ -57,7 +44,6 @@ def create_artist(movement_id=None):
         return artist
     except Exception as exc:
         cprint(f"Error creating artist: {exc}", "red")
-        return None
 
 def update_artist(artist):
     try:
@@ -71,7 +57,6 @@ def update_artist(artist):
             artist.update()
             spacer()
             cprint(f"{artist.name} updated successfully", "green")
-
     except Exception as exc:
         spacer()
         cprint(f"Error updating artist: {exc}", "red")
@@ -86,7 +71,7 @@ def delete_artist(artist):
     confirmation = input(confirmation_text)
     spacer()
     if confirmation == "y" or confirmation == "Y":
-        paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
+        paintings = Painting.find_by_artist(artist.id)
         for painting in paintings:
             painting.delete()
         artist.delete()
@@ -97,8 +82,26 @@ def delete_artist(artist):
 
 def list_paintings_by_artist(artist):
     paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
+    spacer()
     if paintings:
         for painting in paintings:
             cprint(f"{painting.name}, {painting.year}", "green")
     else:
         cprint(f'No paintings by {artist.name} found', "red")
+
+def choose_painting_by_artist(artist):
+    paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
+    if paintings:
+        for painting in paintings:
+            print(f"{paintings.index(painting) + 1}. {painting.name}")
+        spacer()
+        id = input("Enter the painting's ID: ")
+        try:
+            if int(id) <= 0:
+                raise ValueError
+            return paintings[int(id) - 1]
+        except:
+            error()
+    else:
+        spacer()
+        cprint(f"No paintings by {artist.name} found", "red")

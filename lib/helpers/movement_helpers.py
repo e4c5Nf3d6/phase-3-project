@@ -10,8 +10,11 @@ from helpers.general_helpers import spacer, error
 
 def list_movements():
     movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
-    for movement in movements:
-        cprint(f"{movements.index(movement) + 1}. {movement.name}", "green")
+    if movements:
+        for movement in movements:
+            cprint(f"{movements.index(movement) + 1}. {movement.name}", "green")
+    else:
+        cprint("No movements found", "red")
 
 def choose_movement(prompt="Choose a movement: "):
     movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
@@ -40,9 +43,9 @@ def create_movement():
         return movement
     except Exception as exc:
         cprint(f"Error creating movement: {exc}", "red")
-        return None
 
 def update_movement(movement):
+    original_name = movement.name
     try:
         name = input("Enter the movement's new name: ")
         movement.name = name
@@ -53,6 +56,7 @@ def update_movement(movement):
         spacer()
         cprint(f"{movement.name} movement successfully updated", "green")
     except Exception as exc:
+        movement.name = original_name
         spacer()
         cprint(f"Error updating movement: {exc}", "red")
 
@@ -62,12 +66,13 @@ def delete_movement(movement):
         "yellow", 
         attrs=["bold"]
     )
+    spacer()
     confirmation = input(confirmation_text)
     spacer()
     if confirmation == "y" or confirmation == "Y":
-        artists = [artist for artist in Artist.get_all() if artist.movement_id == movement.id]
+        artists = Artist.find_by_movement(movement.id)
         for artist in artists:
-            paintings = [painting for painting in Painting.get_all() if painting.artist_id == artist.id]
+            paintings = Painting.find_by_artist(artist.id)
             for painting in paintings:
                 painting.delete()
             artist.delete()
@@ -84,3 +89,19 @@ def list_artists_by_movement(movement):
             cprint(artist.name, "green")
     else:
         cprint(f'No {movement.name} artists found', "red")
+
+def choose_artist_by_movement(movement):
+    artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
+    if artists:
+        for artist in artists:
+            print(f"{artists.index(artist) + 1}. {artist.name}")
+        spacer()
+        id = input("Choose an artist: ")
+        try:
+            if int(id) == 0:
+                raise ValueError
+            return artists[int(id) - 1]
+        except:
+            error()
+    else:
+        cprint(f"No {movement.name} artists found", "red")
