@@ -87,7 +87,7 @@ def list_paintings_by_artist(artist):
     if Painting.find_by_artist(artist.id):
         paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
         for painting in paintings:
-            cprint(f"{painting.name}, {painting.year}", "green")
+            cprint(f"{paintings.index(painting) + 1}. {painting.name}", "green")
     else:
         cprint(f'No paintings by {artist.name} found', "red")
 
