@@ -5,7 +5,7 @@ from termcolor import colored, cprint
 from models.artist import Artist
 from models.painting import Painting
 
-from helpers.general_helpers import spacer
+from helpers.general_helpers import spacer, error
 
 from helpers.artist_helpers import choose_artist
 
@@ -15,11 +15,12 @@ def choose_medium(prompt="Choose a medium: "):
     spacer()
     choice = input(prompt)
     try:
+        if int(choice) <= 0:
+            raise ValueError
         medium = Painting.mediums[int(choice) - 1]
         return medium
     except:
-        spacer()
-        cprint("Invalid choice", "red")
+        error()
 
 def list_paintings():
     paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
@@ -34,12 +35,11 @@ def choose_painting():
         spacer()
         id = input("Choose a painting: ")
         try:
-            if int(id) == 0:
+            if int(id) <= 0:
                 raise ValueError
             return paintings[int(id) - 1]
         except:
-            spacer()
-            cprint("Invalid choice", "red")
+            error()
     else:
         cprint("No paintings found", "red")
 
@@ -51,12 +51,11 @@ def choose_painting_by_artist(artist):
         spacer()
         id = input("Enter the painting's ID: ")
         try:
-            if int(id) == 0:
+            if int(id) <= 0:
                 raise ValueError
             return paintings[int(id) - 1]
         except:
-            spacer()
-            cprint("Invalid choice", "red")
+            error()
     else:
         spacer()
         cprint(f"No paintings by {artist.name} found", "red")

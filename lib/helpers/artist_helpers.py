@@ -5,7 +5,7 @@ from termcolor import colored, cprint
 from models.artist import Artist
 from models.painting import Painting
 
-from helpers.general_helpers import spacer
+from helpers.general_helpers import spacer, error
 from helpers.movement_helpers import choose_movement
 
 def list_artists():
@@ -20,12 +20,11 @@ def choose_artist(prompt="Choose an artist: "):
     spacer()
     id = input(prompt)
     try:
-        if int(id) == 0:
+        if int(id) <= 0:
             raise ValueError
         return artists[int(id) - 1]
     except:
-        spacer()
-        cprint("Invalid choice", "red")   
+        error()  
         
 def choose_artist_by_movement(movement):
     artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
@@ -39,8 +38,7 @@ def choose_artist_by_movement(movement):
                 raise ValueError
             return artists[int(id) - 1]
         except:
-            spacer()
-            cprint("Invalid choice", "red")   
+            error()
     else:
         cprint(f"No {movement.name} artists found", "red")
 
@@ -73,8 +71,7 @@ def update_artist(artist):
             artist.update()
             spacer()
             cprint(f"{artist.name} updated successfully", "green")
-        else:
-            raise Exception("Invalid movement choice")
+
     except Exception as exc:
         spacer()
         cprint(f"Error updating artist: {exc}", "red")

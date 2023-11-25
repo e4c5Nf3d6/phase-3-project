@@ -13,3 +13,7 @@ def divider():
 
 def spacer():
     print(" ")
+
+def error():
+    spacer()
+    cprint("Invalid choice", "red")

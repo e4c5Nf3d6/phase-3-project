@@ -6,7 +6,7 @@ from models.artist import Artist
 from models.movement import Movement
 from models.painting import Painting
 
-from helpers.general_helpers import spacer
+from helpers.general_helpers import spacer, error
 
 def list_movements():
     movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
@@ -21,12 +21,11 @@ def choose_movement(prompt="Choose a movement: "):
         spacer()
         id = input(prompt)
         try:
-            if int(id) == 0:
+            if int(id) <= 0:
                 raise ValueError
             return movements[int(id) - 1]
         except:
-            spacer()
-            cprint("Invalid choice", "red")
+            error()
     else:
         spacer()
         cprint("No movements found", "red")
