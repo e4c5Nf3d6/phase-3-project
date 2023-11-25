@@ -86,7 +86,7 @@ def list_artists_by_movement(movement):
     if Artist.find_by_movement(movement.id):
         artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
         for artist in artists:
-            cprint(artist.name, "green")
+            cprint(f"{artists.index(artist) + 1}. {artist.name}", "green")
     else:
         cprint(f'No {movement.name} artists found', "red")
 

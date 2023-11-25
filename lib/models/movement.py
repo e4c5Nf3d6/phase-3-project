@@ -81,7 +81,7 @@ class Movement():
 
     def update(self):
         if Movement.find_by_name(self.name) and not Movement.find_by_name(self.name).id == self.id:
-            raise ValueError(f"This movement already exists: {Movement.find_by_name(self.name)}")
+            raise ValueError(f"This movement already exists")
         else:
             sql = """
                 UPDATE movements
