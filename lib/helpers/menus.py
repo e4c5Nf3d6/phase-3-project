@@ -48,9 +48,8 @@ def paintings_menu():
     spacer()
     print("0. Go back to main menu")
     print("1. List all paintings")
-    print("2. List paintings by medium")
-    print("3. Create painting")
-    print("4. Explore a painting")
+    print("2. Create painting")
+    print("3. Explore a painting")
     divider()
 
 def painting_options_menu(painting):

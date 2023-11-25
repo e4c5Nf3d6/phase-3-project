@@ -115,14 +115,3 @@ def delete_painting(painting):
         return "deleted"
     else:
         cprint("Deletion aborted", "green")
-
-def list_paintings_by_medium():
-    medium = choose_medium()
-    spacer()
-    if medium:
-        paintings = [painting for painting in Painting.get_all() if painting.medium == medium]
-        if paintings:
-            for painting in paintings:
-                cprint(f"{painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
-        else:
-            cprint(f"No {medium} paintings found", "red")

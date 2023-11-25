@@ -42,8 +42,7 @@ from helpers.painting_helpers import (
     choose_painting,
     create_painting,
     update_painting,
-    delete_painting,
-    list_paintings_by_medium
+    delete_painting
 )
 
 def main():
@@ -168,14 +167,12 @@ def paintings():
         if choice == "0":
             m = "main"
         elif choice == "1":
-            list_paintings()
+            list_paintings()     
         elif choice == "2":
-            list_paintings_by_medium()        
-        elif choice == "3":
             painting = create_painting()
             if painting:
                 explore_painting(painting)
-        elif choice == "4":
+        elif choice == "3":
             painting = choose_painting()
             if painting:
                 explore_painting(painting)     

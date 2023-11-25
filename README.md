@@ -33,26 +33,326 @@ menus.py contains the funtions that display the menus to the user when they are 
 
 helpers.py contains all helper functions that are not specific to paintings, artists, or movements.
 
-- `exit_program` prints "Goodbye!" and exits thr CLI.
-- `choose_medium` prints a choice for each medium in Painting.mediums and prompts the user to choose one. If the choice is valid, it returns the medium. if not, it returns None.
-
-### artist_helpers.py
-
-artist_helpers.py contains all functions executed by user choices in the artist menu. Any functions that take in an artists as a parameter are a part of the explore artist menu; the artist chosen when entering that menu is automatically passed in to these functions.
-
-
-
-### paintings_helpers.py
-
-painting_helpers.py contains all functions executed by user choices in the paintings menu. Any functions that take in a painting as a parameter are a part of the explore painting menu; the painting chosen when entering that menu is automatically passed in to these functions.
-
-
+- `exit_program` prints "Goodbye!" and exits the CLI.
+- `divider` prints a line and a space.
+- `spacer` prints a space.
+- `error` calls `spacer` and then prints "Invalid choice" in red.
 
 ### movement_helpers.py
 
-movement_helpers.py contains all functions executed by user choices in the movements menu. Any functions that take in a movement as a parameter are a part of the explore movement menu; the movement chosen when entering that menu is automatically passed in to these functions.
+movement_helpers.py contains functions executed by user choices in the movements and explore movement menus. All functions that take in a movement as a parameter are a part of the explore movement menu; the movement chosen when entering that menu is automatically passed in to these functions.
 
+<!-- def list_movements():
+    movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
+    if movements:
+        for movement in movements:
+            cprint(f"{movements.index(movement) + 1}. {movement.name}", "green")
+    else:
+        cprint("No movements found", "red") -->
 
+<!-- def choose_movement(prompt="Choose a movement: "):
+    movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
+    if movements:
+        for movement in movements:
+            print(f"{movements.index(movement) + 1}. {movement.name}")
+        spacer()
+        id = input(prompt)
+        try:
+            if int(id) <= 0:
+                raise ValueError
+            return movements[int(id) - 1]
+        except:
+            error()
+    else:
+        spacer()
+        cprint("No movements found", "red") -->
+
+<!-- def create_movement():
+    name = input("Enter the movement's name: ")
+    year_founded = input("Enter the movement's founding year: ")
+    spacer()
+    try:
+        movement = Movement.create(name, year_founded)
+        cprint(f'{movement.name} movement successfully created', "green")
+        return movement
+    except Exception as exc:
+        cprint(f"Error creating movement: {exc}", "red") -->
+
+<!-- def update_movement(movement):
+    original_name = movement.name
+    try:
+        name = input("Enter the movement's new name: ")
+        movement.name = name
+        year_founded = input("Enter the movement's new founding year: ")
+        movement.year_founded = year_founded
+
+        movement.update()
+        spacer()
+        cprint(f"{movement.name} movement successfully updated", "green")
+    except Exception as exc:
+        movement.name = original_name
+        spacer()
+        cprint(f"Error updating movement: {exc}", "red") -->
+
+<!-- def delete_movement(movement):
+    confirmation_text = colored(
+        "Deleting a movement will delete all associated artists and paintings. Are you sure you want to proceed? Y/N: ", 
+        "yellow", 
+        attrs=["bold"]
+    )
+    spacer()
+    confirmation = input(confirmation_text)
+    spacer()
+    if confirmation == "y" or confirmation == "Y":
+        artists = Artist.find_by_movement(movement.id)
+        for artist in artists:
+            paintings = Painting.find_by_artist(artist.id)
+            for painting in paintings:
+                painting.delete()
+            artist.delete()
+        movement.delete()
+        cprint(f'{movement.name} movement successfully deleted', "green")
+        return("deleted")
+    else:
+        cprint("Deletion aborted", "green") -->
+
+<!-- def list_artists_by_movement(movement):
+    artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
+    if artists:
+        for artist in artists:
+            cprint(artist.name, "green")
+    else:
+        cprint(f'No {movement.name} artists found', "red") -->
+
+<!-- def choose_artist_by_movement(movement):
+    artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
+    if artists:
+        for artist in artists:
+            print(f"{artists.index(artist) + 1}. {artist.name}")
+        spacer()
+        id = input("Choose an artist: ")
+        try:
+            if int(id) == 0:
+                raise ValueError
+            return artists[int(id) - 1]
+        except:
+            error()
+    else:
+        cprint(f"No {movement.name} artists found", "red") -->
+
+### artist_helpers.py
+
+artist_helpers.py contains functions executed by user choices in the artists and explore artists menus. All functions that take in an artist as a parameter are called from the explore artist menu; the artist chosen when entering that menu is automatically passed in to these functions.
+
+<!-- def list_artists():
+    artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
+    if artists:
+        for artist in artists:
+            cprint(f"{artists.index(artist) + 1}. {artist.name}", "green")
+    else:
+        cprint("No artists found", "red") -->
+
+<!-- def choose_artist(prompt="Choose an artist: "):
+    artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
+    for artist in artists:
+        print(f"{artists.index(artist) + 1}. {artist.name}")
+    spacer()
+    id = input(prompt)
+    try:
+        if int(id) <= 0:
+            raise ValueError
+        return artists[int(id) - 1]
+    except:
+        error()   -->
+
+<!-- def create_artist(movement_id=None):
+    name = input("Enter the artist's name: ")
+    spacer()
+    if not movement_id:
+        try:
+            movement_id = choose_movement("Choose the artist's movement: ").id
+            spacer()
+        except:
+            return None
+    try:
+        artist = Artist.create(name, movement_id)
+        cprint(f'{artist.name} created successfully', "green")
+        return artist
+    except Exception as exc:
+        cprint(f"Error creating artist: {exc}", "red") -->
+
+<!-- def update_artist(artist):
+    try:
+        name = input("Enter the artist's new name: ")
+        movement = choose_movement("Choose the artist's new movement: ")
+
+        if movement:
+            artist.name = name
+            artist.movement_id = movement.id
+
+            artist.update()
+            spacer()
+            cprint(f"{artist.name} updated successfully", "green")
+    except Exception as exc:
+        spacer()
+        cprint(f"Error updating artist: {exc}", "red") -->
+
+<!-- def delete_artist(artist):
+    confirmation_text = colored(
+        "Deleting an artist will delete all associated paintings. Are you sure you want to proceed? Y/N: ", 
+        "yellow", 
+        attrs=["bold"]
+    )
+    spacer()
+    confirmation = input(confirmation_text)
+    spacer()
+    if confirmation == "y" or confirmation == "Y":
+        paintings = Painting.find_by_artist(artist.id)
+        for painting in paintings:
+            painting.delete()
+        artist.delete()
+        cprint(f'{artist.name} deleted', "green")
+        return "deleted"
+    else:
+        cprint('Deletion aborted', "green") -->
+
+<!-- def list_paintings_by_artist(artist):
+    paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
+    spacer()
+    if paintings:
+        for painting in paintings:
+            cprint(f"{painting.name}, {painting.year}", "green")
+    else:
+        cprint(f'No paintings by {artist.name} found', "red") -->
+
+<!-- def choose_painting_by_artist(artist):
+    paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
+    if paintings:
+        for painting in paintings:
+            print(f"{paintings.index(painting) + 1}. {painting.name}")
+        spacer()
+        id = input("Enter the painting's ID: ")
+        try:
+            if int(id) <= 0:
+                raise ValueError
+            return paintings[int(id) - 1]
+        except:
+            error()
+    else:
+        spacer()
+        cprint(f"No paintings by {artist.name} found", "red") -->
+
+### paintings_helpers.py
+
+painting_helpers.py contains functions executed by user choices in the paintings and explore painting menus. All functions that take in a painting as a parameter are a part of the explore painting menu; the painting chosen when entering that menu is automatically passed in to these functions.
+
+<!-- def choose_medium(prompt="Choose a medium: "):
+    for medium in Painting.mediums:
+        print(f"{Painting.mediums.index(medium) + 1}. {medium}")
+    spacer()
+    choice = input(prompt)
+    try:
+        if int(choice) <= 0:
+            raise ValueError
+        medium = Painting.mediums[int(choice) - 1]
+        return medium
+    except:
+        error() -->
+
+<!-- def list_paintings():
+    paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
+    if paintings:
+        for painting in paintings:
+            cprint(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
+    else:
+        cprint("No paintings found", "red") -->
+
+<!-- def choose_painting():
+    paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
+    if paintings:
+        for painting in paintings:
+            print(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}")
+        spacer()
+        id = input("Choose a painting: ")
+        try:
+            if int(id) <= 0:
+                raise ValueError
+            return paintings[int(id) - 1]
+        except:
+            error()
+    else:
+        cprint("No paintings found", "red") -->
+
+<!-- def create_painting(artist_id=None):
+    name = input("Enter the painting's name: ")
+    year = input("Enter the painting's year: ")
+    spacer()
+    medium = choose_medium("Choose the painting's medium: ")
+
+    if not medium:
+        return None
+    
+    if not artist_id:
+        try:
+            artist_id = choose_artist("Choose the painting's artist: ").id
+        except:
+            return None
+        
+    spacer()
+    try:
+        painting = Painting.create(name, year, medium, artist_id)
+        cprint(f'{painting.name} successfully created', "green")
+        return painting
+    except Exception as exc:
+        cprint(f"Error creating painting: {exc}", "red") -->
+
+<!-- def update_painting(painting):
+    original_name = painting.name
+    original_year = painting.year
+    original_medium = painting.medium
+    try:
+        name = input("Enter the painting's new name: ")
+        year = input("Enter the painting's new year: ")
+        spacer()
+        medium = choose_medium("Choose the painting's new medium: ")
+
+        if not medium:
+            return None
+        
+        artist = choose_artist("Choose the painting's new artist: ")
+
+        if artist:
+            painting.name = name
+            painting.year = year       
+            painting.medium = medium
+            painting.artist_id = artist.id
+
+            painting.update()
+            spacer()
+            cprint(f"{painting.name} successfully updated", "green")
+    
+    except Exception as exc:
+        painting.name = original_name
+        painting.year = original_year
+        painting.medium = original_medium
+        spacer()
+        cprint(f"Error updating painting: {exc}", "red") -->
+
+<!-- def delete_painting(painting):
+    confirmation_text = colored(
+        "Are you sure you want to proceed? Y/N: ", 
+        "yellow", 
+        attrs=["bold"]
+    )
+    spacer()
+    confirmation = input(confirmation_text)
+    spacer()
+    if confirmation == "y" or confirmation == "Y":
+        painting.delete()
+        cprint(f'{painting.name} successfully deleted', "green")
+        return "deleted"
+    else:
+        cprint("Deletion aborted", "green") -->
 
 ## Models
 
