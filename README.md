@@ -42,144 +42,29 @@ helpers.py contains all helper functions that are not specific to paintings, art
 
 movement_helpers.py contains functions executed by user choices in the movements and explore movement menus. All functions that take in a movement as a parameter are a part of the explore movement menu; the movement chosen when entering that menu is automatically passed in to these functions.
 
-<!-- def list_movements():
-    movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
-    if movements:
-        for movement in movements:
-            cprint(f"{movements.index(movement) + 1}. {movement.name}", "green")
-    else:
-        cprint("No movements found", "red") -->
+- `list_movements` prints an ordered list of movements, sorted by name, if any movements exist. If no movements exist, it prints a message that no movements were found.
 
-<!-- def choose_movement(prompt="Choose a movement: "):
-    movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
-    if movements:
-        for movement in movements:
-            print(f"{movements.index(movement) + 1}. {movement.name}")
-        spacer()
-        id = input(prompt)
-        try:
-            if int(id) <= 0:
-                raise ValueError
-            return movements[int(id) - 1]
-        except:
-            error()
-    else:
-        spacer()
-        cprint("No movements found", "red") -->
+- `choose_movement` takes in an optional prompt parameter with the default value "Choose a movement: ". If any movements exist, it prints an ordered list of movements, sorted by name. It then prompts the user to choose a movement using the prompt parameter. If the choice is valid, the movement is returned. If not, an error is printed. If no movements exist, it prints a message that no movements were found.
 
-<!-- def create_movement():
-    name = input("Enter the movement's name: ")
-    year_founded = input("Enter the movement's founding year: ")
-    spacer()
-    try:
-        movement = Movement.create(name, year_founded)
-        cprint(f'{movement.name} movement successfully created', "green")
-        return movement
-    except Exception as exc:
-        cprint(f"Error creating movement: {exc}", "red") -->
+- `create_movement` prompts the user to input a movement name and founding year. If the values provided are valid, it creates an instance of the movement class, prints a success message, and returns the instance. If they are not valid, it prints an error message.
 
-<!-- def update_movement(movement):
-    original_name = movement.name
-    try:
-        name = input("Enter the movement's new name: ")
-        movement.name = name
-        year_founded = input("Enter the movement's new founding year: ")
-        movement.year_founded = year_founded
+- `update_movement` takes in a movement. It prompts the user for a new name and new founding year. If the values provided are valid, it updates the movement and prints a success message. If they are not valid, it prints an error message. 
 
-        movement.update()
-        spacer()
-        cprint(f"{movement.name} movement successfully updated", "green")
-    except Exception as exc:
-        movement.name = original_name
-        spacer()
-        cprint(f"Error updating movement: {exc}", "red") -->
+- `delete_movement` takes in a movement. It prompts the user to confirm that they want to delete the movement as well as associated artists and paintings. If the user confirms the deletion, the movement is deleted along with associated artists and paintings and a success message is printed. If the user does not confirm the deletion, an abortion message is printed.
 
-<!-- def delete_movement(movement):
-    confirmation_text = colored(
-        "Deleting a movement will delete all associated artists and paintings. Are you sure you want to proceed? Y/N: ", 
-        "yellow", 
-        attrs=["bold"]
-    )
-    spacer()
-    confirmation = input(confirmation_text)
-    spacer()
-    if confirmation == "y" or confirmation == "Y":
-        artists = Artist.find_by_movement(movement.id)
-        for artist in artists:
-            paintings = Painting.find_by_artist(artist.id)
-            for painting in paintings:
-                painting.delete()
-            artist.delete()
-        movement.delete()
-        cprint(f'{movement.name} movement successfully deleted', "green")
-        return("deleted")
-    else:
-        cprint("Deletion aborted", "green") -->
+- `list_artists_by_movement` takes in a movement. If any associated artists exist, it prints them in an ordered list, sorted by name. If no associated artists exist, it prints a message that no associated artists were found.
 
-<!-- def list_artists_by_movement(movement):
-    artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
-    if artists:
-        for artist in artists:
-            cprint(artist.name, "green")
-    else:
-        cprint(f'No {movement.name} artists found', "red") -->
-
-<!-- def choose_artist_by_movement(movement):
-    artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
-    if artists:
-        for artist in artists:
-            print(f"{artists.index(artist) + 1}. {artist.name}")
-        spacer()
-        id = input("Choose an artist: ")
-        try:
-            if int(id) == 0:
-                raise ValueError
-            return artists[int(id) - 1]
-        except:
-            error()
-    else:
-        cprint(f"No {movement.name} artists found", "red") -->
+- `choose_artist_by_movement` takes in a movement. If any associated artists exist, it prints them in an ordered list, sorted by name. It then prompts the user to choose an artist. If the choice is valid, the artist is returned. If not, an error message is printed. If no associated artists exist, it prints a message that no associated artists were found.
 
 ### artist_helpers.py
 
 artist_helpers.py contains functions executed by user choices in the artists and explore artists menus. All functions that take in an artist as a parameter are called from the explore artist menu; the artist chosen when entering that menu is automatically passed in to these functions.
 
-<!-- def list_artists():
-    artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
-    if artists:
-        for artist in artists:
-            cprint(f"{artists.index(artist) + 1}. {artist.name}", "green")
-    else:
-        cprint("No artists found", "red") -->
+- `list_artists` prints an ordered list of artists, sorted by name, if any artists exist. If no artists exist, it prints a message that no artists were found.
 
-<!-- def choose_artist(prompt="Choose an artist: "):
-    artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
-    for artist in artists:
-        print(f"{artists.index(artist) + 1}. {artist.name}")
-    spacer()
-    id = input(prompt)
-    try:
-        if int(id) <= 0:
-            raise ValueError
-        return artists[int(id) - 1]
-    except:
-        error()   -->
+- `choose_artist` takes in an optional prompt parameter with the default value "Choose an artist: ". If any artists exist, it prints an ordered list of artists, sorted by name. It then prompts the user to choose a artist using the prompt parameter. If the choice is valid, the artist is returned. If not, an error is printed. If no artists exist, it prints a message that no artists were found.
 
-<!-- def create_artist(movement_id=None):
-    name = input("Enter the artist's name: ")
-    spacer()
-    if not movement_id:
-        try:
-            movement_id = choose_movement("Choose the artist's movement: ").id
-            spacer()
-        except:
-            return None
-    try:
-        artist = Artist.create(name, movement_id)
-        cprint(f'{artist.name} created successfully', "green")
-        return artist
-    except Exception as exc:
-        cprint(f"Error creating artist: {exc}", "red") -->
+- `create_artist` takes in an optional movement_id parameter with a default value of None. It prompts the user to enter a name. If no movement_id was passed in, it then prompts the user to choose a movement for the artist using `choose_movement`. If the values are valid, it creates an instance of the Artist class, prints a success message, and returns the instance. If any of the values are invalid, it prints an error message.
 
 <!-- def update_artist(artist):
     try:

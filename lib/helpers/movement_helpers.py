@@ -9,16 +9,16 @@ from models.painting import Painting
 from helpers.general_helpers import spacer, error
 
 def list_movements():
-    movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
-    if movements:
+    if Movement.get_all():
+        movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
         for movement in movements:
             cprint(f"{movements.index(movement) + 1}. {movement.name}", "green")
     else:
         cprint("No movements found", "red")
 
 def choose_movement(prompt="Choose a movement: "):
-    movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
-    if movements:
+    if Movement.get_all():
+        movements = sorted(Movement.get_all(), key=lambda x: x.name.lower())
         for movement in movements:
             print(f"{movements.index(movement) + 1}. {movement.name}")
         spacer()
@@ -83,16 +83,16 @@ def delete_movement(movement):
         cprint("Deletion aborted", "green")
 
 def list_artists_by_movement(movement):
-    artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
-    if artists:
+    if Artist.find_by_movement(movement.id):
+        artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
         for artist in artists:
             cprint(artist.name, "green")
     else:
         cprint(f'No {movement.name} artists found', "red")
 
 def choose_artist_by_movement(movement):
-    artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
-    if artists:
+    if Artist.find_by_movement(movement.id):
+        artists = sorted(Artist.find_by_movement(movement.id), key=lambda x: x.name.lower())
         for artist in artists:
             print(f"{artists.index(artist) + 1}. {artist.name}")
         spacer()

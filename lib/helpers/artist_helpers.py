@@ -9,25 +9,28 @@ from helpers.general_helpers import spacer, error
 from helpers.movement_helpers import choose_movement
 
 def list_artists():
-    artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
-    if artists:
+    if Artist.get_all():
+        artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
         for artist in artists:
             cprint(f"{artists.index(artist) + 1}. {artist.name}", "green")
     else:
         cprint("No artists found", "red")
 
 def choose_artist(prompt="Choose an artist: "):
-    artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
-    for artist in artists:
-        print(f"{artists.index(artist) + 1}. {artist.name}")
-    spacer()
-    id = input(prompt)
-    try:
-        if int(id) <= 0:
-            raise ValueError
-        return artists[int(id) - 1]
-    except:
-        error()  
+    if Artist.get_all():
+        artists = sorted(Artist.get_all(), key=lambda x: x.name.lower())
+        for artist in artists:
+            print(f"{artists.index(artist) + 1}. {artist.name}")
+        spacer()
+        id = input(prompt)
+        try:
+            if int(id) <= 0:
+                raise ValueError
+            return artists[int(id) - 1]
+        except:
+            error()  
+    else:
+        cprint("No artists found", "red")
 
 def create_artist(movement_id=None):
     name = input("Enter the artist's name: ")
@@ -81,17 +84,16 @@ def delete_artist(artist):
         cprint('Deletion aborted', "green")
 
 def list_paintings_by_artist(artist):
-    paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
-    spacer()
-    if paintings:
+    if Painting.find_by_artist(artist.id):
+        paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
         for painting in paintings:
             cprint(f"{painting.name}, {painting.year}", "green")
     else:
         cprint(f'No paintings by {artist.name} found', "red")
 
 def choose_painting_by_artist(artist):
-    paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
-    if paintings:
+    if Painting.find_by_artist(artist.id):
+        paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
         for painting in paintings:
             print(f"{paintings.index(painting) + 1}. {painting.name}")
         spacer()

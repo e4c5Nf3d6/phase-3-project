@@ -22,16 +22,16 @@ def choose_medium(prompt="Choose a medium: "):
         error()
 
 def list_paintings():
-    paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
-    if paintings:
+    if Painting.get_all():
+        paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
         for painting in paintings:
             cprint(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
     else:
         cprint("No paintings found", "red")
 
 def choose_painting():
-    paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
-    if paintings:
+    if Painting.get_all():
+        paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
         for painting in paintings:
             print(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}")
         spacer()
@@ -81,6 +81,7 @@ def update_painting(painting):
         if not medium:
             return None
         
+        spacer()
         artist = choose_artist("Choose the painting's new artist: ")
 
         if artist:
