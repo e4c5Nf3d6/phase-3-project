@@ -4,17 +4,23 @@
 
 ### cli.py
 
-- main
-- artists
-- explore_artist
-- paintings
-- explore_painting
-- movements
-- explore_movement
+- `main` utilizes a while loop to keep the user in the main menu until they choose to enter a submenu or exit the program. It calls `main_menu` to print the user's options and prompts the user to choose an option. If the choice is valid, it calls the approprate function. If the choice is invalid, it prints an error message.
+
+- `movements` utilizes a while loop to keep the user in the movements menu until they choose to enter a submenu or return to the main menu. It calls `movements_menu` to print the user's options and prompts the user to choose an option. If the choice is valid, it calls the approprate function. If the choice is invalid, it prints an error message.
+
+- `explore_movement` utilizes a while loop to keep the user in the explore movement menu until they choose to return to the previous menu or enter a sebmenu. It calls `movement_options_menu` to print the movement's details and the user's options and prompts the user to choose an option. If the choice is valid, it calls the approprate function. If the choice is invalid, it prints an error message.
+
+- `artists` utilizes a while loop to keep the user in the artists menu until they choose to enter a submenu or return to the main menu. It calls `artists_menu` to print the user's options and prompts the user to choose an option. If the choice is valid, it calls the approprate function. If the choice is invalid, it prints an error message.
+
+- `explore_artist` utilizes a while loop to keep the user in the explore artist menu until they choose to return to the previous menu or enter a sebmenu. It calls `artist_options_menu` to print the artist's details and the user's options and prompts the user to choose an option. If the choice is valid, it calls the approprate function. If the choice is invalid, it prints an error message.
+
+- `paintings` utilizes a while loop to keep the user in the paintings menu until they choose to enter a submenu or return to the main menu. It calls `paintings_menu` to print the user's options and prompts the user to choose an option. If the choice is valid, it calls the approprate function. If the choice is invalid, it prints an error message.
+
+- `explore_painting` utilizes a while loop to keep the user in the explore painting menu until they choose to return to the previous menu. It calls `painting_options_menu` to print the painting's details and the user's options and prompts the user to choose an option. If the choice is valid, it calls the approprate function. If the choice is invalid, it prints an error message.
 
 ### seed.py
 
-Running `python seed.py` will seed the database with some initial data. This data includes a comprehensive list of art movements, several painters, and paintings by some of those painters. The tables will be dropped and recreated every time this command is run.
+Running `python seed.py` will seed the database with some initial data. This data includes a fairly comprehensive list of art movements, several artists, and paintings by some of those artists. The movements, artists, and paintings tables are dropped and recreated every time this command is run.
 
 ## Functions
 
@@ -22,12 +28,12 @@ Running `python seed.py` will seed the database with some initial data. This dat
 
 menus.py contains the funtions that display the menus to the user when they are interacting with the CLI. Each function prints the menu title as well as all choices available to the user. It includes the following functions:
 - main_menu
-- artist_menu
-- artist_options_menu
-- paintings_menu
-- paintings_options_menu
 - movements_menu
-- movements_options_menu
+- movements_options_menu also takes in a movement as a parameter and prints the movement's details.
+- artist_menu
+- artist_options_menu also takes in an artist as a parameter and prints the artist's details.
+- paintings_menu
+- paintings_options_menu also takes in a painting as a parameter and prints the painting's details
 
 ### general_helpers.py
 

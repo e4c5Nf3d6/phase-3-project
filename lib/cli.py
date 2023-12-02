@@ -69,7 +69,7 @@ def movements():
         choice = input("Enter your choice: ")
         spacer()
         if choice == "0":
-            m = "main"
+            m = ""
         elif choice == "1":
             list_movements()
         elif choice == "2":
@@ -106,7 +106,7 @@ def explore_movement(movement):
         elif choice == "5":
             result = delete_movement(movement)
             if result == "deleted":
-                m = "movements"
+                m = ""
         else:
             cprint("Invalid choice", "red")
 
@@ -117,7 +117,7 @@ def artists():
         choice = input("Enter your choice: ")
         spacer()
         if choice == "0":
-            m = "main"
+            m = ""
         elif choice == "1":
             list_artists()
         elif choice == "2":
@@ -154,7 +154,7 @@ def explore_artist(artist):
         elif choice == "5":
             result = delete_artist(artist)
             if result == "deleted":
-                m = "artists"
+                m = ""
         else:
             cprint("Invalid choice", "red")
 
@@ -165,7 +165,7 @@ def paintings():
         choice = input("Enter your choice: ")
         spacer()
         if choice == "0":
-            m = "main"
+            m = ""
         elif choice == "1":
             list_paintings()     
         elif choice == "2":
@@ -192,7 +192,7 @@ def explore_painting(painting):
         elif choice == "2":
             result = delete_painting(painting)
             if result == "deleted":
-                m = "paintings"
+                m = ""
         else:
             cprint("Invalid choice", "red")
 
