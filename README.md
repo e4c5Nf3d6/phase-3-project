@@ -62,182 +62,33 @@ artist_helpers.py contains functions executed by user choices in the artists and
 
 - `list_artists` prints an ordered list of artists, sorted by name, if any artists exist. If no artists exist, it prints a message that no artists were found.
 
-- `choose_artist` takes in an optional prompt parameter with the default value "Choose an artist: ". If any artists exist, it prints an ordered list of artists, sorted by name. It then prompts the user to choose a artist using the prompt parameter. If the choice is valid, the artist is returned. If not, an error is printed. If no artists exist, it prints a message that no artists were found.
+- `choose_artist` takes in an optional prompt parameter with the default value "Choose an artist: ". If any artists exist, it prints an ordered list of artists, sorted by name. It then prompts the user to choose an artist using the prompt parameter. If the choice is valid, the artist is returned. If not, an error is printed. If no artists exist, it prints a message that no artists were found.
 
 - `create_artist` takes in an optional movement_id parameter with a default value of None. It prompts the user to enter a name. If no movement_id was passed in, it then prompts the user to choose a movement for the artist using `choose_movement`. If the values are valid, it creates an instance of the Artist class, prints a success message, and returns the instance. If any of the values are invalid, it prints an error message.
 
-<!-- def update_artist(artist):
-    try:
-        name = input("Enter the artist's new name: ")
-        movement = choose_movement("Choose the artist's new movement: ")
+- `update_artist` takes in an artist. It prompts the user to enter a new name and to choose a new movement. If the values provided are valid, it updates the artist and prints a success message. If they are not valid, it prints an error message. 
 
-        if movement:
-            artist.name = name
-            artist.movement_id = movement.id
+- `delete_artist` takes in an artist. It prompts the user to confirm that they want to delete the artist as well as associated paintings. If the user confirms the deletion, the artist is deleted along with associated paintings and a success message is printed. If the user does not confirm the deletion, an abortion message is printed.
 
-            artist.update()
-            spacer()
-            cprint(f"{artist.name} updated successfully", "green")
-    except Exception as exc:
-        spacer()
-        cprint(f"Error updating artist: {exc}", "red") -->
+- `list_paintings_by_artist` takes in an artist. If any associated paintings exist, it prints them in an ordered list, sorted by name. If no associated painting exist, it prints a message that no associated paintings were found.
 
-<!-- def delete_artist(artist):
-    confirmation_text = colored(
-        "Deleting an artist will delete all associated paintings. Are you sure you want to proceed? Y/N: ", 
-        "yellow", 
-        attrs=["bold"]
-    )
-    spacer()
-    confirmation = input(confirmation_text)
-    spacer()
-    if confirmation == "y" or confirmation == "Y":
-        paintings = Painting.find_by_artist(artist.id)
-        for painting in paintings:
-            painting.delete()
-        artist.delete()
-        cprint(f'{artist.name} deleted', "green")
-        return "deleted"
-    else:
-        cprint('Deletion aborted', "green") -->
-
-<!-- def list_paintings_by_artist(artist):
-    paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
-    spacer()
-    if paintings:
-        for painting in paintings:
-            cprint(f"{painting.name}, {painting.year}", "green")
-    else:
-        cprint(f'No paintings by {artist.name} found', "red") -->
-
-<!-- def choose_painting_by_artist(artist):
-    paintings = sorted(Painting.find_by_artist(artist.id), key=lambda x: x.name.lower())
-    if paintings:
-        for painting in paintings:
-            print(f"{paintings.index(painting) + 1}. {painting.name}")
-        spacer()
-        id = input("Enter the painting's ID: ")
-        try:
-            if int(id) <= 0:
-                raise ValueError
-            return paintings[int(id) - 1]
-        except:
-            error()
-    else:
-        spacer()
-        cprint(f"No paintings by {artist.name} found", "red") -->
+- `choose_painting_by_artist` takes in an artist. If any associated paintings exist, it prints them in an ordered list, sorted by name. It then prompts the user to choose a painting. If the choice is valid, the painting is returned. If not, an error message is printed. If no associated paintings exist, it prints a message that no associated paintings were found.
 
 ### paintings_helpers.py
 
 painting_helpers.py contains functions executed by user choices in the paintings and explore painting menus. All functions that take in a painting as a parameter are a part of the explore painting menu; the painting chosen when entering that menu is automatically passed in to these functions.
 
-<!-- def choose_medium(prompt="Choose a medium: "):
-    for medium in Painting.mediums:
-        print(f"{Painting.mediums.index(medium) + 1}. {medium}")
-    spacer()
-    choice = input(prompt)
-    try:
-        if int(choice) <= 0:
-            raise ValueError
-        medium = Painting.mediums[int(choice) - 1]
-        return medium
-    except:
-        error() -->
+- `choose_medium` takes in an optional prompt parameter with the default value "Choose a medium: ". It prints an ordered list of mediums in `Painting.mediums` and prompts the user to choose one. It returns the medium if the choice is valid and prints an error if it is not.
 
-<!-- def list_paintings():
-    paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
-    if paintings:
-        for painting in paintings:
-            cprint(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}", "green")
-    else:
-        cprint("No paintings found", "red") -->
+- `list_paintings` prints an ordered list of paintings, sorted by name, if any paintings exist. If no paintings exist, it prints a message that no paintings were found.
 
-<!-- def choose_painting():
-    paintings = sorted(Painting.get_all(), key=lambda x: x.name.lower())
-    if paintings:
-        for painting in paintings:
-            print(f"{paintings.index(painting) + 1}. {painting.name}, {Artist.find_by_id(painting.artist_id).name}")
-        spacer()
-        id = input("Choose a painting: ")
-        try:
-            if int(id) <= 0:
-                raise ValueError
-            return paintings[int(id) - 1]
-        except:
-            error()
-    else:
-        cprint("No paintings found", "red") -->
+- `choose_painting` takes in an optional prompt parameter with the default value "Choose a painting: ". If any paintings exist, it prints an ordered list of painting, sorted by name. It then prompts the user to choose a painting using the prompt parameter. If the choice is valid, the painting is returned. If not, an error is printed. If no paintings exist, it prints a message that no paintings were found.
 
-<!-- def create_painting(artist_id=None):
-    name = input("Enter the painting's name: ")
-    year = input("Enter the painting's year: ")
-    spacer()
-    medium = choose_medium("Choose the painting's medium: ")
+- `create_painting` takes in an optional artist_id parameter with a default value of None. It prompts the user to enter a name and a year and to choose a medium using `choose_medium`. If no artist_id was passed in, it then prompts the user to choose an artist for the painting using `choose_artist`. If the values are valid, it creates an instance of the Painting class, prints a success message, and returns the instance. If any of the values are invalid, it prints an error message.
 
-    if not medium:
-        return None
-    
-    if not artist_id:
-        try:
-            artist_id = choose_artist("Choose the painting's artist: ").id
-        except:
-            return None
-        
-    spacer()
-    try:
-        painting = Painting.create(name, year, medium, artist_id)
-        cprint(f'{painting.name} successfully created', "green")
-        return painting
-    except Exception as exc:
-        cprint(f"Error creating painting: {exc}", "red") -->
+- `update_painting` takes in a painting. It prompts the user to enter a new name and year and to choose a new medium and artist. If the values provided are valid, it updates the painting and prints a success message. If they are not valid, it prints an error message. 
 
-<!-- def update_painting(painting):
-    original_name = painting.name
-    original_year = painting.year
-    original_medium = painting.medium
-    try:
-        name = input("Enter the painting's new name: ")
-        year = input("Enter the painting's new year: ")
-        spacer()
-        medium = choose_medium("Choose the painting's new medium: ")
-
-        if not medium:
-            return None
-        
-        artist = choose_artist("Choose the painting's new artist: ")
-
-        if artist:
-            painting.name = name
-            painting.year = year       
-            painting.medium = medium
-            painting.artist_id = artist.id
-
-            painting.update()
-            spacer()
-            cprint(f"{painting.name} successfully updated", "green")
-    
-    except Exception as exc:
-        painting.name = original_name
-        painting.year = original_year
-        painting.medium = original_medium
-        spacer()
-        cprint(f"Error updating painting: {exc}", "red") -->
-
-<!-- def delete_painting(painting):
-    confirmation_text = colored(
-        "Are you sure you want to proceed? Y/N: ", 
-        "yellow", 
-        attrs=["bold"]
-    )
-    spacer()
-    confirmation = input(confirmation_text)
-    spacer()
-    if confirmation == "y" or confirmation == "Y":
-        painting.delete()
-        cprint(f'{painting.name} successfully deleted', "green")
-        return "deleted"
-    else:
-        cprint("Deletion aborted", "green") -->
+- `delete_painting` takes in a painting. It prompts the user to confirm that they want to delete the painting. If the user confirms the deletion, the painting is deleted and a success message is printed. If the user does not confirm the deletion, an abortion message is printed.
 
 ## Models
 
