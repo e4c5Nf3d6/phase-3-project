@@ -80,16 +80,13 @@ class Movement():
         type(self).all[self.id] = self
 
     def update(self):
-        if Movement.find_by_name(self.name) and not Movement.find_by_name(self.name).id == self.id:
-            raise ValueError(f"This movement already exists")
-        else:
-            sql = """
-                UPDATE movements
-                SET name = ?, year_founded = ?
-                WHERE id = ?
-            """
-            CURSOR.execute(sql, (self.name, self.year_founded, self.id))
-            CONN.commit()
+        sql = """
+            UPDATE movements
+            SET name = ?, year_founded = ?
+            WHERE id = ?
+        """
+        CURSOR.execute(sql, (self.name, self.year_founded, self.id))
+        CONN.commit()
 
     def delete(self):
         sql = """

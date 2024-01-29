@@ -71,11 +71,13 @@ def delete_movement(movement):
     spacer()
     if confirmation == "y" or confirmation == "Y":
         artists = Artist.find_by_movement(movement.id)
-        for artist in artists:
-            paintings = Painting.find_by_artist(artist.id)
-            for painting in paintings:
-                painting.delete()
-            artist.delete()
+        if artists:
+            for artist in artists:
+                paintings = Painting.find_by_artist(artist.id)
+                if paintings:
+                    for painting in paintings:
+                        painting.delete()
+                artist.delete()
         movement.delete()
         cprint(f'{movement.name} movement successfully deleted', "green")
         return("deleted")

@@ -75,8 +75,9 @@ def delete_artist(artist):
     spacer()
     if confirmation == "y" or confirmation == "Y":
         paintings = Painting.find_by_artist(artist.id)
-        for painting in paintings:
-            painting.delete()
+        if paintings:
+            for painting in paintings:
+                painting.delete()
         artist.delete()
         cprint(f'{artist.name} deleted', "green")
         return "deleted"
