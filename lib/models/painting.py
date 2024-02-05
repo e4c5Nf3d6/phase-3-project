@@ -1,5 +1,4 @@
 # lib/models/painting.py
-import re
 from models.__init__ import CURSOR, CONN
 from models.artist import Artist
 
